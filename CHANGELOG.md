@@ -1,0 +1,103 @@
+# Changelog 
+
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/ca1293cb97d6778baa039d9c0a7b6e043eb8438f)  add remove classes on jenkins target  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/98f345b3802f4278a5cf263e827337bba2f6b295)  moved around tests  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/767f4d172953b9999ea9483be901e3deefad5aae)  composer target update  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f669da398c759486a1ecfe71e6864a82d53ea6e8)  added support for  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f894a744ea3ca0c3679b6593d357247fd30ca41a)  added sebwite/contracts to require  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/3202b94269dca3fb12f592fb58299d1a7311f1d2)  added sebwite/contracts to require  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/54789f0b760903f1f13a2e2fefd2910cca851025)  phing build file update  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/6ada4fbf0c4fc4f6d893ab2a12ed4e6852a3615f)  phing build file update  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/350437bbae5c985230f7af60afc3cd1c9fdf359c)  update sebwite/testing require-dev constraint  
+- [2016-03-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/73edc8aaa1f8fc3694e46ed71b1ef229737fe0af)  Commit on 1458734748  
+- [2016-03-22](https://bitbucket.org/sebwitepackages/sebwite-support/commit/e9e5c068c3b641c2c588051b8190eef91ba0fbfc)  upd  
+- [2016-03-22](https://bitbucket.org/sebwitepackages/sebwite-support/commit/b6e6f19d13fe52f4555334d52f85b139949d16b2)  upd  
+- [2016-03-22](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c602e9fd6fcfaf129c0da3e7abbfb22c940a6bfd)  initial update for 2.0  
+- [2016-03-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/e59c791ab3006d14f00a867e2c529391484fd57b)  ccb updates  
+- [2016-03-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/6ae1cbc7bbb921a50066d4bf8e5f9a30585be4c7)  added a method to easily adjust the way configuration is merged  
+- [2016-03-03](https://bitbucket.org/sebwitepackages/sebwite-support/commit/d8fcaa223a5d496d794a2f260f93710320a005e6)  test  
+- [2016-02-25](https://bitbucket.org/sebwitepackages/sebwite-support/commit/8c3fb91b57a62a3991e33c4b4d447c1d90294231)  test  
+- [2016-02-25](https://bitbucket.org/sebwitepackages/sebwite-support/commit/33f6c3f62beb3e262f318a6d07aabffcb513fb49)  CCBLEAR-364 #done gefixt  
+- [2016-02-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/5c6b986fba48b704628379ba628431827b11ac17)  Merge remote-tracking branch 'origin/master'  
+- [2016-02-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f684cd4de31392f176570b2814b7275ae7543b91)  fix  
+- [2016-02-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/528b496e3c99f5ad04ab16ae45be189749343961)  remove realpath to fix path issues.  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/edcc54359996a8e2593620b04d91d3fbb6b6c94e)  Commit on 1454699851  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/7859e77235a047fa93fcb8dada0444c602042e82)  Commit on 1454698115  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/b12f6ef3243a99fe02c9a37607966806214e997b)  Commit on 1454698017  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/adf39bac1184503422ec91691090364c8c6e775b)  updates  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/fefd802c21760f083315ecb0eaff50465be97903)  path, filesystem and stringy updates  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/dc909245139d0e9c613bb74a8d6e9a365a45d3d6)  Merge branch 'master' of https://bitbucket.org/sebwitepackages/sebwite-support  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/9a5253ca6a64d0e19acb506053989850c16960e1)  Merge remote-tracking branch 'origin/master'  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/aaec0756e2a5bebc61a037d359a33d72c848d597)  test  
+- [2016-02-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/cbeaba081efcdddd6c9d2d4a5635d273b6e79430)  upd  
+- [2016-02-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/fb1aa929f482ae0c758676209c2ea80307a317f4)  fixing stuff with Silvan  
+- [2016-02-02](https://bitbucket.org/sebwitepackages/sebwite-support/commit/0abed0c8d6e103d04a9d89c3041ad635891f1048)  Commit on 1454436948  
+- [2016-02-02](https://bitbucket.org/sebwitepackages/sebwite-support/commit/19f37cb563fbf339fd60970327ac3c81f3d55533)  fixed rglob  
+- [2016-02-01](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c53fa4ee299a1a4e07c6d6a834e2eaea193bad3e)  Commit on 1454339095  
+- [2016-01-26](https://bitbucket.org/sebwitepackages/sebwite-support/commit/186f09f03e918ef0355fe6407b8cc2ca5e6785c7)  Commit on 1453826232  
+- [2016-01-25](https://bitbucket.org/sebwitepackages/sebwite-support/commit/1a4dc3e27d32018f587a3e74048f7d2aa1ee482d)  Commit on 1453748319  
+- [2016-01-24](https://bitbucket.org/sebwitepackages/sebwite-support/commit/3cb2c1a3dd44409e0583bda27144667c5a0a5f43)  Changed the way the classes are called in filesystem  
+- [2016-01-24](https://bitbucket.org/sebwitepackages/sebwite-support/commit/25778da37cc25ace4b81369576af7c8bc2d1a21c)  updated blade.compiler error  
+- [2016-01-24](https://bitbucket.org/sebwitepackages/sebwite-support/commit/305b93ef922ee6b19775f37a0ea6d7d632f7086d)  CCBLEAR-292 #done fixed  
+- [2016-01-22](https://bitbucket.org/sebwitepackages/sebwite-support/commit/489c256ecc306a704cc904770f5f87b716597fb3)  updates  
+- [2016-01-19](https://bitbucket.org/sebwitepackages/sebwite-support/commit/a8ccddce73efa959e8da5dd491471fcc72363549)  Commit on 1453232703  
+- [2016-01-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/ac45890d53c34987a6b4d8bfd6c9099f487b4f0d)  path and container updates  
+- [2016-01-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/e8f2e46b13a3c9aa07a060854201052fb0804505)  Commit on 1452971090  
+- [2016-01-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/300003a0d67c3373050e54f4ecc381b454be082a)  Commit on 1452970765  
+- [2016-01-13](https://bitbucket.org/sebwitepackages/sebwite-support/commit/e93caad0a5a1c89847d2c0c02e49f986945fce45)  CCBLEAR-181 #todo open deze maar weer, verkeerde id gebruikt. was voor CCBLEAR-130 #done deze was gefixt  
+- [2016-01-13](https://bitbucket.org/sebwitepackages/sebwite-support/commit/b0402aaba6d46a759d8a6ced0a5c83c41fcbf242)  CCBLEAR-181 #done module kan nu bekeken worden  
+- [2016-01-11](https://bitbucket.org/sebwitepackages/sebwite-support/commit/ccd0308a25fb8d1e81aa56cda7f056abd39518ca)  Merge remote-tracking branch 'origin/master'  
+- [2016-01-11](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f1d5d45ba776078743924fba60cf3d8c95df56ec)  Commit on 1452497971  
+- [2016-01-11](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c351bc3b5330d4f57abcae4ba6ae7f2c223481d6)  is ok  
+- [2016-01-10](https://bitbucket.org/sebwitepackages/sebwite-support/commit/878c05470bac429e83ad1bc6e3a1df590f3be529)  Commit on 1452420926  
+- [2016-01-09](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f46e9314b993917b2c03b3590bea8c96ebca81c5)  Commit on 1452330944  
+- [2016-01-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/5b41610a6787146797ff2f1045c34068e2040cd2)  Commit on 1452279166  
+- [2016-01-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/a46c856ebf55c81867d153cdc5043b50b162b917)  Commit on 1452279071  
+- [2016-01-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f1a976f63db513fd6a54c213e580b67b29297c99)  Commit on 1452252494  
+- [2016-01-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/b0fbda7fb917a48ada9b3e782428b35169a8568e)  Commit on 1452249308  
+- [2016-01-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/73f6db21c374afbb99cf8b21c34d7f6e2dec78bd)  commit  
+- [2016-01-07](https://bitbucket.org/sebwitepackages/sebwite-support/commit/dd47d26bf09734c0dcc5792e23bc96976c5c69a4)  Commit on 1452170991  
+- [2016-01-07](https://bitbucket.org/sebwitepackages/sebwite-support/commit/e4373f021acd131f812b1834667cc70d78894aa0)  Commit on 1452150547  
+- [2016-01-06](https://bitbucket.org/sebwitepackages/sebwite-support/commit/ebccbb4b06efa60ec80fb27413e3ea51be0acf80)  end of day  
+- [2016-01-06](https://bitbucket.org/sebwitepackages/sebwite-support/commit/7af513f3c35ce88b0a4d899de021669c26604889)  exams updates  
+- [2016-01-06](https://bitbucket.org/sebwitepackages/sebwite-support/commit/bf1c683914420ec6b96f460668057013bb4966fd)  Commit on 1452064483  
+- [2016-01-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/4aa64c15325dc054eeeea7b26f800a96da029023)  Commit on 1452012101  
+- [2016-01-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/edc000825c22017f5cf48d64ca88873b0cb3123c)  console servicer provider updates  
+- [2016-01-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/05ce302213d55966aefe81d01e4d9fced4e261c1)  console servicer provider updates  
+- [2016-01-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/acd8d58b286266b9cb477ae5dc66a82a7c92b85e)  Merge remote-tracking branch 'origin/master'  
+- [2016-01-05](https://bitbucket.org/sebwitepackages/sebwite-support/commit/78f4679a5439cc783a22c74cf9ec629bc3193ba7)  console servicer provider updates  
+- [2016-01-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/68f6f7aaf948cc19dd2e6fccee3ab6e2b6d7ebf3)  exams refactored and added type manager, revised other type managers to the same structure for better consitency  
+- [2016-01-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/3d29777356ba79548ac9b7957ac1c9eb99559926)  added write and writeln  
+- [2016-01-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/ca3548e84c65df309cf191e3da728432afffdd99)  added title, section, note and listing output writers  
+- [2016-01-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/5969385710f9f6587516939d0f1134b2258208f1)  excluded router/http-kernel calls when running in console, same goes for AliasLoader  
+- [2016-01-02](https://bitbucket.org/sebwitepackages/sebwite-support/commit/9e5c64ebef3444b986e8d828ca8870a6ad6b9ecc)  Commit on 1451747745  
+- [2016-01-01](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c4a8ae51e277e33234adb82e05b69c1114ffb143)  commit on multiple repos  
+- [2015-12-30](https://bitbucket.org/sebwitepackages/sebwite-support/commit/40893c8a359fc967dbaca8ee9d4d9e4c91e35695)  Commit on 1451512416  
+- [2015-12-30](https://bitbucket.org/sebwitepackages/sebwite-support/commit/1d2c4f77e1f7e6fb6043b0669b74ac0af4350d6d)  added html class  
+- [2015-12-28](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f731cbdf8f7c608fd79c6373b5e50c4c9efdfd9e)  Merge branch 'master' of https://bitbucket.org/sebwitepackages/sebwite-support  
+- [2015-12-28](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f9648f5bdbb3b368be903a581d919b32df7ce64b)  new deps and bug fixes  
+- [2015-12-28](https://bitbucket.org/sebwitepackages/sebwite-support/commit/4b1f019e236f2e38369e3c5f5750c33d6b186887)  test  
+- [2015-12-24](https://bitbucket.org/sebwitepackages/sebwite-support/commit/26aa729491c287a6befda3be4250122f823780b3)  pre dist commit  
+- [2015-12-23](https://bitbucket.org/sebwitepackages/sebwite-support/commit/230270818f1d9c6e8d144aa91c31e4f67b262bca)  new stuff  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/d9f29ca3373895c03e413b2a117a4ef0d7042402)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/67fb27f96da1b24d7da030c7bc08e5b3bf279daa)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/d9f4741b463a429c2678157689b39a419dd94dc2)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/94d6c5a63bb94c51e63b261b9e2840e0ee245b64)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/3b1fd992d28fd84772ab39cd42b339ab592ae378)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/d289db6679a502bd0f514e26cb8a8770d85f8bb4)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/818328d6a59b27435528cfbc95462a5780109d58)  forms and styles  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/a6e9d5d72f73faf12c7b42148f7c83b2e779dde1)  docs  
+- [2015-12-18](https://bitbucket.org/sebwitepackages/sebwite-support/commit/7f6f9dad9a2cbc1249f7eef73777ec92b2ad758e)  docs  
+- [2015-12-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/1d1c1bdfdeffb4e524b5188977588fa62633ede1)  stream type working  
+- [2015-12-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c34ccc2a5f65d43e6b6d35cb5020441558901ad6)  composer updates  
+- [2015-12-16](https://bitbucket.org/sebwitepackages/sebwite-support/commit/db76c6bba8bd54e741088e24ad8e8fae671d9da8)  composer updates  
+- [2015-12-09](https://bitbucket.org/sebwitepackages/sebwite-support/commit/a6ec1bae90ebef760052138be2d0fe98a3bb902d)  Commit on 1449675044  
+- [2015-12-09](https://bitbucket.org/sebwitepackages/sebwite-support/commit/a6e144c2a1474ebf6552e49642eebef143de905c)  Commit on 1449644057  
+- [2015-12-08](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f2a7bc81c8bce5c30b77dbc19f71967c0122ab11)  added facade support and altered dependencies  
+- [2015-12-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/888a167796f3ed6a26d9c1d552b775eee6c703d2)  Commit on 1449247011  
+- [2015-12-04](https://bitbucket.org/sebwitepackages/sebwite-support/commit/9777b1f3c6eb86706d578ec16ea2f66c19004170)  Commit on 1449190686  
+- [2015-12-03](https://bitbucket.org/sebwitepackages/sebwite-support/commit/415dca3566d33ec2c5b63ab26bf2968430521306)  Commit on 1449178494  
+- [2015-11-30](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f85253cc37055987abe2272120d555a3c41f027f)  Commit on 1448868203  
+- [2015-11-30](https://bitbucket.org/sebwitepackages/sebwite-support/commit/f37bdce0bdf8b0816dcd7159efc9e4559fc44551)  Commit on 1448850016  
+- [2015-11-29](https://bitbucket.org/sebwitepackages/sebwite-support/commit/c7541ca0b672f89e5b7cf7ea821a9ed526ddf05e)  Commit on 1448811262  
+- [2015-11-29](https://bitbucket.org/sebwitepackages/sebwite-support/commit/db13865685930a09b9ea256bdf3919ddf4925003)  initial  

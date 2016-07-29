@@ -1,0 +1,27 @@
+<project name="sebwite/dependencies" default="start">
+    <property file="build.properties"/>
+
+    <property name="tools.dir" value=""/>
+    <property name="tools.ext" value=""/>
+    <property name="vendor.dir" value="${project.basedir}/vendor"/>
+
+    <!-- Check if jenkins or local, then take appropriate actions -->
+    <if>
+        <equals arg1="${env}" arg2="local"/>
+        <then>
+            <property name="vendor.dir" override="true" value="${project.basedir}/../../../vendor"/>
+            <echo message="We're not on jenkins. Vendor dir: ${vendor.dir}"/>
+            <import file="local.build.xml" description="Local tasks for in workbench"/>
+        </then>
+        <else>
+            <property name="vendor.dir" override="true" value="${project.basedir}/vendor"/>
+            <echo message="We're on jenkins. Vendor dir: ${vendor.dir}"/>
+            <import file="vendor/sebwite/phing/jenkins.xml" description="Jenkins tasks"/>
+        </else>
+    </if>
+
+    <target name="start">
+        <phingcall target="build" />
+    </target>
+
+</project>

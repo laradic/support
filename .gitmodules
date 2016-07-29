@@ -1,0 +1,3 @@
+[submodule "build/phing"]
+	path = build/phing
+	url = https://bitbucket.org/sebwitepackages/sebwite-phing

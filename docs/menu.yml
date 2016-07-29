@@ -1,0 +1,83 @@
+menu:
+
+  - name: Getting Started
+    icon: fa fa-book
+    children:
+
+      - name: Overview
+        icon: fa fa-eye
+        document: index
+
+      - name: API Documentation
+        icon: fa fa-code
+        document: phpdoc
+
+      - name: Filesystem
+        icon: fa fa-folder
+        document: filesystem
+
+      - name: Dependency sorting
+        icon: fa fa-list-ol
+        document: dependency-sorting
+
+      - name: Path customisation
+        icon: fa fa-opencart
+        document: custom-application-paths
+
+      - name: StubGenerator
+        icon: fa fa-pencil
+        document: stubs
+
+  - name: Utilities
+    icon: fa fa-cubes
+    children:
+
+      - name: Arr
+        document: utilities/arr
+
+      - name: Str
+        document: utilities/str
+
+      - name: Dotenv
+        document: utilities/dotenv
+
+      - name: Path
+        document: utilities/path
+
+      - name: helpers
+        document: utilities/helpers
+
+  - name: Abstraction
+    icon: fa fa-link
+    children:
+
+      - name: Service provider
+        document: abstraction/service-provider
+
+      - name: Console provider
+        document: abstraction/console-provider
+
+      - name: Command
+        document: abstraction/command
+
+  - name: Traits
+    icon: fa fa-heart
+    children:
+
+      - name: DotArrayAccess
+        document: traits/dot-array-access
+
+      - name: DotArrayObjectAccess
+        document: traits/dot-array-object-access
+
+      - name: EventDispatcher
+        document: traits/event-dispatcher
+
+      - name: MultiSingleton
+        document: traits/multi-singleton
+
+      - name: NamespacedItemResolver
+        document: traits/namespaced-item-resolver
+
+      - name: Singleton
+        document: traits/singleton
