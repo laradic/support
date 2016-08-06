@@ -7,7 +7,6 @@
 namespace Laradic\Support;
 
 
-
 /**
  * String helper methods
  *
@@ -98,24 +97,24 @@ class Str
      * Get the instance of Stringy.
      *
      * @param  array $arguments
+     *
      * @return Stringy
      */
     public function getStringyString($arguments)
     {
-        $str = head($arguments);
-        $class = 'Sebwite\Support\Vendor\Stringy';
-        return forward_static_call('Sebwite\Support\Vendor\Stringy::create', $str);
+        return forward_static_call(__NAMESPACE__ . '\\Vendor\\Stringy::create', head($arguments));
     }
 
     /**
      * Create a new PHP Underscore string instance.
      *
      * @param  string $string
+     *
      * @return static
      */
     public static function from($string = null)
     {
-        return forward_static_call('Underscore\Types\Strings::from', $string);
+        return forward_static_call('Underscore\\Types\\Strings::from', $string);
     }
 
     /**
@@ -123,11 +122,11 @@ class Str
      *
      * @param  string $string
      *
-*@return \Laradic\Support\Vendor\Stringy
+     * @return \Laradic\Support\Vendor\Stringy
      */
     public static function create($string)
     {
-        return forward_static_call('Sebwite\Support\Vendor\Stringy::create', $string);
+        return forward_static_call(__NAMESPACE__ . '\\Vendor\\Stringy::create', $string);
     }
 
     /**
@@ -135,24 +134,24 @@ class Str
      *
      * @param  string $name
      * @param  mixed  $parameters
+     *
      * @return mixed
      */
     public function __call($name, $parameters)
     {
         $reflect = null;
 
-        $c = new \ReflectionClass('Underscore\Methods\StringsMethods');
-        if($c->hasMethod($name)){
-            return forward_static_call_array([ 'Underscore\Methods\StringsMethods', $name ], $parameters);
-        } elseif (class_exists('Illuminate\Support\Str') && method_exists('Illuminate\Support\Str', $name)) {
-            return forward_static_call_array([ 'Illuminate\Support\Str', $name ], $parameters);
-        } elseif (class_exists('Underscore\Methods\StringsMethods') && method_exists('Underscore\Methods\StringsMethods', $name) && !is_null($reflect) && $reflect->isPublic()) {
-            return forward_static_call_array([ 'Underscore\Types\Strings', $name ], $parameters);
-        } elseif(class_exists('Stringy\Stringy')) {
+        $c = new \ReflectionClass('Underscore\\Methods\\StringsMethods');
+        if ( $c->hasMethod($name) ) {
+            return forward_static_call_array([ 'Underscore\\Methods\\StringsMethods', $name ], $parameters);
+        } elseif ( class_exists('Illuminate\\Support\\Str') && method_exists('Illuminate\\Support\\Str', $name) ) {
+            return forward_static_call_array([ 'Illuminate\\Support\\Str', $name ], $parameters);
+        } elseif ( class_exists('Underscore\\Methods\\StringsMethods') && method_exists('Underscore\\Methods\\StringsMethods', $name) && !is_null($reflect) && $reflect->isPublic() ) {
+            return forward_static_call_array([ 'Underscore\\Types\\Strings', $name ], $parameters);
+        } elseif ( class_exists('Stringy\\Stringy') ) {
             $object = $this->getStringyString($parameters);
-            #return call_user_func_array([ 'Sebwite\Support\Vendor\Stringy', $name ], $parameters);
-            if (method_exists($object, $name)) {
-                return (string) call_user_func_array([ $object, $name ], array_slice($parameters, 1));
+            if ( method_exists($object, $name) ) {
+                return (string)call_user_func_array([ $object, $name ], array_slice($parameters, 1));
             }
         }
         throw new \BadMethodCallException("could not call [$name]. Do you have underscore and stringy installed?");
@@ -163,6 +162,7 @@ class Str
      *
      * @param  string $name
      * @param  mixed  $parameters
+     *
      * @return mixed
      */
     public static function __callStatic($name, $parameters)
@@ -171,25 +171,26 @@ class Str
     }
 
 
-    public static function getExceptionTraceAsString(\Throwable $exception) {
-        $rtn = "";
+    public static function getExceptionTraceAsString(\Throwable $exception)
+    {
+        $rtn   = "";
         $count = 0;
-        foreach ($exception->getTrace() as $frame) {
+        foreach ( $exception->getTrace() as $frame ) {
             $args = "";
-            if (isset($frame['args'])) {
-                $args = array();
-                foreach ($frame['args'] as $arg) {
-                    if (is_string($arg)) {
+            if ( isset($frame[ 'args' ]) ) {
+                $args = [ ];
+                foreach ( $frame[ 'args' ] as $arg ) {
+                    if ( is_string($arg) ) {
                         $args[] = "'" . $arg . "'";
-                    } elseif (is_array($arg)) {
+                    } elseif ( is_array($arg) ) {
                         $args[] = "Array";
-                    } elseif (is_null($arg)) {
+                    } elseif ( is_null($arg) ) {
                         $args[] = 'NULL';
-                    } elseif (is_bool($arg)) {
+                    } elseif ( is_bool($arg) ) {
                         $args[] = ($arg) ? "true" : "false";
-                    } elseif (is_object($arg)) {
+                    } elseif ( is_object($arg) ) {
                         $args[] = get_class($arg);
-                    } elseif (is_resource($arg)) {
+                    } elseif ( is_resource($arg) ) {
                         $args[] = get_resource_type($arg);
                     } else {
                         $args[] = $arg;
@@ -197,12 +198,12 @@ class Str
                 }
                 $args = join(", ", $args);
             }
-            $rtn .= sprintf( "#%s %s(%s): %s(%s)\n",
+            $rtn .= sprintf("#%s %s(%s): %s(%s)\n",
                 $count,
-                isset($frame['file']) ? $frame['file'] : '',
-                isset($frame['line']) ? $frame['line'] : '',
-                $frame['function'],
-                $args );
+                isset($frame[ 'file' ]) ? $frame[ 'file' ] : '',
+                isset($frame[ 'line' ]) ? $frame[ 'line' ] : '',
+                $frame[ 'function' ],
+                $args);
             $count++;
         }
         return $rtn;

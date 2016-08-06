@@ -1,4 +1,4 @@
-<project name="sebwite/dependencies">
+<project name="laradic-support">
 
     <target name="build" depends="phpcbf,phpunit"/>
 

@@ -1,4 +1,4 @@
-<project name="sebwite/dependencies" default="start">
+<project name="laradic-support" default="start">
     <property file="build.properties"/>
 
     <property name="tools.dir" value=""/>
@@ -16,7 +16,7 @@
         <else>
             <property name="vendor.dir" override="true" value="${project.basedir}/vendor"/>
             <echo message="We're on jenkins. Vendor dir: ${vendor.dir}"/>
-            <import file="vendor/sebwite/phing/jenkins.xml" description="Jenkins tasks"/>
+            <import file="vendor/laradic/phing/jenkins.xml" description="Jenkins tasks"/>
         </else>
     </if>
 
