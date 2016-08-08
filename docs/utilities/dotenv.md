@@ -8,5 +8,5 @@ The `Dotenv` class extends the `Dotenv` from `vlucas` and adds a method to retre
 
 ### Example
 ```php
-$vars = \Sebwite\Support\Dotenv::getEnvFile(base_path());
+$vars = \Laradic\Support\Dotenv::getEnvFile(base_path());
 ```

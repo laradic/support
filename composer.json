@@ -1,10 +1,11 @@
 {
     "name": "laradic/support",
     "description": "Laravel 5 support package",
+    "homepage": "https://la.radic.nl",
     "keywords": ["laravel", "laradic", "support", "repositories", "structure"],
     "license": "MIT",
     "authors": [
-        {"name": "Robin Radic", "homepage": "https://github.com/robinradic", "email": "robin@radic.nl", "role": "Developer"}
+        {"name": "Robin Radic", "homepage": "http://robin.radic.nl", "email": "robin@radic.nl", "role": "Developer"}
     ],
     "require": {
         "php": ">=5.5.9",

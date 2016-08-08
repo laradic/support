@@ -1,11 +1,11 @@
 <?php
 /**
- * Sebwite Support helper methods
+ * Laradic Support helper methods
  *
- * @author    Sebwite Dev Team
- * @copyright Copyright (c) 2015, Sebwite
+ * @author    Laradic Dev Team
+ * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Sebwite\Support
+ * @package   Laradic\Support
  */
 
 if ( !function_exists('stringy') ) {
@@ -35,7 +35,7 @@ if ( !function_exists('str_first') ) {
      */
     function str_first($subject, $n)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'first' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'first' ], func_get_args());
     }
 }
 
@@ -47,7 +47,7 @@ if ( !function_exists('str_last') ) {
      */
     function str_last($subject, $n)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'last' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'last' ], func_get_args());
     }
 }
 
@@ -59,7 +59,7 @@ if ( !function_exists('str_ensure_left') ) {
      */
     function str_ensure_left($subject, $substring)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'ensureLeft' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'ensureLeft' ], func_get_args());
     }
 }
 
@@ -71,7 +71,7 @@ if ( !function_exists('str_ensure_right') ) {
      */
     function str_ensure_right($subject, $substring)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'ensureRight' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'ensureRight' ], func_get_args());
     }
 }
 
@@ -83,7 +83,7 @@ if ( !function_exists('str_remove_left') ) {
      */
     function str_remove_left($subject, $substring)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'removeLeft' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'removeLeft' ], func_get_args());
     }
 }
 
@@ -95,7 +95,7 @@ if ( !function_exists('str_remove_right') ) {
      */
     function str_remove_right($subject, $substring)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Str', 'removeRight' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Str', 'removeRight' ], func_get_args());
     }
 }
 
@@ -110,7 +110,7 @@ if ( !function_exists('path_join') ) {
      */
     function path_join($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'join' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'join' ], func_get_args());
     }
 }
 
@@ -121,7 +121,7 @@ if ( !function_exists('path_real') ) {
      */
     function path_real()
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'real' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'real' ], func_get_args());
     }
 }
 
@@ -132,7 +132,7 @@ if ( !function_exists('path_njoin') ) {
      */
     function path_njoin()
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'njoin' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'njoin' ], func_get_args());
     }
 }
 
@@ -146,7 +146,7 @@ if ( !function_exists('path_is_absolute') ) {
      */
     function path_is_absolute($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'isAbsolute' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'isAbsolute' ], func_get_args());
     }
 }
 
@@ -160,7 +160,7 @@ if ( !function_exists('path_is_relative') ) {
      */
     function path_is_relative($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'isRelative' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'isRelative' ], func_get_args());
     }
 }
 
@@ -174,7 +174,7 @@ if ( !function_exists('path_get_directory') ) {
      */
     function path_get_directory($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'getDirectory' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getDirectory' ], func_get_args());
     }
 }
 
@@ -188,7 +188,7 @@ if ( !function_exists('path_get_extension') ) {
      */
     function path_get_extension($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'getExtension' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getExtension' ], func_get_args());
     }
 }
 
@@ -202,7 +202,7 @@ if ( !function_exists('path_get_filename') ) {
      */
     function path_get_filename($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'getFilename' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getFilename' ], func_get_args());
     }
 }
 
@@ -217,7 +217,7 @@ if ( !function_exists('path_relative') ) {
      */
     function path_relative($from, $basePath)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'makeRelative' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'makeRelative' ], func_get_args());
     }
 }
 
@@ -231,7 +231,7 @@ if ( !function_exists('path_absolute') ) {
      */
     function path_absolute($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'makeAbsolute' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'makeAbsolute' ], func_get_args());
     }
 }
 
@@ -245,7 +245,7 @@ if ( !function_exists('path_normalize') ) {
      */
     function path_normalize($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'canonicalize' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'canonicalize' ], func_get_args());
     }
 }
 
@@ -259,7 +259,7 @@ if ( !function_exists('path_canonicalize') ) {
      */
     function path_canonicalize($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'canonicalize' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'canonicalize' ], func_get_args());
     }
 }
 
@@ -270,7 +270,7 @@ if ( !function_exists('path_canonicalize') ) {
      */
     function path_get_home()
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'getHome' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getHome' ], func_get_args());
     }
 }
 
@@ -284,6 +284,6 @@ if ( !function_exists('path_canonicalize') ) {
      */
     function path_canonicalize($path)
     {
-        return forward_static_call_array([ 'Sebwite\Support\Path', 'canonicalize' ], func_get_args());
+        return forward_static_call_array([ 'Laradic\Support\Path', 'canonicalize' ], func_get_args());
     }
 }

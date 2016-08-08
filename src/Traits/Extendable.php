@@ -14,7 +14,7 @@ use Laradic\Support\Str;
 /**
  * This is the class Extendable.
  *
- * @package        Sebwite\Support
+ * @package        Laradic\Support
  * @author         Docit
  * @copyright      Copyright (c) 2015, Docit. All rights reserved
  */

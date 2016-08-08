@@ -8,10 +8,10 @@ The service provider can be extended and will provide a high level of abstractio
 All properties and methods have docblock documentation explaining how and what for its used.
 
 ### Basic Example
-Read the docblocks in the `Sebwite\Support\ServiceProvider` for more imformation.
+Read the docblocks in the `Laradic\Support\ServiceProvider` for more imformation.
 
 ```php
-use Sebwite\Support\ServiceProvider;
+use Laradic\Support\ServiceProvider;
 
 class MyServiceProvider extends ServiceProvider {
 
@@ -43,28 +43,28 @@ class MyServiceProvider extends ServiceProvider {
 
 ### Implementation Example
 
-An example that shows how [`sebwite/themes`](https://github.com/sebwite/themes/blob/v3/src/ThemeServiceProvider.php) has implemented the `ServiceProvider`
+An example that shows how [`laradic/themes`](https://github.com/laradic/themes/blob/v3/src/ThemeServiceProvider.php) has implemented the `ServiceProvider`
 
 ```php
-namespace Sebwite\Themes;
+namespace Laradic\Themes;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\View\View;
-use Sebwite\Support\ServiceProvider;
+use Laradic\Support\ServiceProvider;
 
 
 class ThemeServiceProvider extends ServiceProvider
 {
     protected $dir = __DIR__;
 
-    protected $configFiles = ['sebwite.themes'];
+    protected $configFiles = ['laradic.themes'];
 
     protected $providers = [
         \Collective\Html\HtmlServiceProvider::class,
-        \Sebwite\Themes\Providers\ConsoleServiceProvider::class
+        \Laradic\Themes\Providers\ConsoleServiceProvider::class
     ];
 
-    protected $provides = ['sebwite.themes'];
+    protected $provides = ['laradic.themes'];
 
     public function register()
     {
@@ -75,23 +75,23 @@ class ThemeServiceProvider extends ServiceProvider
 
         $app->make('events')->listen('creating: *', function (View $view) use ($app)
         {
-            $app->make('sebwite.themes')->boot();
+            $app->make('laradic.themes')->boot();
         });
     }
 
     protected function registerThemes()
     {
-        $this->app->singleton('sebwite.themes', function (Application $app)
+        $this->app->singleton('laradic.themes', function (Application $app)
         {
             $themeFactory = new ThemeFactory($app->make('files'), $app->make('events'), $app->make('url'));
-            $themeFactory->setPaths(config('sebwite.themes.paths'));
-            $themeFactory->setThemeClass(config('sebwite.themes.themeClass'));
-            $themeFactory->setActive(config('sebwite.themes.active'));
-            $themeFactory->setDefault(config('sebwite.themes.default'));
+            $themeFactory->setPaths(config('laradic.themes.paths'));
+            $themeFactory->setThemeClass(config('laradic.themes.themeClass'));
+            $themeFactory->setActive(config('laradic.themes.active'));
+            $themeFactory->setDefault(config('laradic.themes.default'));
 
             return $themeFactory;
         });
-        $this->app->alias('sebwite.themes', 'Sebwite\Themes\Contracts\ThemeFactory');
+        $this->app->alias('laradic.themes', 'Laradic\Themes\Contracts\ThemeFactory');
     }
 }
 ```

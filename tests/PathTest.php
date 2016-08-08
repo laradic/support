@@ -6,9 +6,9 @@ use Laradic\Support\Path;
 /**
  * This is the StrTest.
  *
- * @package        Sebwite\Tests
- * @author         Sebwite Dev Team
- * @copyright      Copyright (c) 2015, Sebwite
+ * @package        Laradic\Tests
+ * @author         Laradic Dev Team
+ * @copyright      Copyright (c) 2015, Laradic
  * @license        https://tldrlegal.com/license/mit-license MIT License
  */
 class PathTest extends TestCase

@@ -12,7 +12,7 @@ It's advisable to add your `ConsoleProvider` to your package `ServiceProvider` i
 ```php
 namespace MyPackage\Providers;
 
-use Sebwite\Support\ConsoleServiceProvider;
+use Laradic\Support\ConsoleServiceProvider;
 
 class MyConsoleProvider extends ConsoleServiceProvider {
 
@@ -42,7 +42,7 @@ Then in your main `ServiceProvider` you should add it to the `$providers` array 
 ```php
 namespace MyPackage;
 
-use Sebwite\Support\ServiceProvider;
+use Laradic\Support\ServiceProvider;
 
 class MyServiceProvider extends ServiceProvider {
     protected $providers = [ 

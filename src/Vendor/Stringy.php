@@ -6,10 +6,10 @@ use Stringy\Stringy as BaseStringy;
 /**
  * Stringy
  *
- * @author    Sebwite Dev Team
- * @copyright Copyright (c) 2015, Sebwite
+ * @author    Laradic Dev Team
+ * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Sebwite\Support
+ * @package   Laradic\Support
  */
 class Stringy extends BaseStringy
 {

@@ -4,6 +4,7 @@ subtitle: Extra filesystem methods
 author: Robin Radic
 -->
 
+# Filesystem
 - The `Filesystem` class extends the default Laravel `Illuminate\Filesystem\Filesystem` class.
 - By registering the `BeverageServiceProvider`, it will automatically bind itself to `fs`. 
 - The `BeverageServiceProvider` will also include the `helpers.php` file, that have a all methods provided by the `Filesystem` class prefixed by `file_` (eg: `file_delete`). 

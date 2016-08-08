@@ -9,7 +9,7 @@ You can use the `fireEvent($name, $payload = null)` and `registerEvent($name, Cl
 
 ### Example
 ```php
-use Sebwite\Support\Traits\EventDispatcher;
+use Laradic\Support\Traits\EventDispatcher;
 
 class MyClass {
     use EventDispatcher;

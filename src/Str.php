@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Sebwite PHP packages.
+ * Part of the Laradic PHP packages.
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
@@ -10,10 +10,10 @@ namespace Laradic\Support;
 /**
  * String helper methods
  *
- * @author    Sebwite Dev Team
- * @copyright Copyright (c) 2015, Sebwite
+ * @author    Laradic Dev Team
+ * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Sebwite\Support
+ * @package   Laradic\Support
  *
  * @method static string namespacedStudly(string $subject) Transforms "vendor-name/package-name" into "VendorName\PackageName"
  * @method static array split(string $subject, $delimiter, int $limit = null) explode

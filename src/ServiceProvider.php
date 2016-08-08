@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Sebwite PHP packages.
+ * Part of the Laradic PHP packages.
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
@@ -11,17 +11,16 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use ReflectionClass;
-use Sebwite\Filesystem\Filesystem;
+use Laradic\Filesystem\Filesystem;
 
-// SLP-14 Extra documenation for the new Sebwite\Support\ServiceProvider functionality
 
 /**
  * Extends Laravel's base service provider with added functionality
  *
- * @author    Sebwite Dev Team
- * @copyright Copyright (c) 2015, Sebwite
+ * @author    Laradic Dev Team
+ * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Sebwite\Support
+ * @package   Laradic\Support
  * @property \Illuminate\Foundation\Application $app
  * @example
  * <?php

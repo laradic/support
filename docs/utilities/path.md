@@ -33,18 +33,18 @@ The methods in this class are able to deal with both UNIX and Windows paths with
 
 #### Usage
 ```php
-use Sebwite\Support\Path;
+use Laradic\Support\Path;
 
 echo Path::join('/var/www/vhost', '..', 'myhost', 'config.ini');
 // => /var/www/myhost/config.ini
 
-echo Path::getDirectoryName('/var/www/vhost/sebwite/config.ini');
+echo Path::getDirectoryName('/var/www/vhost/laradic/config.ini');
 // => vhost
 
-echo Path::canonicalize('/var/www/vhost/sebwite/../config.ini');
+echo Path::canonicalize('/var/www/vhost/laradic/../config.ini');
 // => /var/www/vhost/config.ini
 
-echo Path::canonicalize('C:\Programs\sebwite\..\config.ini');
+echo Path::canonicalize('C:\Programs\laradic\..\config.ini');
 // => C:/Programs/config.ini
 
 echo Path::makeAbsolute('config/config.yml', '/var/www/project');

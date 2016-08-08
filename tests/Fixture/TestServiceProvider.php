@@ -8,8 +8,8 @@ class TestServiceProvider extends ServiceProvider
     public function register()
     {
         $this->resolveDirectories();
-        $assetsPath = $this->resolvePath('assetsPath', ['dirName' => 'assets']);
-        $assetsDestinationPath = $this->resolvePath('assetsDestinationPath', ['namespace' => 'sebwite']);
+        $assetsPath            = $this->resolvePath('assetsPath', ['dirName' => 'assets']);
+        $assetsDestinationPath = $this->resolvePath('assetsDestinationPath', [ 'namespace' => 'laradic' ]);
 
 
         $a = 'a';

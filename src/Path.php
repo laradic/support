@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Sebwite PHP packages.
+ * Part of the Laradic PHP packages.
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
@@ -9,9 +9,9 @@ namespace Laradic\Support;
 /**
  * This is the class Path.
  *
- * @package        Sebwite\Support
- * @author         Sebwite
- * @copyright      Copyright (c) 2015, Sebwite. All rights reserved
+ * @package        Laradic\Support
+ * @author         Laradic
+ * @copyright      Copyright (c) 2015, Laradic. All rights reserved
  */
 final class Path
 {

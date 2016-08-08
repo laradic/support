@@ -10,7 +10,7 @@ To use custom paths you will have to overide the `bootstrappers` method in your 
 ```php
 namespace App\Http;
 
-use Sebwite\Support\Bootstrap\CustomApplicationPaths;
+use Laradic\Support\Bootstrap\CustomApplicationPaths;
 
 class Kernel extends HttpKernel {
     // ....

@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Sebwite PHP packages.
+ * Part of the Laradic PHP packages.
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
@@ -9,10 +9,10 @@ namespace Laradic\Support\Traits;
 /**
  * Namespaced Item Resolver
  *
- * @author    Sebwite Dev Team
- * @copyright Copyright (c) 2015, Sebwite
+ * @author    Laradic Dev Team
+ * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Sebwite\Support
+ * @package   Laradic\Support
  */
 trait NamespacedItemResolver
 {
