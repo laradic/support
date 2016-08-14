@@ -4,6 +4,7 @@ subtitle: Abstraction
 author: Robin Radic
 -->
 
+
 The service provider can be extended and will provide a high level of abstraction.
 All properties and methods have docblock documentation explaining how and what for its used.
 
