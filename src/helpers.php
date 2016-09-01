@@ -206,6 +206,21 @@ if ( !function_exists('path_get_filename') ) {
     }
 }
 
+if ( !function_exists('path_get_filename_without_extension') ) {
+    /**
+     * path_get_filename method
+     *
+     * @param $path
+     *
+     * @return mixed
+     */
+    function path_get_filename_without_extension($path)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getFilenameWithoutExtension' ], func_get_args());
+    }
+}
+
+
 if ( !function_exists('path_relative') ) {
     /**
      * path_relative method
