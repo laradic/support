@@ -1,6 +1,6 @@
 <?php
 
-class ExampleServiceProvider extends \Laradic\Support\ServiceProvider
+class ExampleServiceProvider extends \Laradic\ServiceProvider\ServiceProvider
 {
     protected $dir = __DIR__;
 

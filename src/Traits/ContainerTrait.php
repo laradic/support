@@ -18,6 +18,13 @@ trait ContainerTrait
     protected $container;
 
     /**
+     * The IoC container instance.
+     *
+     * @var \Illuminate\Container\Container
+     */
+    protected $app;
+
+    /**
      * Returns the IoC container.
      *
      * @return \Illuminate\Container\Container
@@ -27,7 +34,7 @@ trait ContainerTrait
         if (!isset($this->container)) {
             $this->container = \Illuminate\Container\Container::getInstance();
         }
-
+        $this->app = $this->container;
         return $this->container;
     }
 
@@ -41,7 +48,7 @@ trait ContainerTrait
     public function setContainer(Container $container)
     {
         $this->container = $container;
-
+        $this->app       = $this->container;
         return $this;
     }
 }
