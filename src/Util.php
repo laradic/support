@@ -38,6 +38,23 @@ final class Util
         return $str;
     }
 
+
+    public static function recursiveArrayStringReplace($items, $vars = [])
+    {
+        foreach ( $items as $k => &$v ) {
+            if ( is_array($v) ) {
+                $v = static::recursiveArrayStringReplace($v, $vars);
+            } elseif ( is_string($v) ) {
+                foreach ( $vars as $vkey => $vval ) {
+                    $v = str_replace("{$vkey}", $vval, $v);
+                }
+            }
+        }
+        return $items;
+    }
+
+
+
     public static function randomChance($percent = 50)
     {
         return mt_rand(0, 100) > 100 - $percent;
