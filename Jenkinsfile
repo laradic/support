@@ -1,4 +1,4 @@
-def phing = tool('phing')
+def phing = tool name: 'phing', type: 'hudson.plugins.phing.PhingInstallation'
 
 node {
     stage('Prepare')
