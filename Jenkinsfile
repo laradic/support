@@ -1,8 +1,15 @@
+def phing = tool('phing')
+
 node {
-    stage('Checkout from github')
+    stage('Prepare')
     checkout(scm)
+    //git credentialsId: 'radic-default-credentials', url: 'radic.nl:laradic/support'
+
+    sh('rm build.properties')
+    sh('echo "jenkins" >> build.properties')
+
     stage('Running phing')
-    tool name: 'phing', type: 'hudson.plugins.phing.PhingInstallation'
+    sh("${phing} -buildfile build.xml")
 
 
 }
