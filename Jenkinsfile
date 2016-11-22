@@ -1,4 +1,3 @@
-def phing = tool name: 'phing', type: 'hudson.plugins.phing.PhingInstallation'
 
 node {
     stage('Prepare')
@@ -7,9 +6,7 @@ node {
 
     sh('rm build.properties')
     sh('echo "jenkins" >> build.properties')
-
-    stage('Running phing')
-    sh("${phing} -buildfile build.xml")
+    sh('phing -buildfile build.xml')
 
 
 }
