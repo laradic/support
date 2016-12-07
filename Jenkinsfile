@@ -22,6 +22,17 @@ node {
 
     stage('Test')
     sh('phing -buildfile build.xml')
+
+    step([
+        $class: 'ViolationsPublisher',
+        violationConfigs: [
+            [ pattern: 'build/logs/checkstyle\\.xml$', reporter: 'CHECKSTYLE' ],
+            [ pattern: 'build/logs/pmd-cpd\\.xml$', reporter: 'CPD' ],
+            [ pattern: 'build/logs/pmd\\.xml$', reporter: 'PMD' ],
+        ]
+    ])
+
+    hipchatSend('Done')
 }
 
 
