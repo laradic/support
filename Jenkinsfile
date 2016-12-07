@@ -1,4 +1,3 @@
-
 node {
     stage('Prepare')
     checkout(scm)
@@ -25,9 +24,12 @@ node {
 
 
     stage('Publish Results')
-    step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher',pattern: 'build/logs/checkstyle.xml'])
+    step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
+    step([$class: 'hudson.plugins.pmd.PmdPublisher', pattern: 'build/logs/pmd.xml'])
+    step([$class: 'org.jenkinsci.plugins.cloverphp.CloverPHPPublisher', xmlLocation: 'build/logs/clover.xml', reportDir: 'build/coverage'])
 
     hipchatSend('Done')
+
 }
 
 
