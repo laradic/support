@@ -23,14 +23,9 @@ node {
     stage('Test')
     sh('phing -buildfile build.xml')
 
-    step([
-        $class: 'org.jenkinsci.plugins.violations.ViolationsPublisher',
-        violationConfigs: [
-            [ pattern: 'build/logs/checkstyle\\.xml$', reporter: 'CHECKSTYLE' ],
-            [ pattern: 'build/logs/pmd-cpd\\.xml$', reporter: 'CPD' ],
-            [ pattern: 'build/logs/pmd\\.xml$', reporter: 'PMD' ],
-        ]
-    ])
+
+    stage('Publish Results')
+    step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher',pattern: 'build/logs/checkstyle.xml'])
 
     hipchatSend('Done')
 }
