@@ -24,7 +24,7 @@ node {
     sh('phing -buildfile build.xml')
 
     step([
-        $class: 'ViolationsPublisher',
+        $class: 'org.jenkinsci.plugins.violations.ViolationsPublisher',
         violationConfigs: [
             [ pattern: 'build/logs/checkstyle\\.xml$', reporter: 'CHECKSTYLE' ],
             [ pattern: 'build/logs/pmd-cpd\\.xml$', reporter: 'CPD' ],
