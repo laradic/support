@@ -1,3 +1,4 @@
 vendor/
 composer.lock2
 local.properties
+/build
