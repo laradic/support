@@ -1,4 +1,4 @@
 vendor/
-composer.lock2
+composer.lock
 local.properties
 /build

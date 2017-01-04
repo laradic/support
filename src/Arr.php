@@ -25,9 +25,9 @@ class Arr
 
     public function __call($name, $arguments)
     {
-        if ( method_exists('Underscore\Methods\ArraysMethods', $name) ) {
+        if (method_exists('Underscore\Methods\ArraysMethods', $name)) {
             return forward_static_call_array([ 'Underscore\Types\Arrays', $name ], $arguments);
-        } elseif ( method_exists('Illuminate\Support\Arr', $name) ) {
+        } elseif (method_exists('Illuminate\Support\Arr', $name)) {
             return forward_static_call_array([ 'Illuminate\Support\Arr', $name ], $arguments);
         }
     }
@@ -46,14 +46,14 @@ class Arr
         $unflattenedArray = [ ];
 
 
-        foreach ( $array as $key => $value ) {
+        foreach ($array as $key => $value) {
             $keyList  = explode($delimiter, $key);
             $firstKey = array_shift($keyList);
 
-            if ( sizeof($keyList) > 0 ) {
+            if (sizeof($keyList) > 0) {
                 $subArray = static::unflatten([ implode($delimiter, $keyList) => $value ], $delimiter);
 
-                foreach ( $subArray as $subArrayKey => $subArrayValue ) {
+                foreach ($subArray as $subArrayKey => $subArrayValue) {
                     $unflattenedArray[ $firstKey ][ $subArrayKey ] = $subArrayValue;
                 }
             } else {
@@ -95,19 +95,19 @@ class Arr
      */
     public static function set(&$array, $key, $value)
     {
-        if ( is_null($key) ) {
+        if (is_null($key)) {
             return $array = $value;
         }
 
         $keys = explode('.', $key);
 
-        while ( count($keys) > 1 ) {
+        while (count($keys) > 1) {
             $key = array_shift($keys);
 
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
-            if ( !isset($array[ $key ]) or !is_array($array[ $key ]) ) {
+            if (!isset($array[ $key ]) or !is_array($array[ $key ])) {
                 $array[ $key ] = [ ];
             }
 
@@ -131,13 +131,13 @@ class Arr
     {
         $original =& $array;
 
-        foreach ( (array)$keys as $key ) {
+        foreach ((array)$keys as $key) {
             $parts = explode('.', $key);
 
-            while ( count($parts) > 1 ) {
+            while (count($parts) > 1) {
                 $part = array_shift($parts);
 
-                if ( isset($array[ $part ]) and is_array($array[ $part ]) ) {
+                if (isset($array[ $part ]) and is_array($array[ $part ])) {
                     $array =& $array[ $part ];
                 }
 
@@ -158,7 +158,7 @@ class Arr
         usort($paths, function ($a, $b) use ($rootFirst, $separator) {
             $a = trim(trim($a, $separator));
             $b = trim(trim($b, $separator));
-            if ( $a === $b ) {
+            if ($a === $b) {
                 return 0;
             }
             $aPath = explode($separator, $a);
@@ -166,15 +166,15 @@ class Arr
             // find first distinct path element
             $aNode = array_shift($aPath);
             $bNode = array_shift($bPath);
-            while ( $aNode === $bNode ) {
+            while ($aNode === $bNode) {
                 $aNode = array_shift($aPath);
                 $bNode = array_shift($bPath);
             }
             // if one of the paths has finished then it means they're in root
-            if ( empty($aPath) && !empty($bPath) ) {
+            if (empty($aPath) && !empty($bPath)) {
                 return $rootFirst ? -1 : 1;
             } else {
-                if ( empty($bPath) && !empty($aPath) ) {
+                if (empty($bPath) && !empty($aPath)) {
                     return $rootFirst ? 1 : -1;
                 }
             }
@@ -235,10 +235,10 @@ class Arr
 
         $keyAry = [ ];
         $dirAry = [ ];
-        foreach ( $keys as $key ) {
+        foreach ($keys as $key) {
             $key      = explode(' ', trim($key));
             $keyAry[] = trim($key[ 0 ]);
-            if ( isset($key[ 1 ]) ) {
+            if (isset($key[ 1 ])) {
                 $dir      = strtolower(trim($key[ 1 ]));
                 $dirAry[] = $dirMap[ $dir ] ? $dirMap[ $dir ] : $def;
             } else {
@@ -247,18 +247,18 @@ class Arr
         }
 
         $fnBody = '';
-        for ( $i = count($keyAry) - 1; $i >= 0; $i-- ) {
+        for ($i = count($keyAry) - 1; $i >= 0; $i--) {
             $k    = $keyAry[ $i ];
             $t    = $dirAry[ $i ];
             $f    = -1 * $t;
             $aStr = '$a[\'' . $k . '\']';
             $bStr = '$b[\'' . $k . '\']';
-            if ( strpos($k, '(') !== false ) {
+            if (strpos($k, '(') !== false) {
                 $aStr = '$a->' . $k;
                 $bStr = '$b->' . $k;
             }
 
-            if ( $fnBody == '' ) {
+            if ($fnBody == '') {
                 $fnBody .= "if({$aStr} == {$bStr}) { return 0; }\n";
                 $fnBody .= "return ({$aStr} < {$bStr}) ? {$t} : {$f};\n";
             } else {
@@ -268,7 +268,7 @@ class Arr
             }
         }
 
-        if ( $fnBody ) {
+        if ($fnBody) {
             $sortFn = create_function('$a,$b', $fnBody);
             usort($ary, $sortFn);
         }

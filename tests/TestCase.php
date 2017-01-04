@@ -6,7 +6,6 @@
  */
 namespace Laradic\Tests\Support;
 
-
 /**
  * This is the TestCase.
  *

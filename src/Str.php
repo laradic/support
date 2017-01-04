@@ -6,7 +6,6 @@
  */
 namespace Laradic\Support;
 
-
 /**
  * String helper methods
  *
@@ -142,15 +141,15 @@ class Str
         $reflect = null;
 
         $c = new \ReflectionClass('Underscore\\Methods\\StringsMethods');
-        if ( $c->hasMethod($name) ) {
+        if ($c->hasMethod($name)) {
             return forward_static_call_array([ 'Underscore\\Methods\\StringsMethods', $name ], $parameters);
-        } elseif ( class_exists('Illuminate\\Support\\Str') && method_exists('Illuminate\\Support\\Str', $name) ) {
+        } elseif (class_exists('Illuminate\\Support\\Str') && method_exists('Illuminate\\Support\\Str', $name)) {
             return forward_static_call_array([ 'Illuminate\\Support\\Str', $name ], $parameters);
-        } elseif ( class_exists('Underscore\\Methods\\StringsMethods') && method_exists('Underscore\\Methods\\StringsMethods', $name) && !is_null($reflect) && $reflect->isPublic() ) {
+        } elseif (class_exists('Underscore\\Methods\\StringsMethods') && method_exists('Underscore\\Methods\\StringsMethods', $name) && !is_null($reflect) && $reflect->isPublic()) {
             return forward_static_call_array([ 'Underscore\\Types\\Strings', $name ], $parameters);
-        } elseif ( class_exists('Stringy\\Stringy') ) {
+        } elseif (class_exists('Stringy\\Stringy')) {
             $object = $this->getStringyString($parameters);
-            if ( method_exists($object, $name) ) {
+            if (method_exists($object, $name)) {
                 return (string)call_user_func_array([ $object, $name ], array_slice($parameters, 1));
             }
         }
@@ -175,22 +174,22 @@ class Str
     {
         $rtn   = "";
         $count = 0;
-        foreach ( $exception->getTrace() as $frame ) {
+        foreach ($exception->getTrace() as $frame) {
             $args = "";
-            if ( isset($frame[ 'args' ]) ) {
+            if (isset($frame[ 'args' ])) {
                 $args = [ ];
-                foreach ( $frame[ 'args' ] as $arg ) {
-                    if ( is_string($arg) ) {
+                foreach ($frame[ 'args' ] as $arg) {
+                    if (is_string($arg)) {
                         $args[] = "'" . $arg . "'";
-                    } elseif ( is_array($arg) ) {
+                    } elseif (is_array($arg)) {
                         $args[] = "Array";
-                    } elseif ( is_null($arg) ) {
+                    } elseif (is_null($arg)) {
                         $args[] = 'NULL';
-                    } elseif ( is_bool($arg) ) {
+                    } elseif (is_bool($arg)) {
                         $args[] = ($arg) ? "true" : "false";
-                    } elseif ( is_object($arg) ) {
+                    } elseif (is_object($arg)) {
                         $args[] = get_class($arg);
-                    } elseif ( is_resource($arg) ) {
+                    } elseif (is_resource($arg)) {
                         $args[] = get_resource_type($arg);
                     } else {
                         $args[] = $arg;
@@ -198,12 +197,14 @@ class Str
                 }
                 $args = join(", ", $args);
             }
-            $rtn .= sprintf("#%s %s(%s): %s(%s)\n",
+            $rtn .= sprintf(
+                "#%s %s(%s): %s(%s)\n",
                 $count,
                 isset($frame[ 'file' ]) ? $frame[ 'file' ] : '',
                 isset($frame[ 'line' ]) ? $frame[ 'line' ] : '',
                 $frame[ 'function' ],
-                $args);
+                $args
+            );
             $count++;
         }
         return $rtn;
