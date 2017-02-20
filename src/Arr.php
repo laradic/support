@@ -1,8 +1,13 @@
 <?php
 /**
- * Part of the Laradic PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * MIT License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Support;
 
@@ -43,7 +48,7 @@ class Arr
      */
     public static function unflatten(array $array, $delimiter = '.')
     {
-        $unflattenedArray = [ ];
+        $unflattenedArray = [];
 
 
         foreach ($array as $key => $value) {
@@ -108,7 +113,7 @@ class Arr
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
             if (!isset($array[ $key ]) or !is_array($array[ $key ])) {
-                $array[ $key ] = [ ];
+                $array[ $key ] = [];
             }
 
             $array =& $array[ $key ];
@@ -148,7 +153,14 @@ class Arr
         }
     }
 
-    public static function from($arr = [ ])
+    /**
+     * from method
+     *
+     * @param array $arr
+     *
+     * @return \Underscore\Types\Arrays
+     */
+    public static function from($arr = [])
     {
         return \Underscore\Types\Arrays::from($arr);
     }
@@ -233,8 +245,8 @@ class Arr
         $dirMap = [ 'desc' => 1, 'asc' => -1 ];
         $def    = $ascending ? -1 : 1;
 
-        $keyAry = [ ];
-        $dirAry = [ ];
+        $keyAry = [];
+        $dirAry = [];
         foreach ($keys as $key) {
             $key      = explode(' ', trim($key));
             $keyAry[] = trim($key[ 0 ]);
