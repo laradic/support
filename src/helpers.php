@@ -1,11 +1,13 @@
 <?php
 /**
- * Laradic Support helper methods
+ * Part of the Laradic PHP Packages.
  *
- * @author    Laradic Dev Team
- * @copyright Copyright (c) 2015, Laradic
- * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 
 if (!function_exists('stringy')) {
@@ -178,6 +180,20 @@ if (!function_exists('path_get_directory')) {
     }
 }
 
+if (!function_exists('path_get_directory_name')) {
+    /**
+     * path_get_directory_name method
+     *
+     * @param $path
+     *
+     * @return mixed
+     */
+    function path_get_directory_name($path)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getDirectoryName' ], func_get_args());
+    }
+}
+
 if (!function_exists('path_get_extension')) {
     /**
      * path_get_extension method
@@ -220,6 +236,49 @@ if (!function_exists('path_get_filename_without_extension')) {
     }
 }
 
+if (!function_exists('path_get_extension')) {
+    /**
+     * path_get_extension method
+     *
+     * @param $path
+     *
+     * @return mixed
+     */
+    function path_get_extension($path)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'getExtension' ], func_get_args());
+    }
+}
+
+if (!function_exists('path_has_extension')) {
+    /**
+     * path_has_extension method
+     *
+     * @param $path
+     *
+     * @return mixed
+     */
+    function path_has_extension($path)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'hasExtension' ], func_get_args());
+    }
+}
+
+if (!function_exists('path_change_extension')) {
+    /**
+     * path_change_extension method
+     *
+     * @param $path
+     *
+     * @param $extension
+     *
+     * @return mixed
+     */
+    function path_change_extension($path, $extension)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'changeExtension' ], func_get_args());
+    }
+}
 
 if (!function_exists('path_relative')) {
     /**
