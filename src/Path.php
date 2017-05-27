@@ -1,8 +1,13 @@
 <?php
 /**
- * Part of the Laradic PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * MIT License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Support;
 
@@ -25,7 +30,9 @@ final class Path
 
     /**
      * Equivalent of realpath() accept for Phar paths
+     *
      * @param $path
+     *
      * @return string
      */
     public static function real($path)
@@ -57,7 +64,6 @@ final class Path
             if ($key > 0) {
                 $argument = Str::removeLeft($argument, '/');
             }
-
             #$arguments[ $key ] = $argument;
         }
 
@@ -76,7 +82,9 @@ final class Path
 
     /**
      * Get the directory path
+     *
      * @param $path
+     *
      * @return mixed|string
      */
     public static function getDirectoryName($path)
@@ -91,7 +99,9 @@ final class Path
 
     /**
      * normalize method
+     *
      * @param $path
+     *
      * @return mixed
      */
     public static function normalize($path)
@@ -154,8 +164,8 @@ final class Path
 
         list ($root, $path) = self::split($path);
 
-        $parts = array_filter(explode('/', $path), 'strlen');
-        $canonicalParts = [ ];
+        $parts          = array_filter(explode('/', $path), 'strlen');
+        $canonicalParts = [];
 
         // Collapse "." and "..", if possible
         foreach ($parts as $part) {
@@ -293,8 +303,8 @@ final class Path
     /**
      * Returns the filename without the extension from a file path.
      *
-     * @param string $path The path string
-     * @param string|null $extension If specified, only that extension is cut off
+     * @param string      $path       The path string
+     * @param string|null $extension  If specified, only that extension is cut off
      *                                (may contain leading dot)
      *
      * @return string Filename without extension
@@ -318,8 +328,8 @@ final class Path
     /**
      * Returns the extension from a file path.
      *
-     * @param string $path The path string
-     * @param bool $forceLowerCase Forces the extension to be lower-case
+     * @param string $path           The path string
+     * @param bool   $forceLowerCase Forces the extension to be lower-case
      *                               (Requires mbstring extension for correct
      *                               multi-byte character handling in extension)
      *
@@ -345,12 +355,12 @@ final class Path
     /**
      * Returns whether the path has an extension.
      *
-     * @param string $path The path string
-     * @param string|array|null $extensions If null or not provided, checks if an
+     * @param string            $path        The path string
+     * @param string|array|null $extensions  If null or not provided, checks if an
      *                                       extension exists, otherwise checks for
      *                                       the specified extension or array of extensions
      *                                       (with or without leading dot)
-     * @param bool $ignoreCase Whether to ignore case-sensitivity
+     * @param bool              $ignoreCase  Whether to ignore case-sensitivity
      *                                       (Requires mbstring extension for correct
      *                                       multi-byte character handling in extension)
      *
@@ -391,7 +401,7 @@ final class Path
     /**
      * Changes the extension of a path string.
      *
-     * @param string $path The path string with filename.ext to change
+     * @param string $path      The path string with filename.ext to change
      * @param string $extension New extension (with or without leading dot)
      *
      * @return string The path string with new file extension
@@ -405,7 +415,7 @@ final class Path
         }
 
         $actualExtension = self::getExtension($path);
-        $extension = ltrim($extension, '.');
+        $extension       = ltrim($extension, '.');
 
         // No extension for paths
         if ('/' == substr($path, -1)) {
@@ -417,7 +427,26 @@ final class Path
             return $path . ('.' == substr($path, -1) ? '' : '.') . $extension;
         }
 
+        str_remove_right('asdfasdf', 'ss');
+
         return substr($path, 0, -strlen($actualExtension)) . $extension;
+    }
+
+
+    /**
+     * Removes the extension of a path string.
+     *
+     * @param string $path The path string with filename.ext to change
+     *
+     * @return string The path string without any extension
+     */
+    public static function withoutExtension($path)
+    {
+        $extension = self::getExtension($path);
+        if (empty($extension)) {
+            return $path;
+        }
+        return substr($path, 0, -strlen($extension));
     }
 
     /**
@@ -499,7 +528,7 @@ final class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path A path to make absolute
+     * @param string $path     A path to make absolute
      * @param string $basePath An absolute base path
      *
      * @return string An absolute path in canonical form
@@ -520,7 +549,7 @@ final class Path
         }
 
         if (static::isAbsolute($path)) {
-            $root = static::getRoot($path);
+            $root     = static::getRoot($path);
             $baseRoot = static::getRoot($basePath);
 
             if ($root !== $baseRoot) {
@@ -586,7 +615,7 @@ final class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path A path to make relative
+     * @param string $path     A path to make relative
      * @param string $basePath An base path
      *
      * @return string A relative path in canonical form
@@ -597,7 +626,7 @@ final class Path
      */
     public static function makeRelative($path, $basePath)
     {
-        $path = static::canonicalize($path);
+        $path     = static::canonicalize($path);
         $basePath = static::canonicalize($basePath);
 
         list ($root, $relativePath) = self::split($path);
@@ -639,8 +668,8 @@ final class Path
         }
 
         // Build a "../../" prefix with as many "../" parts as necessary
-        $parts = explode('/', $relativePath);
-        $baseParts = explode('/', $relativeBasePath);
+        $parts        = explode('/', $relativePath);
+        $baseParts    = explode('/', $relativeBasePath);
         $dotDotPrefix = '';
 
         // Once we found a non-matching part in the prefix, we need to add
@@ -771,14 +800,14 @@ final class Path
      * ```
      *
      * @param string $basePath The base path to test.
-     * @param string $ofPath The other path.
+     * @param string $ofPath   The other path.
      *
      * @return bool Whether the base path is a base path of the other path.
      */
     public static function isBasePath($basePath, $ofPath)
     {
         $basePath = self::canonicalize($basePath);
-        $ofPath = self::canonicalize($ofPath);
+        $ofPath   = self::canonicalize($ofPath);
 
         // Append slashes to prevent false positives when two paths have
         // a common prefix, for example /base/foo and /base/foobar.
@@ -814,7 +843,7 @@ final class Path
             return [ '', '' ];
         }
 
-        $root = '';
+        $root   = '';
         $length = strlen($path);
 
         // Remove and remember root directory

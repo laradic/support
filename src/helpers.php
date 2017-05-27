@@ -280,6 +280,20 @@ if (!function_exists('path_change_extension')) {
     }
 }
 
+if (!function_exists('path_without_extension')) {
+    /**
+     * path_change_extension method
+     *
+     * @param $path
+     *
+     * @return mixed
+     */
+    function path_without_extension($path)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Path', 'withoutExtension' ], func_get_args());
+    }
+}
+
 if (!function_exists('path_relative')) {
     /**
      * path_relative method
