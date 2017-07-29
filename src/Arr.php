@@ -40,17 +40,17 @@ class Arr
     /**
      * checks if each key is an integer value.
      *
-     * @see \Laradic\Support\Arr::isAssoc()
-     * @see \Laradic\Support\Arr::isSequential()
-     * @link https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
+     * @see      \Laradic\Support\Arr::isAssoc()
+     * @see      \Laradic\Support\Arr::isSequential()
+     * @link     https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
      *
-     * @param array $array
+     * @param array $arr
      *
      * @return bool
+     *
      */
-    public static function isIndexed(array &$array)
+    public static function isIndexed(array &$arr)
     {
-
         for (reset($arr); is_int(key($arr)); next($arr));
         return is_null(key($arr));
     }
@@ -58,16 +58,16 @@ class Arr
     /**
      * checks if each key is an integer value and if all keys are sequential starting at $base
      *
-     * @see \Laradic\Support\Arr::isAssoc()
-     * @see \Laradic\Support\Arr::isIndexed()
-     * @link https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
+     * @see      \Laradic\Support\Arr::isAssoc()
+     * @see      \Laradic\Support\Arr::isIndexed()
+     * @link     https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
      *
-     * @param array $array
+     * @param array $arr
      * @param int   $base defaults to 0 and thus can be omitted if you do not need to specify another base value.
      *
      * @return bool
      */
-    public static function isSequential(array &$array, $base = 0)
+    public static function isSequential(array &$arr, $base = 0)
     {
         for (reset($arr), $base = (int) $base; key($arr) === $base++; next($arr));
         return is_null(key($arr));
