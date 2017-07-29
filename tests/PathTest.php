@@ -1,18 +1,47 @@
 <?php
+/**
+ * Part of the Laradic PHP Packages.
+ *
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
+ */
+
 namespace Laradic\Tests\Support;
 
 use Laradic\Support\Path;
 
 /**
- * This is the StrTest.
+ * @since  1.0
  *
- * @package        Laradic\Tests
- * @author         Laradic Dev Team
- * @copyright      Copyright (c) 2015, Laradic
- * @license        https://tldrlegal.com/license/mit-license MIT License
+ * @author Bernhard Schussek <bschussek@gmail.com>
+ * @author Thomas Schulz <mail@king2500.net>
  */
-class PathTest extends TestCase
+class PathTest extends \PHPUnit_Framework_TestCase
 {
+    protected $storedEnv = array();
+
+    public function setUp()
+    {
+        $this->storedEnv['HOME'] = getenv('HOME');
+        $this->storedEnv['HOMEDRIVE'] = getenv('HOMEDRIVE');
+        $this->storedEnv['HOMEPATH'] = getenv('HOMEPATH');
+
+        putenv('HOME=/home/webmozart');
+        putenv('HOMEDRIVE=');
+        putenv('HOMEPATH=');
+    }
+
+    public function tearDown()
+    {
+        putenv('HOME='.$this->storedEnv['HOME']);
+        putenv('HOMEDRIVE='.$this->storedEnv['HOMEDRIVE']);
+        putenv('HOMEPATH='.$this->storedEnv['HOMEPATH']);
+    }
+
     public function provideCanonicalizationTests()
     {
         return array(
@@ -28,7 +57,6 @@ class PathTest extends TestCase
             array('.././css/style.css', '../css/style.css'),
             array('../../css/style.css', '../../css/style.css'),
             array('', ''),
-            array(null, ''),
             array('.', ''),
             array('..', '..'),
             array('./..', '..'),
@@ -100,6 +128,42 @@ class PathTest extends TestCase
 
             // Don't change malformed path
             array('C:css/style.css', 'C:css/style.css'),
+
+            // absolute paths (stream, UNIX)
+            array('phar:///css/style.css', 'phar:///css/style.css'),
+            array('phar:///css/./style.css', 'phar:///css/style.css'),
+            array('phar:///css/../style.css', 'phar:///style.css'),
+            array('phar:///css/./../style.css', 'phar:///style.css'),
+            array('phar:///css/.././style.css', 'phar:///style.css'),
+            array('phar:///./css/style.css', 'phar:///css/style.css'),
+            array('phar:///../css/style.css', 'phar:///css/style.css'),
+            array('phar:///./../css/style.css', 'phar:///css/style.css'),
+            array('phar:///.././css/style.css', 'phar:///css/style.css'),
+            array('phar:///../../css/style.css', 'phar:///css/style.css'),
+
+            // absolute paths (stream, Windows)
+            array('phar://C:/css/style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/css/./style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/css/../style.css', 'phar://C:/style.css'),
+            array('phar://C:/css/./../style.css', 'phar://C:/style.css'),
+            array('phar://C:/css/.././style.css', 'phar://C:/style.css'),
+            array('phar://C:/./css/style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/../css/style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/./../css/style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/.././css/style.css', 'phar://C:/css/style.css'),
+            array('phar://C:/../../css/style.css', 'phar://C:/css/style.css'),
+
+            // paths with "~" UNIX
+            array('~/css/style.css', '/home/webmozart/css/style.css'),
+            array('~/css/./style.css', '/home/webmozart/css/style.css'),
+            array('~/css/../style.css', '/home/webmozart/style.css'),
+            array('~/css/./../style.css', '/home/webmozart/style.css'),
+            array('~/css/.././style.css', '/home/webmozart/style.css'),
+            array('~/./css/style.css', '/home/webmozart/css/style.css'),
+            array('~/../css/style.css', '/home/css/style.css'),
+            array('~/./../css/style.css', '/home/css/style.css'),
+            array('~/.././css/style.css', '/home/css/style.css'),
+            array('~/../../css/style.css', '/css/style.css'),
         );
     }
 
@@ -111,6 +175,15 @@ class PathTest extends TestCase
         $this->assertSame($canonicalized, Path::canonicalize($path));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testCanonicalizeFailsIfInvalidPath()
+    {
+        Path::canonicalize(array());
+    }
+
     public function provideGetDirectoryTests()
     {
         return array(
@@ -119,7 +192,6 @@ class PathTest extends TestCase
             array('/webmozart', '/'),
             array('/', '/'),
             array('', ''),
-            array(null, ''),
 
             array('\\webmozart\\puli\\style.css', '/webmozart/puli'),
             array('\\webmozart\\puli', '/webmozart'),
@@ -136,6 +208,16 @@ class PathTest extends TestCase
             array('C:\\webmozart\\puli', 'C:/webmozart'),
             array('C:\\webmozart', 'C:/'),
             array('C:\\', 'C:/'),
+
+            array('phar:///webmozart/puli/style.css', 'phar:///webmozart/puli'),
+            array('phar:///webmozart/puli', 'phar:///webmozart'),
+            array('phar:///webmozart', 'phar:///'),
+            array('phar:///', 'phar:///'),
+
+            array('phar://C:/webmozart/puli/style.css', 'phar://C:/webmozart/puli'),
+            array('phar://C:/webmozart/puli', 'phar://C:/webmozart'),
+            array('phar://C:/webmozart', 'phar://C:/'),
+            array('phar://C:/', 'phar://C:/'),
 
             array('webmozart/puli/style.css', 'webmozart/puli'),
             array('webmozart/puli', 'webmozart'),
@@ -165,6 +247,15 @@ class PathTest extends TestCase
         $this->assertSame($directory, Path::getDirectory($path));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testGetDirectoryFailsIfInvalidPath()
+    {
+        Path::getDirectory(array());
+    }
+
     public function provideGetFilenameTests()
     {
         return array(
@@ -184,6 +275,15 @@ class PathTest extends TestCase
     public function testGetFilename($path, $filename)
     {
         $this->assertSame($filename, Path::getFilename($path));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testGetFilenameFailsIfInvalidPath()
+    {
+        Path::getFilename(array());
     }
 
     public function provideGetFilenameWithoutExtensionTests()
@@ -219,6 +319,24 @@ class PathTest extends TestCase
         $this->assertSame($filename, Path::getFilenameWithoutExtension($path, $extension));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testGetFilenameWithoutExtensionFailsIfInvalidPath()
+    {
+        Path::getFilenameWithoutExtension(array(), '.css');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The extension must be a string or null. Got: array
+     */
+    public function testGetFilenameWithoutExtensionFailsIfInvalidExtension()
+    {
+        Path::getFilenameWithoutExtension('/style.css', array());
+    }
+
     public function provideGetExtensionTests()
     {
         $tests = array(
@@ -249,6 +367,15 @@ class PathTest extends TestCase
     public function testGetExtension($path, $forceLowerCase, $extension)
     {
         $this->assertSame($extension, Path::getExtension($path, $forceLowerCase));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testGetExtensionFailsIfInvalidPath()
+    {
+        Path::getExtension(array());
     }
 
     public function provideHasExtensionTests()
@@ -302,6 +429,24 @@ class PathTest extends TestCase
         $this->assertSame($hasExtension, Path::hasExtension($path, $extension, $ignoreCase));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testHasExtensionFailsIfInvalidPath()
+    {
+        Path::hasExtension(array());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The extensions must be strings. Got: stdClass
+     */
+    public function testHasExtensionFailsIfInvalidExtension()
+    {
+        Path::hasExtension('/style.css', (object) array());
+    }
+
     public function provideChangeExtensionTests()
     {
         return array(
@@ -327,7 +472,25 @@ class PathTest extends TestCase
     {
         static $call = 0;
         $this->assertSame($pathExpected, Path::changeExtension($path, $extension));
-        $call++;
+        ++$call;
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testChangeExtensionFailsIfInvalidPath()
+    {
+        Path::changeExtension(array(), '.sass');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The extension must be a string. Got: array
+     */
+    public function testChangeExtensionFailsIfInvalidExtension()
+    {
+        Path::changeExtension('/style.css', array());
     }
 
     public function provideIsAbsolutePathTests()
@@ -337,7 +500,6 @@ class PathTest extends TestCase
             array('/', true),
             array('css/style.css', false),
             array('', false),
-            array(null, false),
 
             array('\\css\\style.css', true),
             array('\\', true),
@@ -348,6 +510,9 @@ class PathTest extends TestCase
 
             array('E:\\css\\style.css', true),
             array('F:\\', true),
+
+            array('phar:///css/style.css', true),
+            array('phar:///', true),
 
             // Windows special case
             array('C:', true),
@@ -366,11 +531,29 @@ class PathTest extends TestCase
     }
 
     /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testIsAbsoluteFailsIfInvalidPath()
+    {
+        Path::isAbsolute(array());
+    }
+
+    /**
      * @dataProvider provideIsAbsolutePathTests
      */
     public function testIsRelative($path, $isAbsolute)
     {
         $this->assertSame(!$isAbsolute, Path::isRelative($path));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testIsRelativeFailsIfInvalidPath()
+    {
+        Path::isRelative(array());
     }
 
     public function provideGetRootTests()
@@ -380,7 +563,6 @@ class PathTest extends TestCase
             array('/', '/'),
             array('css/style.css', ''),
             array('', ''),
-            array(null, ''),
 
             array('\\css\\style.css', '/'),
             array('\\', '/'),
@@ -392,6 +574,13 @@ class PathTest extends TestCase
 
             array('D:\\css\\style.css', 'D:/'),
             array('D:\\', 'D:/'),
+
+            array('phar:///css/style.css', 'phar:///'),
+            array('phar:///', 'phar:///'),
+
+            array('phar://C:/css/style.css', 'phar://C:/'),
+            array('phar://C:/', 'phar://C:/'),
+            array('phar://C:', 'phar://C:/'),
         );
     }
 
@@ -401,6 +590,15 @@ class PathTest extends TestCase
     public function testGetRoot($path, $root)
     {
         $this->assertSame($root, Path::getRoot($path));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testGetRootFailsIfInvalidPath()
+    {
+        Path::getRoot(array());
     }
 
     public function providePathTests()
@@ -418,6 +616,9 @@ class PathTest extends TestCase
 
             // same sub directories in different base directories
             array('../../puli/css/style.css', '/webmozart/css', '/puli/css/style.css'),
+
+            array('', '/webmozart/puli', '/webmozart/puli'),
+            array('..', '/webmozart/puli', '/webmozart'),
         );
     }
 
@@ -466,6 +667,20 @@ class PathTest extends TestCase
             array('..\\css\\.\\..\\style.css', 'C:\\', 'C:/style.css'),
             array('..\\css\\..\\.\\style.css', 'C:\\', 'C:/style.css'),
 
+            array('./css/style.css', 'phar:///', 'phar:///css/style.css'),
+            array('../css/style.css', 'phar:///', 'phar:///css/style.css'),
+            array('../css/./style.css', 'phar:///', 'phar:///css/style.css'),
+            array('../css/../style.css', 'phar:///', 'phar:///style.css'),
+            array('../css/./../style.css', 'phar:///', 'phar:///style.css'),
+            array('../css/.././style.css', 'phar:///', 'phar:///style.css'),
+
+            array('./css/style.css', 'phar://C:/', 'phar://C:/css/style.css'),
+            array('../css/style.css', 'phar://C:/', 'phar://C:/css/style.css'),
+            array('../css/./style.css', 'phar://C:/', 'phar://C:/css/style.css'),
+            array('../css/../style.css', 'phar://C:/', 'phar://C:/style.css'),
+            array('../css/./../style.css', 'phar://C:/', 'phar://C:/style.css'),
+            array('../css/.././style.css', 'phar://C:/', 'phar://C:/style.css'),
+
             // absolute paths
             array('/css/style.css', '/webmozart/puli', '/css/style.css'),
             array('\\css\\style.css', '/webmozart/puli', '/css/style.css'),
@@ -484,6 +699,25 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testMakeAbsoluteFailsIfInvalidPath()
+    {
+        Path::makeAbsolute(array(), '/webmozart/puli');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a non-empty string. Got: array
+     */
+    public function testMakeAbsoluteFailsIfInvalidBasePath()
+    {
+        Path::makeAbsolute('css/style.css', array());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path "webmozart/puli" is not an absolute path.
      */
     public function testMakeAbsoluteFailsIfBasePathNotAbsolute()
     {
@@ -492,6 +726,7 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a non-empty string. Got: ""
      */
     public function testMakeAbsoluteFailsIfBasePathEmpty()
     {
@@ -500,6 +735,7 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a non-empty string. Got: NULL
      */
     public function testMakeAbsoluteFailsIfBasePathNull()
     {
@@ -523,16 +759,25 @@ class PathTest extends TestCase
             array('D:/css/style.css', 'C:\\webmozart\\puli'),
             array('D:\\css\\style.css', 'C:/webmozart/puli'),
             array('D:\\css\\style.css', 'C:\\webmozart\\puli'),
+
+            array('phar:///css/style.css', '/webmozart/puli'),
+            array('/css/style.css', 'phar:///webmozart/puli'),
+
+            array('phar://C:/css/style.css', 'C:/webmozart/puli'),
+            array('phar://C:/css/style.css', 'C:\\webmozart\\puli'),
+            array('phar://C:\\css\\style.css', 'C:/webmozart/puli'),
+            array('phar://C:\\css\\style.css', 'C:\\webmozart\\puli'),
         );
     }
 
     /**
      * @dataProvider provideAbsolutePathsWithDifferentRoots
-     * @expectedException \InvalidArgumentException
      */
-    public function testMakeAbsoluteFailsIfDifferentRoot($basePath, $relativePath)
+    public function testMakeAbsoluteDoesNotFailIfDifferentRoot($basePath, $absolutePath)
     {
-        Path::makeAbsolute($relativePath, $basePath);
+        // If a path in partition D: is passed, but $basePath is in partition
+        // C:, the path should be returned unchanged
+        $this->assertSame(Path::canonicalize($absolutePath), Path::makeAbsolute($absolutePath, $basePath));
     }
 
     public function provideMakeRelativeTests()
@@ -563,13 +808,54 @@ class PathTest extends TestCase
             array('\\webmozart\\css\\style.css', '\\webmozart\\puli', '../css/style.css'),
             array('\\css\\style.css', '\\webmozart\\puli', '../../css/style.css'),
 
-            array('C:/webmozart/puli/css/style.css', 'C:/webmozart/puli', 'css/style.css', ),
+            array('C:/webmozart/puli/css/style.css', 'C:/webmozart/puli', 'css/style.css'),
             array('C:/webmozart/css/style.css', 'C:/webmozart/puli', '../css/style.css'),
             array('C:/css/style.css', 'C:/webmozart/puli', '../../css/style.css'),
 
-            array('C:\\webmozart\\puli\\css\\style.css', 'C:\\webmozart\\puli', 'css/style.css', ),
+            array('C:\\webmozart\\puli\\css\\style.css', 'C:\\webmozart\\puli', 'css/style.css'),
             array('C:\\webmozart\\css\\style.css', 'C:\\webmozart\\puli', '../css/style.css'),
             array('C:\\css\\style.css', 'C:\\webmozart\\puli', '../../css/style.css'),
+
+            array('phar:///webmozart/puli/css/style.css', 'phar:///webmozart/puli', 'css/style.css'),
+            array('phar:///webmozart/css/style.css', 'phar:///webmozart/puli', '../css/style.css'),
+            array('phar:///css/style.css', 'phar:///webmozart/puli', '../../css/style.css'),
+
+            array('phar://C:/webmozart/puli/css/style.css', 'phar://C:/webmozart/puli', 'css/style.css'),
+            array('phar://C:/webmozart/css/style.css', 'phar://C:/webmozart/puli', '../css/style.css'),
+            array('phar://C:/css/style.css', 'phar://C:/webmozart/puli', '../../css/style.css'),
+
+            // already relative + already in root basepath
+            array('../style.css', '/', 'style.css'),
+            array('./style.css', '/', 'style.css'),
+            array('../../style.css', '/', 'style.css'),
+            array('..\\style.css', 'C:\\', 'style.css'),
+            array('.\\style.css', 'C:\\', 'style.css'),
+            array('..\\..\\style.css', 'C:\\', 'style.css'),
+            array('../style.css', 'C:/', 'style.css'),
+            array('./style.css', 'C:/', 'style.css'),
+            array('../../style.css', 'C:/', 'style.css'),
+            array('..\\style.css', '\\', 'style.css'),
+            array('.\\style.css', '\\', 'style.css'),
+            array('..\\..\\style.css', '\\', 'style.css'),
+            array('../style.css', 'phar:///', 'style.css'),
+            array('./style.css', 'phar:///', 'style.css'),
+            array('../../style.css', 'phar:///', 'style.css'),
+            array('..\\style.css', 'phar://C:\\', 'style.css'),
+            array('.\\style.css', 'phar://C:\\', 'style.css'),
+            array('..\\..\\style.css', 'phar://C:\\', 'style.css'),
+
+            array('css/../style.css', '/', 'style.css'),
+            array('css/./style.css', '/', 'css/style.css'),
+            array('css\\..\\style.css', 'C:\\', 'style.css'),
+            array('css\\.\\style.css', 'C:\\', 'css/style.css'),
+            array('css/../style.css', 'C:/', 'style.css'),
+            array('css/./style.css', 'C:/', 'css/style.css'),
+            array('css\\..\\style.css', '\\', 'style.css'),
+            array('css\\.\\style.css', '\\', 'css/style.css'),
+            array('css/../style.css', 'phar:///', 'style.css'),
+            array('css/./style.css', 'phar:///', 'css/style.css'),
+            array('css\\..\\style.css', 'phar://C:\\', 'style.css'),
+            array('css\\.\\style.css', 'phar://C:\\', 'css/style.css'),
 
             // already relative
             array('css/style.css', '/webmozart/puli', 'css/style.css'),
@@ -582,10 +868,6 @@ class PathTest extends TestCase
             // relative to empty
             array('css/style.css', '', 'css/style.css'),
             array('css\\style.css', '', 'css/style.css'),
-
-            // relative to null
-            array('css/style.css', null, 'css/style.css'),
-            array('css\\style.css', null, 'css/style.css'),
 
             // different slashes in path and base path
             array('/webmozart/puli/css/style.css', '\\webmozart\\puli', 'css/style.css'),
@@ -603,6 +885,25 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testMakeRelativeFailsIfInvalidPath()
+    {
+        Path::makeRelative(array(), '/webmozart/puli');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a string. Got: array
+     */
+    public function testMakeRelativeFailsIfInvalidBasePath()
+    {
+        Path::makeRelative('/webmozart/puli/css/style.css', array());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The absolute path "/webmozart/puli/css/style.css" cannot be made relative to the relative path "webmozart/puli". You should provide an absolute base path instead.
      */
     public function testMakeRelativeFailsIfAbsolutePathAndBasePathNotAbsolute()
     {
@@ -611,6 +912,7 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The absolute path "/webmozart/puli/css/style.css" cannot be made relative to the relative path "". You should provide an absolute base path instead.
      */
     public function testMakeRelativeFailsIfAbsolutePathAndBasePathEmpty()
     {
@@ -619,6 +921,7 @@ class PathTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a string. Got: NULL
      */
     public function testMakeRelativeFailsIfBasePathNull()
     {
@@ -641,7 +944,6 @@ class PathTest extends TestCase
             array('bg.png', true),
             array('http://example.com/bg.png', false),
             array('http://example.com', false),
-            array(null, false),
             array('', false),
         );
     }
@@ -654,6 +956,15 @@ class PathTest extends TestCase
         $this->assertSame($isLocal, Path::isLocal($path));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testIsLocalFailsIfInvalidPath()
+    {
+        Path::isLocal(array());
+    }
+
     public function provideGetLongestCommonBasePathTests()
     {
         return array(
@@ -662,69 +973,91 @@ class PathTest extends TestCase
             array(array('C:/base/path', 'C:/base/path'), 'C:/base/path'),
             array(array('C:\\base\\path', 'C:\\base\\path'), 'C:/base/path'),
             array(array('C:/base/path', 'C:\\base\\path'), 'C:/base/path'),
+            array(array('phar:///base/path', 'phar:///base/path'), 'phar:///base/path'),
+            array(array('phar://C:/base/path', 'phar://C:/base/path'), 'phar://C:/base/path'),
 
             // trailing slash
             array(array('/base/path/', '/base/path'), '/base/path'),
             array(array('C:/base/path/', 'C:/base/path'), 'C:/base/path'),
             array(array('C:\\base\\path\\', 'C:\\base\\path'), 'C:/base/path'),
             array(array('C:/base/path/', 'C:\\base\\path'), 'C:/base/path'),
+            array(array('phar:///base/path/', 'phar:///base/path'), 'phar:///base/path'),
+            array(array('phar://C:/base/path/', 'phar://C:/base/path'), 'phar://C:/base/path'),
 
             array(array('/base/path', '/base/path/'), '/base/path'),
             array(array('C:/base/path', 'C:/base/path/'), 'C:/base/path'),
             array(array('C:\\base\\path', 'C:\\base\\path\\'), 'C:/base/path'),
             array(array('C:/base/path', 'C:\\base\\path\\'), 'C:/base/path'),
+            array(array('phar:///base/path', 'phar:///base/path/'), 'phar:///base/path'),
+            array(array('phar://C:/base/path', 'phar://C:/base/path/'), 'phar://C:/base/path'),
 
             // first in second
             array(array('/base/path/sub', '/base/path'), '/base/path'),
             array(array('C:/base/path/sub', 'C:/base/path'), 'C:/base/path'),
             array(array('C:\\base\\path\\sub', 'C:\\base\\path'), 'C:/base/path'),
             array(array('C:/base/path/sub', 'C:\\base\\path'), 'C:/base/path'),
+            array(array('phar:///base/path/sub', 'phar:///base/path'), 'phar:///base/path'),
+            array(array('phar://C:/base/path/sub', 'phar://C:/base/path'), 'phar://C:/base/path'),
 
             // second in first
             array(array('/base/path', '/base/path/sub'), '/base/path'),
             array(array('C:/base/path', 'C:/base/path/sub'), 'C:/base/path'),
             array(array('C:\\base\\path', 'C:\\base\\path\\sub'), 'C:/base/path'),
             array(array('C:/base/path', 'C:\\base\\path\\sub'), 'C:/base/path'),
+            array(array('phar:///base/path', 'phar:///base/path/sub'), 'phar:///base/path'),
+            array(array('phar://C:/base/path', 'phar://C:/base/path/sub'), 'phar://C:/base/path'),
 
             // first is prefix
             array(array('/base/path/di', '/base/path/dir'), '/base/path'),
             array(array('C:/base/path/di', 'C:/base/path/dir'), 'C:/base/path'),
             array(array('C:\\base\\path\\di', 'C:\\base\\path\\dir'), 'C:/base/path'),
             array(array('C:/base/path/di', 'C:\\base\\path\\dir'), 'C:/base/path'),
+            array(array('phar:///base/path/di', 'phar:///base/path/dir'), 'phar:///base/path'),
+            array(array('phar://C:/base/path/di', 'phar://C:/base/path/dir'), 'phar://C:/base/path'),
 
             // second is prefix
             array(array('/base/path/dir', '/base/path/di'), '/base/path'),
             array(array('C:/base/path/dir', 'C:/base/path/di'), 'C:/base/path'),
             array(array('C:\\base\\path\\dir', 'C:\\base\\path\\di'), 'C:/base/path'),
             array(array('C:/base/path/dir', 'C:\\base\\path\\di'), 'C:/base/path'),
+            array(array('phar:///base/path/dir', 'phar:///base/path/di'), 'phar:///base/path'),
+            array(array('phar://C:/base/path/dir', 'phar://C:/base/path/di'), 'phar://C:/base/path'),
 
             // root is common base path
             array(array('/first', '/second'), '/'),
             array(array('C:/first', 'C:/second'), 'C:/'),
             array(array('C:\\first', 'C:\\second'), 'C:/'),
             array(array('C:/first', 'C:\\second'), 'C:/'),
+            array(array('phar:///first', 'phar:///second'), 'phar:///'),
+            array(array('phar://C:/first', 'phar://C:/second'), 'phar://C:/'),
 
             // windows vs unix
             array(array('/base/path', 'C:/base/path'), null),
             array(array('C:/base/path', '/base/path'), null),
             array(array('/base/path', 'C:\\base\\path'), null),
+            array(array('phar:///base/path', 'phar://C:/base/path'), null),
 
             // different partitions
             array(array('C:/base/path', 'D:/base/path'), null),
             array(array('C:/base/path', 'D:\\base\\path'), null),
             array(array('C:\\base\\path', 'D:\\base\\path'), null),
+            array(array('phar://C:/base/path', 'phar://D:/base/path'), null),
 
             // three paths
             array(array('/base/path/foo', '/base/path', '/base/path/bar'), '/base/path'),
             array(array('C:/base/path/foo', 'C:/base/path', 'C:/base/path/bar'), 'C:/base/path'),
             array(array('C:\\base\\path\\foo', 'C:\\base\\path', 'C:\\base\\path\\bar'), 'C:/base/path'),
             array(array('C:/base/path//foo', 'C:/base/path', 'C:\\base\\path\\bar'), 'C:/base/path'),
+            array(array('phar:///base/path/foo', 'phar:///base/path', 'phar:///base/path/bar'), 'phar:///base/path'),
+            array(array('phar://C:/base/path/foo', 'phar://C:/base/path', 'phar://C:/base/path/bar'), 'phar://C:/base/path'),
 
             // three paths with root
             array(array('/base/path/foo', '/', '/base/path/bar'), '/'),
             array(array('C:/base/path/foo', 'C:/', 'C:/base/path/bar'), 'C:/'),
             array(array('C:\\base\\path\\foo', 'C:\\', 'C:\\base\\path\\bar'), 'C:/'),
             array(array('C:/base/path//foo', 'C:/', 'C:\\base\\path\\bar'), 'C:/'),
+            array(array('phar:///base/path/foo', 'phar:///', 'phar:///base/path/bar'), 'phar:///'),
+            array(array('phar://C:/base/path/foo', 'phar://C:/', 'phar://C:/base/path/bar'), 'phar://C:/'),
 
             // three paths, different roots
             array(array('/base/path/foo', 'C:/base/path', '/base/path/bar'), null),
@@ -732,11 +1065,15 @@ class PathTest extends TestCase
             array(array('C:/base/path/foo', 'D:/base/path', 'C:/base/path/bar'), null),
             array(array('C:\\base\\path\\foo', 'D:\\base\\path', 'C:\\base\\path\\bar'), null),
             array(array('C:/base/path//foo', 'D:/base/path', 'C:\\base\\path\\bar'), null),
+            array(array('phar:///base/path/foo', 'phar://C:/base/path', 'phar:///base/path/bar'), null),
+            array(array('phar://C:/base/path/foo', 'phar://D:/base/path', 'phar://C:/base/path/bar'), null),
 
             // only one path
             array(array('/base/path'), '/base/path'),
             array(array('C:/base/path'), 'C:/base/path'),
             array(array('C:\\base\\path'), 'C:/base/path'),
+            array(array('phar:///base/path'), 'phar:///base/path'),
+            array(array('phar://C:/base/path'), 'phar://C:/base/path'),
         );
     }
 
@@ -748,6 +1085,15 @@ class PathTest extends TestCase
         $this->assertSame($basePath, Path::getLongestCommonBasePath($paths));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The paths must be strings. Got: array
+     */
+    public function testGetLongestCommonBasePathFailsIfInvalidPath()
+    {
+        Path::getLongestCommonBasePath(array(array()));
+    }
+
     public function provideIsBasePathTests()
     {
         return array(
@@ -756,41 +1102,55 @@ class PathTest extends TestCase
             array('C:/base/path', 'C:/base/path', true),
             array('C:\\base\\path', 'C:\\base\\path', true),
             array('C:/base/path', 'C:\\base\\path', true),
+            array('phar:///base/path', 'phar:///base/path', true),
+            array('phar://C:/base/path', 'phar://C:/base/path', true),
 
             // trailing slash
             array('/base/path/', '/base/path', true),
             array('C:/base/path/', 'C:/base/path', true),
             array('C:\\base\\path\\', 'C:\\base\\path', true),
             array('C:/base/path/', 'C:\\base\\path', true),
+            array('phar:///base/path/', 'phar:///base/path', true),
+            array('phar://C:/base/path/', 'phar://C:/base/path', true),
 
             array('/base/path', '/base/path/', true),
             array('C:/base/path', 'C:/base/path/', true),
             array('C:\\base\\path', 'C:\\base\\path\\', true),
             array('C:/base/path', 'C:\\base\\path\\', true),
+            array('phar:///base/path', 'phar:///base/path/', true),
+            array('phar://C:/base/path', 'phar://C:/base/path/', true),
 
             // first in second
             array('/base/path/sub', '/base/path', false),
             array('C:/base/path/sub', 'C:/base/path', false),
             array('C:\\base\\path\\sub', 'C:\\base\\path', false),
             array('C:/base/path/sub', 'C:\\base\\path', false),
+            array('phar:///base/path/sub', 'phar:///base/path', false),
+            array('phar://C:/base/path/sub', 'phar://C:/base/path', false),
 
             // second in first
             array('/base/path', '/base/path/sub', true),
             array('C:/base/path', 'C:/base/path/sub', true),
             array('C:\\base\\path', 'C:\\base\\path\\sub', true),
             array('C:/base/path', 'C:\\base\\path\\sub', true),
+            array('phar:///base/path', 'phar:///base/path/sub', true),
+            array('phar://C:/base/path', 'phar://C:/base/path/sub', true),
 
             // first is prefix
             array('/base/path/di', '/base/path/dir', false),
             array('C:/base/path/di', 'C:/base/path/dir', false),
             array('C:\\base\\path\\di', 'C:\\base\\path\\dir', false),
             array('C:/base/path/di', 'C:\\base\\path\\dir', false),
+            array('phar:///base/path/di', 'phar:///base/path/dir', false),
+            array('phar://C:/base/path/di', 'phar://C:/base/path/dir', false),
 
             // second is prefix
             array('/base/path/dir', '/base/path/di', false),
             array('C:/base/path/dir', 'C:/base/path/di', false),
             array('C:\\base\\path\\dir', 'C:\\base\\path\\di', false),
             array('C:/base/path/dir', 'C:\\base\\path\\di', false),
+            array('phar:///base/path/dir', 'phar:///base/path/di', false),
+            array('phar://C:/base/path/dir', 'phar://C:/base/path/di', false),
 
             // root
             array('/', '/second', true),
@@ -798,16 +1158,22 @@ class PathTest extends TestCase
             array('C:', 'C:/second', true),
             array('C:\\', 'C:\\second', true),
             array('C:/', 'C:\\second', true),
+            array('phar:///', 'phar:///second', true),
+            array('phar://C:/', 'phar://C:/second', true),
 
             // windows vs unix
             array('/base/path', 'C:/base/path', false),
             array('C:/base/path', '/base/path', false),
             array('/base/path', 'C:\\base\\path', false),
+            array('/base/path', 'phar:///base/path', false),
+            array('phar:///base/path', 'phar://C:/base/path', false),
 
             // different partitions
             array('C:/base/path', 'D:/base/path', false),
             array('C:/base/path', 'D:\\base\\path', false),
             array('C:\\base\\path', 'D:\\base\\path', false),
+            array('C:/base/path', 'phar://C:/base/path', false),
+            array('phar://C:/base/path', 'phar://D:/base/path', false),
         );
     }
 
@@ -817,5 +1183,159 @@ class PathTest extends TestCase
     public function testIsBasePath($path, $ofPath, $result)
     {
         $this->assertSame($result, Path::isBasePath($path, $ofPath));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The base path must be a string. Got: array
+     */
+    public function testIsBasePathFailsIfInvalidBasePath()
+    {
+        Path::isBasePath(array(), '/base/path');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path must be a string. Got: array
+     */
+    public function testIsBasePathFailsIfInvalidPath()
+    {
+        Path::isBasePath('/base/path', array());
+    }
+
+    public function provideJoinTests()
+    {
+        return array(
+            array('', '', ''),
+            array('/path/to/test', '', '/path/to/test'),
+            array('/path/to//test', '', '/path/to/test'),
+            array('', '/path/to/test', '/path/to/test'),
+            array('', '/path/to//test', '/path/to/test'),
+
+            array('/path/to/test', 'subdir', '/path/to/test/subdir'),
+            array('/path/to/test/', 'subdir', '/path/to/test/subdir'),
+            array('/path/to/test', '/subdir', '/path/to/test/subdir'),
+            array('/path/to/test/', '/subdir', '/path/to/test/subdir'),
+            array('/path/to/test', './subdir', '/path/to/test/subdir'),
+            array('/path/to/test/', './subdir', '/path/to/test/subdir'),
+            array('/path/to/test/', '../parentdir', '/path/to/parentdir'),
+            array('/path/to/test', '../parentdir', '/path/to/parentdir'),
+            array('path/to/test/', '/subdir', 'path/to/test/subdir'),
+            array('path/to/test', '/subdir', 'path/to/test/subdir'),
+            array('../path/to/test', '/subdir', '../path/to/test/subdir'),
+            array('path', '../../subdir', '../subdir'),
+            array('/path', '../../subdir', '/subdir'),
+            array('../path', '../../subdir', '../../subdir'),
+
+            array(array('/path/to/test', 'subdir'), '', '/path/to/test/subdir'),
+            array(array('/path/to/test', '/subdir'), '', '/path/to/test/subdir'),
+            array(array('/path/to/test/', 'subdir'), '', '/path/to/test/subdir'),
+            array(array('/path/to/test/', '/subdir'), '', '/path/to/test/subdir'),
+
+            array(array('/path'), '', '/path'),
+            array(array('/path', 'to', '/test'), '', '/path/to/test'),
+            array(array('/path', '', '/test'), '', '/path/test'),
+            array(array('path', 'to', 'test'), '', 'path/to/test'),
+            array(array(), '', ''),
+
+            array('base/path', 'to/test', 'base/path/to/test'),
+
+            array('C:\\path\\to\\test', 'subdir', 'C:/path/to/test/subdir'),
+            array('C:\\path\\to\\test\\', 'subdir', 'C:/path/to/test/subdir'),
+            array('C:\\path\\to\\test', '/subdir', 'C:/path/to/test/subdir'),
+            array('C:\\path\\to\\test\\', '/subdir', 'C:/path/to/test/subdir'),
+
+            array('/', 'subdir', '/subdir'),
+            array('/', '/subdir', '/subdir'),
+            array('C:/', 'subdir', 'C:/subdir'),
+            array('C:/', '/subdir', 'C:/subdir'),
+            array('C:\\', 'subdir', 'C:/subdir'),
+            array('C:\\', '/subdir', 'C:/subdir'),
+            array('C:', 'subdir', 'C:/subdir'),
+            array('C:', '/subdir', 'C:/subdir'),
+
+            array('phar://', '/path/to/test', 'phar:///path/to/test'),
+            array('phar:///', '/path/to/test', 'phar:///path/to/test'),
+            array('phar:///path/to/test', 'subdir', 'phar:///path/to/test/subdir'),
+            array('phar:///path/to/test', 'subdir/', 'phar:///path/to/test/subdir'),
+            array('phar:///path/to/test', '/subdir', 'phar:///path/to/test/subdir'),
+            array('phar:///path/to/test/', 'subdir', 'phar:///path/to/test/subdir'),
+            array('phar:///path/to/test/', '/subdir', 'phar:///path/to/test/subdir'),
+
+            array('phar://', 'C:/path/to/test', 'phar://C:/path/to/test'),
+            array('phar://', 'C:\\path\\to\\test', 'phar://C:/path/to/test'),
+            array('phar://C:/path/to/test', 'subdir', 'phar://C:/path/to/test/subdir'),
+            array('phar://C:/path/to/test', 'subdir/', 'phar://C:/path/to/test/subdir'),
+            array('phar://C:/path/to/test', '/subdir', 'phar://C:/path/to/test/subdir'),
+            array('phar://C:/path/to/test/', 'subdir', 'phar://C:/path/to/test/subdir'),
+            array('phar://C:/path/to/test/', '/subdir', 'phar://C:/path/to/test/subdir'),
+            array('phar://C:', 'path/to/test', 'phar://C:/path/to/test'),
+            array('phar://C:', '/path/to/test', 'phar://C:/path/to/test'),
+            array('phar://C:/', 'path/to/test', 'phar://C:/path/to/test'),
+            array('phar://C:/', '/path/to/test', 'phar://C:/path/to/test'),
+        );
+    }
+
+    /**
+     * @dataProvider provideJoinTests
+     */
+    public function testJoin($path1, $path2, $result)
+    {
+        $this->assertSame($result, Path::join($path1, $path2));
+    }
+
+    public function testJoinVarArgs()
+    {
+        $this->assertSame('/path', Path::join('/path'));
+        $this->assertSame('/path/to', Path::join('/path', 'to'));
+        $this->assertSame('/path/to/test', Path::join('/path', 'to', '/test'));
+        $this->assertSame('/path/to/test/subdir', Path::join('/path', 'to', '/test', 'subdir/'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The paths must be strings. Got: array
+     */
+    public function testJoinFailsIfInvalidPath()
+    {
+        Path::join('/path', array());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Your environment or operation system isn't supported
+     */
+    public function testGetHomeDirectoryFailsIfNotSupportedOperationSystem()
+    {
+        putenv('HOME=');
+
+        Path::getHomeDirectory();
+    }
+
+    public function testGetHomeDirectoryForUnix()
+    {
+        $this->assertEquals('/home/webmozart', Path::getHomeDirectory());
+    }
+
+    public function testGetHomeDirectoryForWindows()
+    {
+        putenv('HOME=');
+        putenv('HOMEDRIVE=C:');
+        putenv('HOMEPATH=/users/webmozart');
+
+        $this->assertEquals('C:/users/webmozart', Path::getHomeDirectory());
+    }
+
+    public function testNormalize()
+    {
+        $this->assertSame('C:/Foo/Bar/test', Path::normalize('C:\\Foo\\Bar/test'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNormalizeFailsIfNoString()
+    {
+        Path::normalize(true);
     }
 }

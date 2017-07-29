@@ -12,11 +12,10 @@
         "danielstjules/stringy": "~1.8|~2.0",
         "anahkiasen/underscore-php": "~2.0",
         "illuminate/support": "~5.0",
-        "gabrielelana/byte-units": "0.2.*"
+        "gabrielelana/byte-units": "0.2.*",
+        "webmozart/assert": "1.2.*"
     },
     "require-dev": {
-        "laradic/testing": "~1.0.1",
-        "laradic/phing": "1.0.*",
         "fabpot/php-cs-fixer": "~1.9",
         "phpunit/phpunit": "~4.0|~5.0",
         "mockery/mockery": "0.9.*"

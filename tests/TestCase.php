@@ -1,10 +1,16 @@
 <?php
 /**
- * Part of the Laradic PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * MIT License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Tests\Support;
+
 
 /**
  * This is the TestCase.
@@ -14,8 +20,9 @@ namespace Laradic\Tests\Support;
  * @copyright      Copyright (c) 2015, Laradic
  * @license        https://tldrlegal.com/license/mit-license MIT License
  */
-abstract class TestCase extends \Laradic\Testing\Native\AbstractTestCase
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
+    use CreatesApplication;
 
     protected function getPackageRootPath()
     {
