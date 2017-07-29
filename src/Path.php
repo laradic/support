@@ -47,7 +47,7 @@ class Path extends Vendor\Path
      *
      * @return string
      */
-    public static function join($paths)
+    public static function joinPaths($paths)
     {
         $arguments = func_get_args();
 
