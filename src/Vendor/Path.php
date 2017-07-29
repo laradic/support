@@ -15,6 +15,7 @@ namespace Laradic\Support\Vendor;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Webmozart\Assert\Assert;
 
 /**
  * Contains utility methods for handling path strings.

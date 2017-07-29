@@ -20,12 +20,7 @@ namespace Laradic\Tests\Support;
  * @copyright      Copyright (c) 2015, Laradic
  * @license        https://tldrlegal.com/license/mit-license MIT License
  */
-abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
-    use CreatesApplication;
 
-    protected function getPackageRootPath()
-    {
-        return __DIR__ . '/..';
-    }
 }

@@ -7,10 +7,50 @@
  * The license can be found in the package and online at https://laradic.mit-license.org.
  *
  * @copyright Copyright 2017 (c) Robin Radic
- * @license https://laradic.mit-license.org The MIT License
+ * @license   https://laradic.mit-license.org The MIT License
  */
 
-if (!function_exists('stringy')) {
+if ( ! function_exists('array_is_indexed')) {
+
+    /**
+     * checks if each key is an integer value.
+     *
+     * @see  \Laradic\Support\Arr::isIndexed()
+     * @see  \Laradic\Support\Arr::isSequential()
+     * @see  \Laradic\Support\Arr::isAssoc()
+     * @link https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
+     *
+     * @param array $array
+     *
+     * @return bool
+     */
+    function array_is_indexed(&$array)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Arr', 'isIndexed' ], func_get_args());
+    }
+}
+
+if ( ! function_exists('array_is_sequential')) {
+    /**
+     * checks if each key is an integer value and if all keys are sequential starting at $base
+     *
+     * @see  \Laradic\Support\Arr::isSequential()
+     * @see  \Laradic\Support\Arr::isIndexed()
+     * @see  \Laradic\Support\Arr::isAssoc()
+     * @link https://stackoverflow.com/a/11495941/2643122 Is associative? how-to-check-if-php-array-is-associative-or-sequential
+     *
+     * @param array $array
+     * @param int   $base defaults to 0 and thus can be omitted if you do not need to specify another base value.
+     *
+     * @return bool
+     */
+    function array_is_equential(&$array, $base = 0)
+    {
+        return forward_static_call_array([ 'Laradic\Support\Arr', 'isSequential' ], func_get_args());
+    }
+}
+
+if ( ! function_exists('stringy')) {
     /**
      * stringy method
      *
@@ -26,7 +66,7 @@ if (!function_exists('stringy')) {
     }
 }
 
-if (!function_exists('str_first')) {
+if ( ! function_exists('str_first')) {
     /**
      * str_first
      *
@@ -41,7 +81,7 @@ if (!function_exists('str_first')) {
     }
 }
 
-if (!function_exists('str_last')) {
+if ( ! function_exists('str_last')) {
     /**
      * str_last
      *
@@ -53,7 +93,7 @@ if (!function_exists('str_last')) {
     }
 }
 
-if (!function_exists('str_ensure_left')) {
+if ( ! function_exists('str_ensure_left')) {
     /**
      * str_ensure_left
      *
@@ -65,7 +105,7 @@ if (!function_exists('str_ensure_left')) {
     }
 }
 
-if (!function_exists('str_ensure_right')) {
+if ( ! function_exists('str_ensure_right')) {
     /**
      * str_ensure_right
      *
@@ -77,7 +117,7 @@ if (!function_exists('str_ensure_right')) {
     }
 }
 
-if (!function_exists('str_remove_left')) {
+if ( ! function_exists('str_remove_left')) {
     /**
      * str_remove_left
      *
@@ -89,7 +129,7 @@ if (!function_exists('str_remove_left')) {
     }
 }
 
-if (!function_exists('str_remove_right')) {
+if ( ! function_exists('str_remove_right')) {
     /**
      * str_remove_right
      *
@@ -101,7 +141,7 @@ if (!function_exists('str_remove_right')) {
     }
 }
 
-if (!function_exists('path_join')) {
+if ( ! function_exists('path_join')) {
     /**
      * path_join method
      *
@@ -116,9 +156,10 @@ if (!function_exists('path_join')) {
     }
 }
 
-if (!function_exists('path_real')) {
+if ( ! function_exists('path_real')) {
     /**
      * path_real method
+     *
      * @return mixed
      */
     function path_real()
@@ -127,9 +168,10 @@ if (!function_exists('path_real')) {
     }
 }
 
-if (!function_exists('path_njoin')) {
+if ( ! function_exists('path_njoin')) {
     /**
      * path_njoin method
+     *
      * @return mixed
      */
     function path_njoin()
@@ -138,7 +180,7 @@ if (!function_exists('path_njoin')) {
     }
 }
 
-if (!function_exists('path_is_absolute')) {
+if ( ! function_exists('path_is_absolute')) {
     /**
      * path_is_absolute method
      *
@@ -152,7 +194,7 @@ if (!function_exists('path_is_absolute')) {
     }
 }
 
-if (!function_exists('path_is_relative')) {
+if ( ! function_exists('path_is_relative')) {
     /**
      * path_is_relative method
      *
@@ -166,7 +208,7 @@ if (!function_exists('path_is_relative')) {
     }
 }
 
-if (!function_exists('path_get_directory')) {
+if ( ! function_exists('path_get_directory')) {
     /**
      * path_get_directory method
      *
@@ -180,7 +222,7 @@ if (!function_exists('path_get_directory')) {
     }
 }
 
-if (!function_exists('path_get_directory_name')) {
+if ( ! function_exists('path_get_directory_name')) {
     /**
      * path_get_directory_name method
      *
@@ -194,7 +236,7 @@ if (!function_exists('path_get_directory_name')) {
     }
 }
 
-if (!function_exists('path_get_extension')) {
+if ( ! function_exists('path_get_extension')) {
     /**
      * path_get_extension method
      *
@@ -208,7 +250,7 @@ if (!function_exists('path_get_extension')) {
     }
 }
 
-if (!function_exists('path_get_filename')) {
+if ( ! function_exists('path_get_filename')) {
     /**
      * path_get_filename method
      *
@@ -222,7 +264,7 @@ if (!function_exists('path_get_filename')) {
     }
 }
 
-if (!function_exists('path_get_filename_without_extension')) {
+if ( ! function_exists('path_get_filename_without_extension')) {
     /**
      * path_get_filename method
      *
@@ -236,7 +278,7 @@ if (!function_exists('path_get_filename_without_extension')) {
     }
 }
 
-if (!function_exists('path_get_extension')) {
+if ( ! function_exists('path_get_extension')) {
     /**
      * path_get_extension method
      *
@@ -250,7 +292,7 @@ if (!function_exists('path_get_extension')) {
     }
 }
 
-if (!function_exists('path_has_extension')) {
+if ( ! function_exists('path_has_extension')) {
     /**
      * path_has_extension method
      *
@@ -264,7 +306,7 @@ if (!function_exists('path_has_extension')) {
     }
 }
 
-if (!function_exists('path_change_extension')) {
+if ( ! function_exists('path_change_extension')) {
     /**
      * path_change_extension method
      *
@@ -280,7 +322,7 @@ if (!function_exists('path_change_extension')) {
     }
 }
 
-if (!function_exists('path_without_extension')) {
+if ( ! function_exists('path_without_extension')) {
     /**
      * path_change_extension method
      *
@@ -294,7 +336,7 @@ if (!function_exists('path_without_extension')) {
     }
 }
 
-if (!function_exists('path_relative')) {
+if ( ! function_exists('path_relative')) {
     /**
      * path_relative method
      *
@@ -309,7 +351,7 @@ if (!function_exists('path_relative')) {
     }
 }
 
-if (!function_exists('path_absolute')) {
+if ( ! function_exists('path_absolute')) {
     /**
      * path_absolute method
      *
@@ -323,7 +365,7 @@ if (!function_exists('path_absolute')) {
     }
 }
 
-if (!function_exists('path_normalize')) {
+if ( ! function_exists('path_normalize')) {
     /**
      * path_normalize method
      *
@@ -337,7 +379,7 @@ if (!function_exists('path_normalize')) {
     }
 }
 
-if (!function_exists('path_canonicalize')) {
+if ( ! function_exists('path_canonicalize')) {
     /**
      * path_canonicalize method
      *
@@ -351,9 +393,10 @@ if (!function_exists('path_canonicalize')) {
     }
 }
 
-if (!function_exists('path_canonicalize')) {
+if ( ! function_exists('path_canonicalize')) {
     /**
      * path_get_home method
+     *
      * @return mixed
      */
     function path_get_home()
@@ -362,7 +405,7 @@ if (!function_exists('path_canonicalize')) {
     }
 }
 
-if (!function_exists('path_canonicalize')) {
+if ( ! function_exists('path_canonicalize')) {
     /**
      * path_canonicalize method
      *

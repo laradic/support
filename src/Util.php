@@ -8,7 +8,7 @@ namespace Laradic\Support;
 
 use Symfony\Component\Process\Process;
 
-final class Util
+class Util
 {
     /**
      * Very simple 'template' parser. Replaces (for example) {name} with the value of $vars['name'] in strings
