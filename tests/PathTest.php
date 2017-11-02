@@ -20,7 +20,7 @@ use Laradic\Support\Path;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Thomas Schulz <mail@king2500.net>
  */
-class PathTest extends \PHPUnit_Framework_TestCase
+class PathTest extends TestCase
 {
     protected $storedEnv = array();
 
