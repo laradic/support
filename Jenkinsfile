@@ -60,7 +60,7 @@ php -r "unlink(\'composer-setup.php\');"'''
     post {
         always {
             junit 'ci/codeCoverage/junit-logfile.xml'
-            publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'ci/codeCoverage/testdox', reportFiles: 'testdox.html', reportName: 'HTML Report', reportTitles: 'Testdox'])
+            publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'ci/codeCoverage/testdox', reportFiles: 'testdox.html', reportName: 'Agile Test Output', reportTitles: 'index'])
         }
     }
 }
