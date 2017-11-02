@@ -51,8 +51,8 @@
         <log type="coverage-xml" target="ci/codeCoverage/xml"/>
         <!--<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>-->
         <!--<log type="testdox-text" target="php://stdout"/>-->
-        <log type="testdox-text" target="ci/codeCoverage/testdox.txt"/>
-        <log type="testdox-html" target="ci/codeCoverage/testdox.html"/>
+        <log type="testdox-text" target="ci/codeCoverage/testdox/testdox.txt"/>
+        <log type="testdox-html" target="ci/codeCoverage/testdox/testdox.html"/>
         <log type="junit" target="ci/codeCoverage/junit-logfile.xml"/>
     </logging>
 
