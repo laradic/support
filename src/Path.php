@@ -50,7 +50,7 @@ class Path extends Vendor\Path
     {
         $arguments = func_get_args();
 
-        if (1 === func_num_args() and is_array($arguments[0])) {
+        if (1 === func_num_args() && is_array($arguments[0])) {
             $arguments = $arguments[0];
         }
 
