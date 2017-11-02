@@ -472,10 +472,11 @@ class ArrTest extends TestCase
         $this->assertEquals([1, 3, 5, 7, 9], $range);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testCantChainRange()
     {
-        $this->setExpectedException('Exception');
-
         Arr::from($this->arrayNumbers)->range(5);
     }
 
