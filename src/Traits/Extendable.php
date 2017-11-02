@@ -1,8 +1,13 @@
 <?php
 /**
- * Part of the Docit PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Support\Traits;
 
@@ -116,6 +121,12 @@ trait Extendable
         if (array_key_exists($name, static::$extensions)) {
             return $this->callExtension($name, $params);
         }
+
+        $name = lcfirst(str_replace_first('get', '', $name));
+        if (array_key_exists($name, static::$components)) {
+            return $this->getClassInstanceExtension($name);
+        }
+
         throw new BadMethodCallException("Method [$name] does not exist.");
     }
 

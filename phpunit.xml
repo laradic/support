@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--~
+  ~ Part of the Laradic PHP Packages.
+  ~
+  ~ Copyright (c) 2017. Robin Radic.
+  ~
+  ~ The license can be found in the package and online at https://laradic.mit-license.org.
+  ~
+  ~ @copyright Copyright 2017 (c) Robin Radic
+  ~ @license https://laradic.mit-license.org The MIT License
+  -->
+
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="vendor/autoload.php"
@@ -15,6 +26,19 @@
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+    </php>
+
+    <logging>
+        <log type="coverage-html" target="./ci/codeCoverage/" charset="UTF-8" yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="./ci/codeCoverage/codeCoverage.xml"/>
+        <log type="metrics-xml" target="./ci/codeCoverage/metrics.xml"/>
+        <log type="test-xml" target="./ci/codeCoverage/logfile.xml" logIncompleteSkipped="false"/>
+    </logging>
 
 </phpunit>
 

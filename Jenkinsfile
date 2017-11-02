@@ -20,11 +20,6 @@ pipeline {
         }
         stage('Prepare files') {
             steps {
-                sh 'cp build.properties build.bak.properties'
-                sh 'rm build.properties'
-                sh 'cat build.bak.properties | sed \'s/local/jenkins/g\' > build.properties'
-                sh 'rm build.bak.properties'
-                // Remove vendor/composer.lock data to allow clean re-install
                 sh('rm -rf vendor composer.lock')
             }
         }
@@ -39,8 +34,8 @@ php composer-setup.php
 php -r "unlink(\'composer-setup.php\');"'''
 
                 // phing.phar
-                sh 'wget http://www.phing.info/get/phing-latest.phar'
-                sh 'mv phing-latest.phar phing.phar'
+//                sh 'wget http://www.phing.info/get/phing-latest.phar'
+//                sh 'mv phing-latest.phar phing.phar'
             }
 
 
@@ -53,7 +48,7 @@ php -r "unlink(\'composer-setup.php\');"'''
         }
         stage('Unit Tests') {
             steps {
-                sh 'php phing.phar -buildfile build.xml'
+                sh 'php vendor/bin/phpunit'
             }
         }
 

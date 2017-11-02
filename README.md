@@ -15,8 +15,16 @@ Begin by installing the package through Composer.
 composer require laradic/support=~1.0
 ```
 
+
 Documentation
 -------------
 
 [Go to documentation](docs/index.md)
 
+
+
+Overview
+--------
+
+#### `Laradic\Support\Str`
+Combines all string functions from Laravel, Underscore PHP and Stringy

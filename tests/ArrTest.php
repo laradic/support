@@ -1,12 +1,18 @@
 <?php
 /**
- * Part of the Laradic PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * MIT License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Tests\Support;
 
 use Laradic\Support\Arr;
+
 
 /**
  * This is the ArrTest.
@@ -18,6 +24,22 @@ use Laradic\Support\Arr;
  */
 class ArrTest extends TestCase
 {
+//    use Fixtures\ProvidesInheritedMergeData;
+//
+//    public function testInheritantArrayMergin()
+//    {
+//        $projectResult = $this->getProjectResult();
+//        $this->assertEquals($this->projectExpectedResult, $projectResult);
+//
+//        $revisionResult = $this->getRevisionResult($projectResult);
+//        $this->assertEquals($this->revisionExpectedResult, $revisionResult);
+//
+//        $documentResult = $this->getDocumentResult($revisionResult);
+//        $this->assertEquals($this->documentExpectedResult, $documentResult);
+//    }
+
+
+
     public $array = ['foo' => 'bar', 'bis' => 'ter'];
     public $arrayNumbers = [1, 2, 3];
     public $arrayMulti = [
@@ -713,4 +735,7 @@ class ArrTest extends TestCase
         $this->assertContains('ter', array_values(Arr::removeValue($a, 'bar')));
         $this->assertContains('two', array_values(Arr::removeValue($a, 'bar')));
     }
+
+
+
 }

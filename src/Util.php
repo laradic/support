@@ -1,8 +1,13 @@
 <?php
 /**
- * Part of the Laradic PHP packages.
+ * Part of the Laradic PHP Packages.
  *
- * License and copyright information bundled with this package in the LICENSE file
+ * Copyright (c) 2017. Robin Radic.
+ *
+ * The license can be found in the package and online at https://laradic.mit-license.org.
+ *
+ * @copyright Copyright 2017 (c) Robin Radic
+ * @license https://laradic.mit-license.org The MIT License
  */
 namespace Laradic\Support;
 
@@ -163,6 +168,67 @@ class Util
      * @return array
      */
     public static function getPhpDefinitionsFromFile($filePath)
+    {
+        $classes    = [ ];
+        $traits     = [ ];
+        $interfaces = [ ];
+
+        $tokens = token_get_all(file_get_contents($filePath),TOKEN_PARSE);
+
+        $trait = $interface = $class = $namespace = '';
+
+        for ($i = 0; $i < count($tokens); $i++) {
+            if ($tokens[ $i ][ 0 ] === T_NAMESPACE) {
+                for ($j = $i + 1; $j < count($tokens); $j++) {
+                    if ($tokens[ $j ][ 0 ] === T_STRING) {
+                        $namespace .= '\\' . $tokens[ $j ][ 1 ];
+                    } else {
+                        if ($tokens[ $j ] === '{' || $tokens[ $j ] === ';') {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if ($tokens[ $i ][ 0 ] === T_CLASS) {
+                for ($j = $i + 1; $j < count($tokens); $j++) {
+                    if ($tokens[ $j ] === '{') {
+                        $class     = $tokens[ $i + 2 ][ 1 ];
+                        $classes[] = $class;
+                    }
+                }
+            }
+
+            if ($tokens[ $i ][ 0 ] === T_INTERFACE) {
+                for ($j = $i + 1; $j < count($tokens); $j++) {
+                    if ($tokens[ $j ] === '{') {
+                        $interface    = $tokens[ $i + 2 ][ 1 ];
+                        $interfaces[] = $interface;
+                    }
+                }
+            }
+
+            if ($tokens[ $i ][ 0 ] === T_TRAIT) {
+                for ($j = $i + 1; $j < count($tokens); $j++) {
+                    if ($tokens[ $j ] === '{') {
+                        $trait    = $tokens[ $i + 2 ][ 1 ];
+                        $traits[] = $trait;
+                    }
+                }
+            }
+        }
+
+        return compact('namespace', 'classes', 'traits', 'interfaces');
+    }
+
+    /**
+     * Get the namespace, classes, interfaces and traits of the php file
+     *
+     * @param $filePath
+     *
+     * @return array
+     */
+    public static function getPhpDefinitionsFromFileProgressive($filePath)
     {
         $classes    = [ ];
         $traits     = [ ];

@@ -322,4 +322,72 @@ class Arr
             usort($ary, $sortFn);
         }
     }
+
+    public static function onlyDot(array $array, $keys)
+    {
+        $result = [];
+        foreach ($keys as $i => $key) {
+            data_set($result, $key, data_get($array, $key));
+        }
+        return $result;
+    }
+
+    public static function inheritedMerge(array $parent, array $inheritKeys, array $target, array ...$sources)
+    {
+        $inherited = static::onlyDot($parent, $inheritKeys);
+        return forward_static_call_array([ 'Codex\Support\Arr', 'mergeUnique' ], array_merge([ $target, $inherited ], $sources));
+    }
+
+    public static function mergeUnique(array $target, array ...$sources)
+    {
+        foreach ($sources as $source) {
+            $target = static::merge($target, $source, true);
+        }
+        return $target;
+    }
+
+    /**
+     * Merge two arrays recursive
+     *
+     * Overwrite values with associative keys
+     * Append values with integer keys with the option to only allow unique values
+     *
+     * @param array $arr1   First array
+     * @param array $arr2   Second array
+     * @param bool  $unique Set true to not append values that already exists and prevent duplicates when merging integer keyed arrays
+     *
+     * @return array
+     */
+    public static function merge(array $arr1, array $arr2, $unique = false)
+    {
+        if (empty($arr1)) {
+            return $arr2;
+        } else {
+            if (empty($arr2)) {
+                return $arr1;
+            }
+        }
+        foreach ($arr2 as $key => $value) {
+            if (is_int($key)) {
+                if ( ! $unique || ! in_array($value, $arr1, true)) {
+                    $arr1[] = $value;
+                }
+            } elseif (is_array($arr2[ $key ])) {
+                if ( ! isset($arr1[ $key ])) {
+                    $arr1[ $key ] = [];
+                }
+
+                $value = static::merge($arr1[ $key ], $value, $unique);
+                if (is_int($key)) {
+                    $arr1[] = $unique ? array_unique($value) : $value;
+                } else {
+                    $arr1[ $key ] = $value;
+                }
+            } else {
+                $arr1[ $key ] = $value;
+            }
+        }
+
+        return $arr1;
+    }
 }

@@ -132,7 +132,7 @@ class Path extends Vendor\Path
         if (empty($extension)) {
             return $path;
         }
-        return substr($path, 0, -strlen($extension));
+        return substr($path, 0, -(strlen($extension) + 1));
     }
 
     /**
