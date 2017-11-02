@@ -29,9 +29,16 @@ php -r "unlink(\'composer-setup.php\');"'''
         sh 'php vendor/bin/phpunit'
       }
     }
-    stage('') {
+    stage('error') {
       steps {
         tool 'sonar-scanner'
+        script {
+          def scannerHome = tool('sonar-scanner')
+          withSonarQubeEnv('radic-sonar') {
+            sh "${scannerHome}/bin/sonar-scanner"
+          }
+        }
+        
       }
     }
   }
