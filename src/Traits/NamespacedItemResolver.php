@@ -4,15 +4,15 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support\Traits;
 
 /**
- * Namespaced Item Resolver
+ * Namespaced Item Resolver.
  *
  * @author    Laradic Dev Team
  * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
  */
 trait NamespacedItemResolver
 {
@@ -26,7 +26,8 @@ trait NamespacedItemResolver
     /**
      * Parse a key into namespace, group, and item.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return array
      */
     public function parseKey($key)
@@ -41,9 +42,9 @@ trait NamespacedItemResolver
         // If the key does not contain a double colon, it means the key is not in a
         // namespace, and is just a regular configuration item. Namespaces are a
         // tool for organizing configuration items for things such as modules.
-        if (strpos($key, '::') === false) {
+        if (false === strpos($key, '::')) {
             $segments = explode('.', $key);
-            $parsed   = $this->parseBasicSegments($segments);
+            $parsed = $this->parseBasicSegments($segments);
         } else {
             $parsed = $this->parseNamespacedSegments($key);
         }
@@ -57,7 +58,8 @@ trait NamespacedItemResolver
     /**
      * Parse an array of basic segments.
      *
-     * @param  array  $segments
+     * @param array $segments
+     *
      * @return array
      */
     protected function parseBasicSegments(array $segments)
@@ -67,7 +69,7 @@ trait NamespacedItemResolver
         // just pulling an entire group out of the array and not a single item.
         $group = $segments[0];
 
-        if (count($segments) == 1) {
+        if (1 == count($segments)) {
             return [null, $group, null];
         } else {
             // If there is more than one segment in this group, it means we are pulling
@@ -82,7 +84,8 @@ trait NamespacedItemResolver
     /**
      * Parse an array of namespaced segments.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return array
      */
     protected function parseNamespacedSegments($key)
@@ -101,9 +104,8 @@ trait NamespacedItemResolver
     /**
      * Set the parsed value of a key.
      *
-     * @param  string $key
-     * @param  array  $parsed
-     * @return void
+     * @param string $key
+     * @param array  $parsed
      */
     public function setParsedKey($key, $parsed)
     {

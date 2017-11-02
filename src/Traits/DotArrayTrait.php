@@ -4,15 +4,15 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support\Traits;
 
 /**
- * Dot Array Access Trait
+ * Dot Array Access Trait.
  *
  * @author    Laradic Dev Team
  * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
  */
 trait DotArrayTrait
 {
@@ -26,18 +26,20 @@ trait DotArrayTrait
     /**
      * Determine if an item exists at an offset.
      *
-     * @param  mixed $offset
+     * @param mixed $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
     {
-        return array_has($this{$this->getArrayAccessor()}, $offset);
+        return array_has($this[$this->getArrayAccessor()], $offset);
     }
 
     /**
      * Get an item at a given offset.
      *
-     * @param  mixed $offset
+     * @param mixed $offset
+     *
      * @return mixed
      */
     public function offsetGet($offset)
@@ -48,9 +50,11 @@ trait DotArrayTrait
     /**
      * Set the item at a given offset.
      *
-     * @param        $offset
-     * @param  mixed $value
+     * @param       $offset
+     * @param mixed $value
+     *
      * @return $this
+     *
      * @internal param mixed $key
      */
     public function offsetSet($offset, $value = null)
@@ -69,7 +73,8 @@ trait DotArrayTrait
     /**
      * Unset the item at a given offset.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return $this
      */
     public function offsetUnset($key)
@@ -80,7 +85,7 @@ trait DotArrayTrait
     }
 
     /**
-     * getIterator
+     * getIterator.
      *
      * @return \ArrayIterator
      */

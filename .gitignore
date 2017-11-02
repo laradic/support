@@ -1,4 +1,5 @@
-vendor/
-composer.lock
-local.properties
-/build
+/vendor
+/composer.lock
+/ci
+/.scannerwork
+/.php_cs.cache

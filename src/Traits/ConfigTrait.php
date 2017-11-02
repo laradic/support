@@ -5,16 +5,15 @@
  * License and copyright information bundled with this package in the LICENSE file
  */
 
-
 namespace Laradic\Support\Traits;
 
 trait ConfigTrait
 {
-    protected $config = [ ];
+    protected $config = [];
 
     public function config($key = null, $default = null)
     {
-        return $key === null ? $this->config : array_get($this->config, $key, $default);
+        return null === $key ? $this->config : array_get($this->config, $key, $default);
     }
 
     /**
@@ -26,7 +25,7 @@ trait ConfigTrait
     }
 
     /**
-     * Set the config value
+     * Set the config value.
      *
      * @param mixed $config
      *

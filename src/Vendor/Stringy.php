@@ -1,32 +1,33 @@
 <?php
+
 namespace Laradic\Support\Vendor;
 
 use Stringy\Stringy as BaseStringy;
 
 /**
- * Stringy
+ * Stringy.
  *
  * @author    Laradic Dev Team
  * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
  */
 class Stringy extends BaseStringy
 {
     /**
      * Magic call static method.
      *
-     * @param  string $name
-     * @param  mixed  $parameters
+     * @param string $name
+     * @param mixed  $parameters
+     *
      * @return mixed
      */
     public static function __callStatic($name, $parameters)
     {
-        return call_user_func_array([ static::create(head($parameters)) , $name ], array_slice($parameters, 1));
+        return call_user_func_array([static::create(head($parameters)), $name], array_slice($parameters, 1));
     }
 
     /**
-     * Studly Namespace
+     * Studly Namespace.
      *
      * Transforms "vendor-name/package-name" into "VendorName/PackageName".
      *
@@ -40,17 +41,17 @@ class Stringy extends BaseStringy
     }
 
     /**
-     * Explode a string into an array
+     * Explode a string into an array.
      *
-     * @param  string    $delimiter
-     * @param  int|null  $limit
+     * @param string   $delimiter
+     * @param int|null $limit
+     *
      * @return array
      */
     public function split($delimiter, $limit = null)
     {
         return explode($delimiter, $this->str, $limit);
     }
-
 
     /**
      * {@inheritdoc}

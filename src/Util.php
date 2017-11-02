@@ -9,14 +9,21 @@
  * @copyright Copyright 2017 (c) Robin Radic
  * @license https://laradic.mit-license.org The MIT License
  */
+
 namespace Laradic\Support;
 
 use Symfony\Component\Process\Process;
 
+/**
+ * This is the class Util.
+ *
+ * @author  Robin Radic
+ * @codeCoverageIgnore
+ */
 class Util
 {
     /**
-     * Very simple 'template' parser. Replaces (for example) {name} with the value of $vars['name'] in strings
+     * Very simple 'template' parser. Replaces (for example) {name} with the value of $vars['name'] in strings.
      *
      * @param        $str
      * @param array  $vars
@@ -30,19 +37,18 @@ class Util
      * $result = Util::template('This is the best template parser. Created by {developerName}', ['developerName' => 'Radic']);
      * echo $result; // This is the best template parser. Created by Radic
      */
-    public static function template($str, array $vars = [ ], $openDelimiter = '{', $closeDelimiter = '}')
+    public static function template($str, array $vars = [], $openDelimiter = '{', $closeDelimiter = '}')
     {
         foreach ($vars as $k => $var) {
             if (is_array($var)) {
                 $str = static::template($str, $var);
             } elseif (is_string($var)) {
-                $str = Str::replace($str, $openDelimiter . $k . $closeDelimiter, $var);
+                $str = Str::replace($str, $openDelimiter.$k.$closeDelimiter, $var);
             }
         }
 
         return $str;
     }
-
 
     public static function recursiveArrayStringReplace($items, $vars = [])
     {
@@ -55,21 +61,20 @@ class Util
                 }
             }
         }
+
         return $items;
     }
-
-
 
     public static function randomChance($percent = 50)
     {
         return mt_rand(0, 100) > 100 - $percent;
     }
 
-    public static function shell($commands, array $opts = [ ])
+    public static function shell($commands, array $opts = [])
     {
         //$cwd = null, array $env = null, $input = null, $timeout = 60, array $options = array()
         if (is_array($commands)) {
-            $procs = [ ];
+            $procs = [];
             foreach ($commands as $command) {
                 $procs[] = static::shell($command, $opts);
             }
@@ -77,31 +82,30 @@ class Util
             return $procs;
         }
 
-
         $process = new Process($commands);
         $options = array_replace([
-            'type'     => 'sync', // sync|async
-            'cwd'      => null,
-            'env'      => null,
-            'timeout'  => 60,
+            'type' => 'sync', // sync|async
+            'cwd' => null,
+            'env' => null,
+            'timeout' => 60,
             'callback' => null,
-            'output'   => true,
+            'output' => true,
         ], $opts);
 
-        $options[ 'cwd' ] !== null && $process->setWorkingDirectory($options[ 'cwd' ]);
-        $options[ 'env' ] !== null && $process->setEnv($options[ 'env' ]);
-        is_int($options[ 'timeout' ]) && $process->setTimeout($options[ 'timeout' ]);
+        null !== $options['cwd'] && $process->setWorkingDirectory($options['cwd']);
+        null !== $options['env'] && $process->setEnv($options['env']);
+        is_int($options['timeout']) && $process->setTimeout($options['timeout']);
 
-        if ($options[ 'output' ] === true) {
+        if (true === $options['output']) {
             $process->enableOutput();
         } else {
             $process->disableOutput();
         }
 
-        $type = $options[ 'type' ];
-        if ($type === 'sync') {
-            $process->run($options[ 'callback' ]);
-        } elseif ($type === 'async') {
+        $type = $options['type'];
+        if ('sync' === $type) {
+            $process->run($options['callback']);
+        } elseif ('async' === $type) {
             $process->start();
         }
 
@@ -109,7 +113,7 @@ class Util
     }
 
     /**
-     * Get the class name from a php file
+     * Get the class name from a php file.
      *
      * @param string $filePath
      *
@@ -119,15 +123,14 @@ class Util
     {
         $tokens = token_get_all(file_get_contents($filePath));
 
-
-        for ($i = 0; $i < count($tokens); $i++) {
-            if ($tokens[ $i ][ 0 ] === T_TRAIT || $tokens[ $i ][ 0 ] === T_INTERFACE) {
+        for ($i = 0; $i < count($tokens); ++$i) {
+            if ($tokens[$i][0] === T_TRAIT || $tokens[$i][0] === T_INTERFACE) {
                 return;
             }
-            if ($tokens[ $i ][ 0 ] === T_CLASS) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ] === '{') {
-                        return $tokens[ $i + 2 ][ 1 ];
+            if ($tokens[$i][0] === T_CLASS) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ('{' === $tokens[$j]) {
+                        return $tokens[$i + 2][1];
                     }
                 }
             }
@@ -135,7 +138,7 @@ class Util
     }
 
     /**
-     * Get the namespace of the php file
+     * Get the namespace of the php file.
      *
      * @param $filePath
      *
@@ -144,14 +147,14 @@ class Util
     public static function getNamespaceFromFile($filePath)
     {
         $namespace = '';
-        $tokens    = token_get_all(file_get_contents($filePath));
-        for ($i = 0; $i < count($tokens); $i++) {
-            if ($tokens[ $i ][ 0 ] === T_NAMESPACE) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ][ 0 ] === T_STRING) {
-                        $namespace .= '\\' . $tokens[ $j ][ 1 ];
+        $tokens = token_get_all(file_get_contents($filePath));
+        for ($i = 0; $i < count($tokens); ++$i) {
+            if ($tokens[$i][0] === T_NAMESPACE) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ($tokens[$j][0] === T_STRING) {
+                        $namespace .= '\\'.$tokens[$j][1];
                     } else {
-                        if ($tokens[ $j ] === '{' || $tokens[ $j ] === ';') {
+                        if ('{' === $tokens[$j] || ';' === $tokens[$j]) {
                             return $namespace;
                         }
                     }
@@ -161,7 +164,7 @@ class Util
     }
 
     /**
-     * Get the namespace, classes, interfaces and traits of the php file
+     * Get the namespace, classes, interfaces and traits of the php file.
      *
      * @param $filePath
      *
@@ -169,49 +172,49 @@ class Util
      */
     public static function getPhpDefinitionsFromFile($filePath)
     {
-        $classes    = [ ];
-        $traits     = [ ];
-        $interfaces = [ ];
+        $classes = [];
+        $traits = [];
+        $interfaces = [];
 
-        $tokens = token_get_all(file_get_contents($filePath),TOKEN_PARSE);
+        $tokens = token_get_all(file_get_contents($filePath), TOKEN_PARSE);
 
         $trait = $interface = $class = $namespace = '';
 
-        for ($i = 0; $i < count($tokens); $i++) {
-            if ($tokens[ $i ][ 0 ] === T_NAMESPACE) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ][ 0 ] === T_STRING) {
-                        $namespace .= '\\' . $tokens[ $j ][ 1 ];
+        for ($i = 0; $i < count($tokens); ++$i) {
+            if ($tokens[$i][0] === T_NAMESPACE) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ($tokens[$j][0] === T_STRING) {
+                        $namespace .= '\\'.$tokens[$j][1];
                     } else {
-                        if ($tokens[ $j ] === '{' || $tokens[ $j ] === ';') {
+                        if ('{' === $tokens[$j] || ';' === $tokens[$j]) {
                             break;
                         }
                     }
                 }
             }
 
-            if ($tokens[ $i ][ 0 ] === T_CLASS) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ] === '{') {
-                        $class     = $tokens[ $i + 2 ][ 1 ];
+            if ($tokens[$i][0] === T_CLASS) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ('{' === $tokens[$j]) {
+                        $class = $tokens[$i + 2][1];
                         $classes[] = $class;
                     }
                 }
             }
 
-            if ($tokens[ $i ][ 0 ] === T_INTERFACE) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ] === '{') {
-                        $interface    = $tokens[ $i + 2 ][ 1 ];
+            if ($tokens[$i][0] === T_INTERFACE) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ('{' === $tokens[$j]) {
+                        $interface = $tokens[$i + 2][1];
                         $interfaces[] = $interface;
                     }
                 }
             }
 
-            if ($tokens[ $i ][ 0 ] === T_TRAIT) {
-                for ($j = $i + 1; $j < count($tokens); $j++) {
-                    if ($tokens[ $j ] === '{') {
-                        $trait    = $tokens[ $i + 2 ][ 1 ];
+            if ($tokens[$i][0] === T_TRAIT) {
+                for ($j = $i + 1; $j < count($tokens); ++$j) {
+                    if ('{' === $tokens[$j]) {
+                        $trait = $tokens[$i + 2][1];
                         $traits[] = $trait;
                     }
                 }
@@ -222,7 +225,7 @@ class Util
     }
 
     /**
-     * Get the namespace, classes, interfaces and traits of the php file
+     * Get the namespace, classes, interfaces and traits of the php file.
      *
      * @param $filePath
      *
@@ -230,13 +233,13 @@ class Util
      */
     public static function getPhpDefinitionsFromFileProgressive($filePath)
     {
-        $classes    = [ ];
-        $traits     = [ ];
-        $interfaces = [ ];
+        $classes = [];
+        $traits = [];
+        $interfaces = [];
 
-        $fp    = fopen($filePath, 'r');
+        $fp = fopen($filePath, 'r');
         $trait = $interface = $class = $namespace = $buffer = '';
-        $i     = 0;
+        $i = 0;
         while (!$class) {
             if (feof($fp)) {
                 break;
@@ -245,45 +248,45 @@ class Util
             $buffer .= fread($fp, 512);
             $tokens = token_get_all($buffer);
 
-            if (strpos($buffer, '{') === false) {
+            if (false === strpos($buffer, '{')) {
                 continue;
             }
 
-            for (; $i < count($tokens); $i++) {
-                if ($tokens[ $i ][ 0 ] === T_NAMESPACE) {
-                    for ($j = $i + 1; $j < count($tokens); $j++) {
-                        if ($tokens[ $j ][ 0 ] === T_STRING) {
-                            $namespace .= '\\' . $tokens[ $j ][ 1 ];
+            for (; $i < count($tokens); ++$i) {
+                if ($tokens[$i][0] === T_NAMESPACE) {
+                    for ($j = $i + 1; $j < count($tokens); ++$j) {
+                        if ($tokens[$j][0] === T_STRING) {
+                            $namespace .= '\\'.$tokens[$j][1];
                         } else {
-                            if ($tokens[ $j ] === '{' || $tokens[ $j ] === ';') {
+                            if ('{' === $tokens[$j] || ';' === $tokens[$j]) {
                                 break;
                             }
                         }
                     }
                 }
 
-                if ($tokens[ $i ][ 0 ] === T_CLASS) {
-                    for ($j = $i + 1; $j < count($tokens); $j++) {
-                        if ($tokens[ $j ] === '{') {
-                            $class     = $tokens[ $i + 2 ][ 1 ];
+                if ($tokens[$i][0] === T_CLASS) {
+                    for ($j = $i + 1; $j < count($tokens); ++$j) {
+                        if ('{' === $tokens[$j]) {
+                            $class = $tokens[$i + 2][1];
                             $classes[] = $class;
                         }
                     }
                 }
 
-                if ($tokens[ $i ][ 0 ] === T_INTERFACE) {
-                    for ($j = $i + 1; $j < count($tokens); $j++) {
-                        if ($tokens[ $j ] === '{') {
-                            $interface    = $tokens[ $i + 2 ][ 1 ];
+                if ($tokens[$i][0] === T_INTERFACE) {
+                    for ($j = $i + 1; $j < count($tokens); ++$j) {
+                        if ('{' === $tokens[$j]) {
+                            $interface = $tokens[$i + 2][1];
                             $interfaces[] = $interface;
                         }
                     }
                 }
 
-                if ($tokens[ $i ][ 0 ] === T_TRAIT) {
-                    for ($j = $i + 1; $j < count($tokens); $j++) {
-                        if ($tokens[ $j ] === '{') {
-                            $trait    = $tokens[ $i + 2 ][ 1 ];
+                if ($tokens[$i][0] === T_TRAIT) {
+                    for ($j = $i + 1; $j < count($tokens); ++$j) {
+                        if ('{' === $tokens[$j]) {
+                            $trait = $tokens[$i + 2][1];
                             $traits[] = $trait;
                         }
                     }

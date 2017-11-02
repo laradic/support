@@ -9,27 +9,26 @@
  * @copyright Copyright 2017 (c) Robin Radic
  * @license https://laradic.mit-license.org The MIT License
  */
+
 namespace Laradic\Support;
 
 /**
  * This is the class Path.
  *
- * @package        Laradic\Support
  * @author         Laradic
  * @copyright      Copyright (c) 2015, Laradic. All rights reserved
  */
 class Path extends Vendor\Path
 {
-
     public static function isPhar($path = null)
     {
-        $path = $path === null ? __FILE__ : $path;
+        $path = null === $path ? __FILE__ : $path;
 
         return Str::startsWith($path, 'phar://');
     }
 
     /**
-     * Equivalent of realpath() accept for Phar paths
+     * Equivalent of realpath() accept for Phar paths.
      *
      * @param $path
      *
@@ -43,7 +42,7 @@ class Path extends Vendor\Path
     /**
      * Joins a split file system path.
      *
-     * @param  array|string $path
+     * @param array|string $path
      *
      * @return string
      */
@@ -51,8 +50,8 @@ class Path extends Vendor\Path
     {
         $arguments = func_get_args();
 
-        if (func_num_args() === 1 and is_array($arguments[ 0 ])) {
-            $arguments = $arguments[ 0 ];
+        if (1 === func_num_args() and is_array($arguments[0])) {
+            $arguments = $arguments[0];
         }
 
         foreach ($arguments as $key => &$argument) {
@@ -64,14 +63,14 @@ class Path extends Vendor\Path
             if ($key > 0) {
                 $argument = Str::removeLeft($argument, '/');
             }
-            #$arguments[ $key ] = $argument;
+            //$arguments[ $key ] = $argument;
         }
 
         return implode(DIRECTORY_SEPARATOR, $arguments);
     }
 
     /**
-     * Similar to the join() method, but also normalize()'s the result
+     * Similar to the join() method, but also normalize()'s the result.
      *
      * @return string
      */
@@ -81,7 +80,7 @@ class Path extends Vendor\Path
     }
 
     /**
-     * Get the directory path
+     * Get the directory path.
      *
      * @param $path
      *
@@ -105,12 +104,12 @@ class Path extends Vendor\Path
         // Cannot use $_SERVER superglobal since that's empty during UnitUnishTestCase
         // getenv('HOME') isn't set on Windows and generates a Notice.
         $home = getenv('HOME');
-        if ( ! empty($home)) {
+        if (!empty($home)) {
             // home should never end with a trailing slash.
             $home = rtrim($home, '/');
-        } elseif ( ! empty($_SERVER[ 'HOMEDRIVE' ]) && ! empty($_SERVER[ 'HOMEPATH' ])) {
+        } elseif (!empty($_SERVER['HOMEDRIVE']) && !empty($_SERVER['HOMEPATH'])) {
             // home on windows
-            $home = $_SERVER[ 'HOMEDRIVE' ] . $_SERVER[ 'HOMEPATH' ];
+            $home = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'];
             // If HOMEPATH is a root directory the path can end with a slash. Make sure
             // that doesn't happen.
             $home = rtrim($home, '\\/');
@@ -132,6 +131,7 @@ class Path extends Vendor\Path
         if (empty($extension)) {
             return $path;
         }
+
         return substr($path, 0, -(strlen($extension) + 1));
     }
 
@@ -158,29 +158,29 @@ class Path extends Vendor\Path
     private static function split($path)
     {
         if ('' === $path) {
-            return [ '', '' ];
+            return ['', ''];
         }
 
-        $root   = '';
+        $root = '';
         $length = strlen($path);
 
         // Remove and remember root directory
-        if ('/' === $path[ 0 ]) {
+        if ('/' === $path[0]) {
             $root = '/';
             $path = $length > 1 ? substr($path, 1) : '';
-        } elseif ($length > 1 && ctype_alpha($path[ 0 ]) && ':' === $path[ 1 ]) {
+        } elseif ($length > 1 && ctype_alpha($path[0]) && ':' === $path[1]) {
             if (2 === $length) {
                 // Windows special case: "C:"
-                $root = $path . '/';
+                $root = $path.'/';
                 $path = '';
-            } elseif ('/' === $path[ 2 ]) {
+            } elseif ('/' === $path[2]) {
                 // Windows normal case: "C:/"..
                 $root = substr($path, 0, 3);
                 $path = $length > 3 ? substr($path, 3) : '';
             }
         }
 
-        return [ $root, $path ];
+        return [$root, $path];
     }
 
     /**

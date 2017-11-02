@@ -4,22 +4,23 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support\Traits;
 
 /**
- * Dot Array Object Access Trait
+ * Dot Array Object Access Trait.
  *
  * @author    Laradic Dev Team
  * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
  */
 trait DotArrayObjectTrait
 {
     /**
      * Dynamically access container services.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)
@@ -30,9 +31,8 @@ trait DotArrayObjectTrait
     /**
      * Dynamically set container services.
      *
-     * @param  string  $key
-     * @param  mixed   $value
-     * @return void
+     * @param string $key
+     * @param mixed  $value
      */
     public function __set($key, $value)
     {

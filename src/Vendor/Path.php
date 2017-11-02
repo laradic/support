@@ -72,9 +72,9 @@ class Path
      *
      * This method is able to deal with both UNIX and Windows paths.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
-     * @return string The canonical path.
+     * @return string the canonical path
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -152,9 +152,9 @@ class Path
      *
      * This method is able to deal with both UNIX and Windows paths.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
-     * @return string The normalized path.
+     * @return string the normalized path
      *
      * @since 2.2 Added method.
      */
@@ -183,7 +183,7 @@ class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
      * @return string The canonical directory part. Returns the root directory
      *                if the root directory is passed. Returns an empty string
@@ -264,7 +264,7 @@ class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
      * @return string The canonical root directory. Returns an empty string if
      *                the given path is relative or empty.
@@ -314,9 +314,9 @@ class Path
     /**
      * Returns the file name from a file path.
      *
-     * @param string $path The path string.
+     * @param string $path the path string
      *
-     * @return string The file name.
+     * @return string the file name
      *
      * @since 1.1 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -335,11 +335,11 @@ class Path
     /**
      * Returns the file name without the extension from a file path.
      *
-     * @param string      $path      The path string.
-     * @param string|null $extension If specified, only that extension is cut
-     *                               off (may contain leading dot).
+     * @param string      $path      the path string
+     * @param string|null $extension if specified, only that extension is cut
+     *                               off (may contain leading dot)
      *
-     * @return string The file name without extension.
+     * @return string the file name without extension
      *
      * @since 1.1 Added method.
      * @since 2.0 Method now fails if $path or $extension have invalid types.
@@ -364,12 +364,12 @@ class Path
     /**
      * Returns the extension from a file path.
      *
-     * @param string $path           The path string.
-     * @param bool   $forceLowerCase Forces the extension to be lower-case
+     * @param string $path           the path string
+     * @param bool   $forceLowerCase forces the extension to be lower-case
      *                               (requires mbstring extension for correct
-     *                               multi-byte character handling in extension).
+     *                               multi-byte character handling in extension)
      *
-     * @return string The extension of the file path (without leading dot).
+     * @return string the extension of the file path (without leading dot)
      *
      * @since 1.1 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -394,19 +394,19 @@ class Path
     /**
      * Returns whether the path has an extension.
      *
-     * @param string            $path       The path string.
-     * @param string|array|null $extensions If null or not provided, checks if
+     * @param string            $path       the path string
+     * @param string|array|null $extensions if null or not provided, checks if
      *                                      an extension exists, otherwise
      *                                      checks for the specified extension
      *                                      or array of extensions (with or
-     *                                      without leading dot).
-     * @param bool              $ignoreCase Whether to ignore case-sensitivity
+     *                                      without leading dot)
+     * @param bool              $ignoreCase whether to ignore case-sensitivity
      *                                      (requires mbstring extension for
      *                                      correct multi-byte character
-     *                                      handling in the extension).
+     *                                      handling in the extension)
      *
-     * @return bool Returns `true` if the path has an (or the specified)
-     *              extension and `false` otherwise.
+     * @return bool returns `true` if the path has an (or the specified)
+     *              extension and `false` otherwise
      *
      * @since 1.1 Added method.
      * @since 2.0 Method now fails if $path or $extensions have invalid types.
@@ -444,9 +444,9 @@ class Path
      * Changes the extension of a path string.
      *
      * @param string $path      The path string with filename.ext to change.
-     * @param string $extension New extension (with or without leading dot).
+     * @param string $extension new extension (with or without leading dot)
      *
-     * @return string The path string with new file extension.
+     * @return string the path string with new file extension
      *
      * @since 1.1 Added method.
      * @since 2.0 Method now fails if $path or $extension is not a string.
@@ -478,10 +478,10 @@ class Path
     /**
      * Returns whether a path is absolute.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
-     * @return bool Returns true if the path is absolute, false if it is
-     *              relative or empty.
+     * @return bool returns true if the path is absolute, false if it is
+     *              relative or empty
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -523,10 +523,10 @@ class Path
     /**
      * Returns whether a path is relative.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
-     * @return bool Returns true if the path is relative or empty, false if
-     *              it is absolute.
+     * @return bool returns true if the path is relative or empty, false if
+     *              it is absolute
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -567,14 +567,14 @@ class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path     A path to make absolute.
-     * @param string $basePath An absolute base path.
+     * @param string $path     a path to make absolute
+     * @param string $basePath an absolute base path
      *
-     * @return string An absolute path in canonical form.
+     * @return string an absolute path in canonical form
      *
-     * @throws InvalidArgumentException If the base path is not absolute or if
+     * @throws InvalidArgumentException if the base path is not absolute or if
      *                                  the given path is an absolute path with
-     *                                  a different root than the base path.
+     *                                  a different root than the base path
      *
      * @since 1.0   Added method.
      * @since 2.0   Method now fails if $path or $basePath is not a string.
@@ -652,14 +652,14 @@ class Path
      *
      * The result is a canonical path.
      *
-     * @param string $path     A path to make relative.
-     * @param string $basePath A base path.
+     * @param string $path     a path to make relative
+     * @param string $basePath a base path
      *
-     * @return string A relative path in canonical form.
+     * @return string a relative path in canonical form
      *
-     * @throws InvalidArgumentException If the base path is not absolute or if
+     * @throws InvalidArgumentException if the base path is not absolute or if
      *                                  the given path has a different root
-     *                                  than the base path.
+     *                                  than the base path
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $path or $basePath is not a string.
@@ -740,9 +740,9 @@ class Path
     /**
      * Returns whether the given path is on the local filesystem.
      *
-     * @param string $path A path string.
+     * @param string $path a path string
      *
-     * @return bool Returns true if the path is local, false for a URL.
+     * @return bool returns true if the path is local, false for a URL
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $path is not a string.
@@ -789,11 +789,11 @@ class Path
      * // => null
      * ```
      *
-     * @param array $paths A list of paths.
+     * @param array $paths a list of paths
      *
-     * @return string|null The longest common base path in canonical form or
+     * @return string|null the longest common base path in canonical form or
      *                     `null` if the paths are on different Windows
-     *                     partitions.
+     *                     partitions
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $paths are not strings.
@@ -842,9 +842,9 @@ class Path
      *
      * The result is a canonical path.
      *
-     * @param string[]|string $paths Path parts as parameters or array.
+     * @param string[]|string $paths path parts as parameters or array
      *
-     * @return string The joint path.
+     * @return string the joint path
      *
      * @since 2.0 Added method.
      */
@@ -869,7 +869,7 @@ class Path
             if (null === $finalPath) {
                 // For first part we keep slashes, like '/top', 'C:\' or 'phar://'
                 $finalPath = $path;
-                $wasScheme = (strpos($path, '://') !== false);
+                $wasScheme = (false !== strpos($path, '://'));
                 continue;
             }
 
@@ -910,10 +910,10 @@ class Path
      * // => false
      * ```
      *
-     * @param string $basePath The base path to test.
-     * @param string $ofPath   The other path.
+     * @param string $basePath the base path to test
+     * @param string $ofPath   the other path
      *
-     * @return bool Whether the base path is a base path of the other path.
+     * @return bool whether the base path is a base path of the other path
      *
      * @since 1.0 Added method.
      * @since 2.0 Method now fails if $basePath or $ofPath is not a string.
@@ -948,10 +948,10 @@ class Path
      * list ($root, $path) = Path::split("C:")
      * // => array("C:/", "")
      *
-     * @param string $path The canonical path to split.
+     * @param string $path the canonical path to split
      *
-     * @return string[] An array with the root directory and the remaining
-     *                  relative path.
+     * @return string[] an array with the root directory and the remaining
+     *                  relative path
      */
     private static function split($path)
     {

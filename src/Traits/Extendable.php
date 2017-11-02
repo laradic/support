@@ -9,6 +9,7 @@
  * @copyright Copyright 2017 (c) Robin Radic
  * @license https://laradic.mit-license.org The MIT License
  */
+
 namespace Laradic\Support\Traits;
 
 use BadMethodCallException;
@@ -19,24 +20,23 @@ use Laradic\Support\Str;
 /**
  * This is the class Extendable.
  *
- * @package        Laradic\Support
  * @author         Docit
  * @copyright      Copyright (c) 2015, Docit. All rights reserved
  */
 trait Extendable
 {
     /**
-     * getContainer method
+     * getContainer method.
      *
      * @return Container
      */
     abstract public function getContainer();
 
-    protected static $extensions = [ ];
+    protected static $extensions = [];
 
-    protected static $components = [ ];
+    protected static $components = [];
 
-    protected $componentInstances = [ ];
+    protected $componentInstances = [];
 
     public static function extensions()
     {
@@ -46,14 +46,14 @@ trait Extendable
     public static function extend($name, $extension)
     {
         if (is_string($extension) && !Str::contains($extension, '@')) {
-            static::$components[ $name ] = $extension;
+            static::$components[$name] = $extension;
         } else {
-            static::$extensions[ $name ] = $extension;
+            static::$extensions[$name] = $extension;
         }
     }
 
     /**
-     * callExtension method
+     * callExtension method.
      *
      * @private
      *
@@ -64,7 +64,7 @@ trait Extendable
      */
     protected function callExtension($name, $parameters)
     {
-        $callback = static::$extensions[ $name ];
+        $callback = static::$extensions[$name];
 
         if ($callback instanceof Closure) {
             return call_user_func_array($callback->bindTo($this, get_class($this)), $parameters);
@@ -73,11 +73,11 @@ trait Extendable
         }
     }
 
-
     /**
-     * callClassBasedExtension method
+     * callClassBasedExtension method.
      *
      * @private
+     *
      * @param $callback
      * @param $parameters
      *
@@ -87,14 +87,14 @@ trait Extendable
     {
         list($class, $method) = explode('@', $callback);
         $instance = $this->getContainer()->make($class, [
-            'parent' => $this
+            'parent' => $this,
         ]);
 
-        return call_user_func_array([ $instance, $method ], $parameters);
+        return call_user_func_array([$instance, $method], $parameters);
     }
 
     /**
-     * getClassInstanceExtension method
+     * getClassInstanceExtension method.
      *
      * @param $name
      * @private
@@ -103,20 +103,20 @@ trait Extendable
      */
     private function getClassInstanceExtension($name)
     {
-        $extension = static::$components[ $name ];
+        $extension = static::$components[$name];
 
         if (is_string($extension) && class_exists($extension)) {
             if (!array_key_exists($name, $this->componentInstances)) {
-                $this->componentInstances[ $name ] = $this->getContainer()->make($extension, [
-                    'parent' => $this
+                $this->componentInstances[$name] = $this->getContainer()->make($extension, [
+                    'parent' => $this,
                 ]);
             }
 
-            return $this->componentInstances[ $name ];
+            return $this->componentInstances[$name];
         }
     }
 
-    public function __call($name, array $params = [ ])
+    public function __call($name, array $params = [])
     {
         if (array_key_exists($name, static::$extensions)) {
             return $this->callExtension($name, $params);

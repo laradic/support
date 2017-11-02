@@ -5,14 +5,13 @@
  * License and copyright information bundled with this package in the LICENSE file
  */
 
-
 namespace Laradic\Support\Traits;
 
 trait Observable
 {
     use StaticEventTrait;
 
-    protected $observables = [ ];
+    protected $observables = [];
 
     protected static function getEventNamespace()
     {
@@ -21,8 +20,6 @@ trait Observable
 
     /**
      * Remove all of the event listeners for the model.
-     *
-     * @return void
      */
     public static function flushEventListeners()
     {
@@ -30,29 +27,27 @@ trait Observable
             return;
         }
 
-        $instance  = new static;
+        $instance = new static();
         $namespace = static::getEventNamespace();
 
         foreach ($instance->getObservableEvents() as $event) {
-            static::$dispatcher->forget("{$namespace}.{$event}: " . get_called_class());
+            static::$dispatcher->forget("{$namespace}.{$event}: ".get_called_class());
         }
     }
 
     /**
      * Register a model event with the dispatcher.
      *
-     * @param  string          $event
-     * @param  \Closure|string $callback
-     * @param  int             $priority
-     *
-     * @return void
+     * @param string          $event
+     * @param \Closure|string $callback
+     * @param int             $priority
      */
     protected static function registerEvent($event, $callback, $priority = 0)
     {
         if (!isset(static::$dispatcher)) {
             static::initEventDispatcher();
         }
-        $name      = get_called_class();
+        $name = get_called_class();
         $namespace = static::getEventNamespace();
 
         static::$dispatcher->listen("{$namespace}.{$event}: {$name}", $callback, $priority);
@@ -71,7 +66,7 @@ trait Observable
     /**
      * Set the observable event names.
      *
-     * @param  array $observables
+     * @param array $observables
      *
      * @return $this
      */
@@ -85,9 +80,7 @@ trait Observable
     /**
      * Add an observable event name.
      *
-     * @param  array|mixed $observables
-     *
-     * @return void
+     * @param array|mixed $observables
      */
     public function addObservableEvents($observables)
     {
@@ -98,9 +91,7 @@ trait Observable
     /**
      * Remove an observable event name.
      *
-     * @param  array|mixed $observables
-     *
-     * @return void
+     * @param array|mixed $observables
      */
     public function removeObservableEvents($observables)
     {

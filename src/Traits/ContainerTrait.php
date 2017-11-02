@@ -4,6 +4,7 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support\Traits;
 
 use Illuminate\Contracts\Container\Container;
@@ -35,20 +36,22 @@ trait ContainerTrait
             $this->container = \Illuminate\Container\Container::getInstance();
         }
         $this->app = $this->container;
+
         return $this->container;
     }
 
     /**
      * Sets the IoC container instance.
      *
-     * @param  \Illuminate\Container\Container $container
+     * @param \Illuminate\Container\Container $container
      *
      * @return $this
      */
     public function setContainer(Container $container)
     {
         $this->container = $container;
-        $this->app       = $this->container;
+        $this->app = $this->container;
+
         return $this;
     }
 }

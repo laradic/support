@@ -5,7 +5,6 @@
  * License and copyright information bundled with this package in the LICENSE file
  */
 
-
 namespace Laradic\Support\Traits;
 
 trait Bootable
@@ -16,14 +15,12 @@ trait Bootable
 
     /**
      * Check if the model needs to be booted and if so, do it.
-     *
-     * @return void
      */
     protected function bootIfNotBooted()
     {
         $class = get_class($this);
 
-        if (! isset(static::$booted[$class])) {
+        if (!isset(static::$booted[$class])) {
             static::$booted[$class] = true;
 
             $this->fireEvent('booting', false);
@@ -36,8 +33,6 @@ trait Bootable
 
     /**
      * The "booting" method of the model.
-     *
-     * @return void
      */
     protected static function boot()
     {
@@ -46,8 +41,6 @@ trait Bootable
 
     /**
      * Boot all of the bootable traits on the model.
-     *
-     * @return void
      */
     protected static function bootTraits()
     {
@@ -60,8 +53,6 @@ trait Bootable
 
     /**
      * Clear the list of booted models so they will be re-booted.
-     *
-     * @return void
      */
     public static function clearBooted()
     {

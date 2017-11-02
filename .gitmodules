@@ -1,3 +1,0 @@
-[submodule "build/phing"]
-	path = build/phing
-	url = https://bitbucket.org/laradicpackages/laradic-phing

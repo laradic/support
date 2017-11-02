@@ -12,17 +12,15 @@
 
 namespace Laradic\Support\Contracts;
 
-
 /**
- * Interface Stringable
+ * Interface Stringable.
  *
- * @package Laradic\Support\Contracts
  * @author  Robin Radic
  */
 interface Stringable
 {
     /**
-     * __toString method
+     * __toString method.
      *
      * @return mixed
      */

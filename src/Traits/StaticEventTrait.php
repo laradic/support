@@ -4,6 +4,7 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support\Traits;
 
 use Illuminate\Contracts\Events\Dispatcher;
@@ -11,10 +12,10 @@ use Illuminate\Contracts\Events\Dispatcher;
 /**
  * This is the EventTrait.
  *
- * @package        Laradic\Support
  * @author         Laradic Dev Team
  * @copyright      Copyright (c) 2015, Laradic
  * @license        https://tldrlegal.com/license/mit-license MIT License
+ * @codeCoverageIgnore
  */
 trait StaticEventTrait
 {
@@ -46,6 +47,7 @@ trait StaticEventTrait
      * Sets the event dispatcher instance.
      *
      * @param \Illuminate\Contracts\Events\Dispatcher|\Illuminate\Events\Dispatcher $dispatcher
+     *
      * @return $this
      */
     public static function setDispatcher(Dispatcher $dispatcher)
@@ -68,12 +70,13 @@ trait StaticEventTrait
     /**
      * Sets the event dispatcher status.
      *
-     * @param  bool $status
+     * @param bool $status
+     *
      * @return $this
      */
     public static function setDispatcherStatus($status)
     {
-        static::$dispatcher = (bool)$status;
+        static::$dispatcher = (bool) $status;
 
         return static::class;
     }
@@ -101,20 +104,21 @@ trait StaticEventTrait
     /**
      * Fires an event.
      *
-     * @param  string $event
-     * @param  mixed  $payload
-     * @param  bool   $halt
+     * @param string $event
+     * @param mixed  $payload
+     * @param bool   $halt
+     *
      * @return mixed
      */
-    protected function fireEvent($event, $payload = [ ], $halt = false)
+    protected function fireEvent($event, $payload = [], $halt = false)
     {
-        if (! isset(static::$dispatcher)) {
+        if (!isset(static::$dispatcher)) {
             static::initEventDispatcher();
         }
 
         $dispatcher = static::$dispatcher;
-        $status     = static::$dispatcherStatus;
-        if (! $dispatcher || $status === false) {
+        $status = static::$dispatcherStatus;
+        if (!$dispatcher || false === $status) {
             return;
         }
         $method = $halt ? 'until' : 'fire';
@@ -124,8 +128,6 @@ trait StaticEventTrait
 
     /**
      * Initialize a new Event Dispatcher instance.
-     *
-     * @return void
      */
     protected static function initEventDispatcher()
     {

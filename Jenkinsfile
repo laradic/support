@@ -9,6 +9,9 @@
  * @license https://laradic.mit-license.org The MIT License
  */
 
+// requires SonarQube Scanner 2.8+
+def scannerHome = tool 'SonarQube Scanner 2.8';
+
 //noinspection GroovyAssignabilityCheck
 pipeline {
     agent any
@@ -54,9 +57,10 @@ php -r "unlink(\'composer-setup.php\');"'''
 
         stage('Publish Results') {
             steps {
-                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
-                step([$class: 'hudson.plugins.pmd.PmdPublisher', pattern: 'build/logs/pmd.xml'])
-                step([$class: 'org.jenkinsci.plugins.cloverphp.CloverPHPPublisher', xmlLocation: 'build/logs/clover.xml', reportDir: 'build/coverage'])
+//                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
+//                step([$class: 'hudson.plugins.pmd.PmdPublisher', pattern: 'ci/logs/pmd.xml'])
+                step([$class: 'org.'])
+                step([$class: 'org.jenkinsci.plugins.cloverphp.CloverPHPPublisher', xmlLocation: 'ci/codeCoverage/codeCoverage.xml', reportDir: 'ci/coverage'])
             }
         }
     }

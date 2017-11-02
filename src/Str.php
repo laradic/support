@@ -4,15 +4,15 @@
  *
  * MIT License and copyright information bundled with this package in the LICENSE file
  */
+
 namespace Laradic\Support;
 
 /**
- * String helper methods
+ * String helper methods.
  *
  * @author    Laradic Dev Team
  * @copyright Copyright (c) 2015, Laradic
  * @license   https://tldrlegal.com/license/mit-license MIT License
- * @package   Laradic\Support
  *
  * @method static string namespacedStudly(string $subject) Transforms "vendor-name/package-name" into "VendorName\PackageName"
  * @method static array split(string $subject, $delimiter, int $limit = null) explode
@@ -89,25 +89,26 @@ namespace Laradic\Support;
  * @method static string regexReplace(string $subject, string $pattern, string $replacement, string $options = 'msr') Replaces all occurrences of $pattern in $str by $replacement. An alias for mb_ereg_replace(). Note that the 'i' option with multibyte patterns in mb_ereg_replace() requires PHP 5.4+. This is due to a lack of support in the bundled version of Oniguruma in PHP 5.3.
  * @mixin \Underscore\Methods\StringsMethods
  * @mixin \Illuminate\Support\Str
+ * @codeCoverageIgnore
  */
 class Str
 {
     /**
      * Get the instance of Stringy.
      *
-     * @param  array $arguments
+     * @param array $arguments
      *
      * @return Stringy
      */
     public function getStringyString($arguments)
     {
-        return forward_static_call(__NAMESPACE__ . '\\Vendor\\Stringy::create', head($arguments));
+        return forward_static_call(__NAMESPACE__.'\\Vendor\\Stringy::create', head($arguments));
     }
 
     /**
      * Create a new PHP Underscore string instance.
      *
-     * @param  string $string
+     * @param string $string
      *
      * @return static
      */
@@ -119,20 +120,20 @@ class Str
     /**
      * Create a new Stringy string instance.
      *
-     * @param  string $string
+     * @param string $string
      *
      * @return \Laradic\Support\Vendor\Stringy
      */
     public static function create($string)
     {
-        return forward_static_call(__NAMESPACE__ . '\\Vendor\\Stringy::create', $string);
+        return forward_static_call(__NAMESPACE__.'\\Vendor\\Stringy::create', $string);
     }
 
     /**
      * Magic call method.
      *
-     * @param  string $name
-     * @param  mixed  $parameters
+     * @param string $name
+     * @param mixed  $parameters
      *
      * @return mixed
      */
@@ -142,15 +143,15 @@ class Str
 
         $c = new \ReflectionClass('Underscore\\Methods\\StringsMethods');
         if ($c->hasMethod($name)) {
-            return forward_static_call_array([ 'Underscore\\Methods\\StringsMethods', $name ], $parameters);
+            return forward_static_call_array(['Underscore\\Methods\\StringsMethods', $name], $parameters);
         } elseif (class_exists('Illuminate\\Support\\Str') && method_exists('Illuminate\\Support\\Str', $name)) {
-            return forward_static_call_array([ 'Illuminate\\Support\\Str', $name ], $parameters);
-        } elseif (class_exists('Underscore\\Methods\\StringsMethods') && method_exists('Underscore\\Methods\\StringsMethods', $name) && !is_null($reflect) && $reflect->isPublic()) {
-            return forward_static_call_array([ 'Underscore\\Types\\Strings', $name ], $parameters);
+            return forward_static_call_array(['Illuminate\\Support\\Str', $name], $parameters);
+        } elseif (class_exists('Underscore\\Methods\\StringsMethods') && method_exists('Underscore\\Methods\\StringsMethods', $name) && null !== $reflect && $reflect->isPublic()) {
+            return forward_static_call_array(['Underscore\\Types\\Strings', $name], $parameters);
         } elseif (class_exists('Stringy\\Stringy')) {
             $object = $this->getStringyString($parameters);
             if (method_exists($object, $name)) {
-                return (string)call_user_func_array([ $object, $name ], array_slice($parameters, 1));
+                return (string) call_user_func_array([$object, $name], array_slice($parameters, 1));
             }
         }
         throw new \BadMethodCallException("could not call [$name]. Do you have underscore and stringy installed?");
@@ -159,34 +160,33 @@ class Str
     /**
      * Magic call static method.
      *
-     * @param  string $name
-     * @param  mixed  $parameters
+     * @param string $name
+     * @param mixed  $parameters
      *
      * @return mixed
      */
     public static function __callStatic($name, $parameters)
     {
-        return call_user_func_array([ new static(), $name ], $parameters);
+        return call_user_func_array([new static(), $name], $parameters);
     }
-
 
     public static function getExceptionTraceAsString(\Throwable $exception)
     {
-        $rtn   = "";
+        $rtn = '';
         $count = 0;
         foreach ($exception->getTrace() as $frame) {
-            $args = "";
-            if (isset($frame[ 'args' ])) {
-                $args = [ ];
-                foreach ($frame[ 'args' ] as $arg) {
+            $args = '';
+            if (isset($frame['args'])) {
+                $args = [];
+                foreach ($frame['args'] as $arg) {
                     if (is_string($arg)) {
-                        $args[] = "'" . $arg . "'";
+                        $args[] = "'".$arg."'";
                     } elseif (is_array($arg)) {
-                        $args[] = "Array";
-                    } elseif (is_null($arg)) {
+                        $args[] = 'Array';
+                    } elseif (null === $arg) {
                         $args[] = 'NULL';
                     } elseif (is_bool($arg)) {
-                        $args[] = ($arg) ? "true" : "false";
+                        $args[] = ($arg) ? 'true' : 'false';
                     } elseif (is_object($arg)) {
                         $args[] = get_class($arg);
                     } elseif (is_resource($arg)) {
@@ -195,18 +195,19 @@ class Str
                         $args[] = $arg;
                     }
                 }
-                $args = join(", ", $args);
+                $args = implode(', ', $args);
             }
             $rtn .= sprintf(
                 "#%s %s(%s): %s(%s)\n",
                 $count,
-                isset($frame[ 'file' ]) ? $frame[ 'file' ] : '',
-                isset($frame[ 'line' ]) ? $frame[ 'line' ] : '',
-                $frame[ 'function' ],
+                isset($frame['file']) ? $frame['file'] : '',
+                isset($frame['line']) ? $frame['line'] : '',
+                $frame['function'],
                 $args
             );
-            $count++;
+            ++$count;
         }
+
         return $rtn;
     }
 }

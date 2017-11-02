@@ -5,26 +5,32 @@
  * License and copyright information bundled with this package in the LICENSE file
  */
 
-
 namespace Laradic\Support\Traits;
 
 use Laradic\Support\Path;
 
+/**
+ * This is the PathTrait trait.
+ *
+ * @author  Robin Radic
+ * @codeCoverageIgnore
+ */
 trait PathTrait
 {
     protected $path;
 
     /**
-     * path method
+     * path method.
      *
      * @param null|string $path
-     * @param bool $canonicalize
+     * @param bool        $canonicalize
      *
      * @return string
      */
     public function path($path = null, $canonicalize = false)
     {
-        $path = $path === null ? $this->path : Path::join($this->path, $path);
+        $path = null === $path ? $this->path : Path::join($this->path, $path);
+
         return $canonicalize ? Path::canonicalize($path) : $path;
     }
 
@@ -37,7 +43,7 @@ trait PathTrait
     }
 
     /**
-     * Set the path value
+     * Set the path value.
      *
      * @param mixed $path
      *
