@@ -56,15 +56,13 @@ php -r "unlink(\'composer-setup.php\');"'''
                 sh 'php phing.phar -buildfile build.xml'
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'composer install'
-            }
-        }
+
         stage('Publish Results') {
-            step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
-            step([$class: 'hudson.plugins.pmd.PmdPublisher', pattern: 'build/logs/pmd.xml'])
-            step([$class: 'org.jenkinsci.plugins.cloverphp.CloverPHPPublisher', xmlLocation: 'build/logs/clover.xml', reportDir: 'build/coverage'])
+            steps {
+                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
+                step([$class: 'hudson.plugins.pmd.PmdPublisher', pattern: 'build/logs/pmd.xml'])
+                step([$class: 'org.jenkinsci.plugins.cloverphp.CloverPHPPublisher', xmlLocation: 'build/logs/clover.xml', reportDir: 'build/coverage'])
+            }
         }
     }
 }
