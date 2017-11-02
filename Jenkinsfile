@@ -29,7 +29,7 @@ php -r "unlink(\'composer-setup.php\');"'''
         sh 'php vendor/bin/phpunit'
       }
     }
-    stage('error') {
+    stage('Scan Code Quality') {
       steps {
         tool 'sonar-scanner'
         script {
@@ -39,6 +39,11 @@ php -r "unlink(\'composer-setup.php\');"'''
           }
         }
         
+      }
+    }
+    stage('Check Quality') {
+      steps {
+        waitForQualityGate()
       }
     }
   }
