@@ -18,12 +18,12 @@ class SupportServiceProvider extends ServiceProvider
         ];
         array_walk($providers, [ $this->app, 'register' ]);
         $this->mergeConfigFrom(__DIR__ . '/../config/laradic.support.php', 'laradic.support');
-        $command = new AddMixins($this->app['config']['laradic.support.mixins']);
-        $this->app->call([$command, 'handle']);
+        $command = new AddMixins($this->app[ 'config' ][ 'laradic.support.mixins' ]);
+        $this->app->call([ $command, 'handle' ]);
     }
 
     public function boot()
     {
-
+        $this->publishes([ __DIR__ . '/../config/laradic.support.php' => config_path('laradic/support.php') ]);
     }
 }
