@@ -7,24 +7,29 @@ A general support package for the Laravel 5 framework. Laradic Support provides 
 
 The package follows the FIG standards PSR-1, PSR-2, and PSR-4 to ensure a high level of interoperability between shared PHP code.
 
+Overview
+--------
+- Over 100 mixins for `Str`, `Arr` and `Collection`. Enable/disable each one using the configuration file.
+- `Bench` for simple benchmarking
+- `Dot` is the dot-notated equivalent of `Collection`
+- `FS` as a singleton `Filesystem` with static callable methods
+- `Sorter` for dependency sorting
+- `CommandsVisibility` trait for your `Console\Kernel` to hide commands/namespaces (also adds `-A|--show-all` option)
+- And more...  
+
+
 Quick Installation
 ------------------
 Begin by installing the package through Composer.
 
 ```bash
-composer require laradic/support=~1.0
+composer require laradic/support=~2.0
 ```
 
 
 Documentation
 -------------
 
-[Go to documentation](docs/index.md)
+... todo
 
 
-
-Overview
---------
-
-#### `Laradic\Support\Str`
-Combines all string functions from Laravel, Underscore PHP and Stringy
