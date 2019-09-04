@@ -8,7 +8,7 @@
         {"name": "Robin Radic", "homepage": "http://robin.radic.ninja", "email": "rradic@hotmail.com", "role": "Developer"}
     ],
     "require": {
-        "illuminate/support": "5.*",
+        "illuminate/support": "~5.0|~6.0",
         "adbario/php-dot-notation": "~2.2",
         "webmozart/path-util": "~2.3",
         "symfony/expression-language": "~3.0|~4.0",
