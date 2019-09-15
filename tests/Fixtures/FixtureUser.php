@@ -1,6 +1,6 @@
 <?php
 
-namespace Crvs\Tests\Support\Fixtures;
+namespace Laradic\Tests\Support\Fixtures;
 
 class FixtureUser
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Crvs\Tests\Support;
+namespace Laradic\Tests\Support;
 
-use Crvs\Tests\Support\Fixtures\FixtureUser;
+use Laradic\Support\Commands\AddMixins;
+use Laradic\Tests\Support\Fixtures\FixtureUser;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -17,5 +18,12 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function getFixtureUserArray()
     {
         return array_map([FixtureUser::class, 'make'], $this->getFixtureDataArray());
+    }
+
+    public function setUp():void
+    {
+        $config=require __DIR__.'/../config/laradic.support.php';
+        $command = new AddMixins($config['mixins']);
+        $command->handle();
     }
 }

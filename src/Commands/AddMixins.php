@@ -16,6 +16,13 @@ class AddMixins
         $this->mixins = $mixins;
     }
 
+    public function withDefaultMixins()
+    {
+        $config = require dirname(dirname(__DIR__)) . '/config/laradic.support.php';
+        $this->mixins = $config['mixins'];
+        return $this;
+    }
+
     public function handle()
     {
         foreach ($this->mixins as $for => $methods) {

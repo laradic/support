@@ -9,7 +9,7 @@ class CSFixerConfig extends Config
 
     public function __construct($header = null)
     {
-        parent::__construct('CRVS coding standard');
+        parent::__construct('Laradic coding standard');
         $this->header = $header;
     }
 
@@ -33,7 +33,10 @@ class CSFixerConfig extends Config
             'no_break_comment' => true,
             'no_closing_tag' => true,
             'no_spaces_after_function_name' => true,
-//            'no_spaces_inside_parenthesis' => false,
+//            'no_spaces_inside_parenthesis' => true,
+
+            'not_operator_with_space'=>true, // Logical NOT operators (!) should have leading and trailing whitespaces.
+            'not_operator_with_successor_space'=>true, // Logical NOT operators (!) should have one trailing whitespace.
             'no_trailing_whitespace' => true,
             'no_trailing_whitespace_in_comment' => true,
             'single_blank_line_at_eof' => true,

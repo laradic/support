@@ -18,19 +18,21 @@
     "require-dev": {
         "tcb13/substringy": "^1.0",
         "danielstjules/sliceable-stringy": "dev-master@dev",
-        "friendsofphp/php-cs-fixer": "~2.0"
+        "friendsofphp/php-cs-fixer": "~2.0",
+        "flow/jsonpath": "~0.4"
     },
     "suggest": {
         "tcb13/substringy": "^1.0",
-        "danielstjules/sliceable-stringy": "dev-master@dev"
+        "danielstjules/sliceable-stringy": "dev-master@dev",
+        "flow/jsonpath": "Enables JSONPath for arrays, collections and the wrapper"
     },
     "autoload": {
         "files": [
+            "src/helpers.php",
             "src/path_helpers.php"
         ],
         "psr-4": {
-            "Laradic\\Support\\": "src/",
-            "Spatie\\CollectionMacros\\": "Spatie/"
+            "Laradic\\Support\\": "src/"
         }
     },
     "autoload-dev": {

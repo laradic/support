@@ -57,4 +57,9 @@ class Dot extends \Adbar\Dot implements Arrayable
         return Arr::dot($this->toArray(), $prefix);
     }
 
+    public function contains($value, $path = null)
+    {
+        return $this->collect($path)->contains($value);
+    }
+
 }

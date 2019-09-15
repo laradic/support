@@ -1,15 +1,15 @@
 <?php
 
-namespace Crvs\Tests\Support\Macros;
+namespace Laradic\Tests\Support\Macros;
 
-use Crvs\Tests\Support\TestCase;
+use Laradic\Tests\Support\TestCase;
 use Illuminate\Support\Collection;
 
 class EvaluateTest extends TestCase
 {
     protected $data = [];
 
-    protected function setUp()
+    public function setUp():void
     {
         parent::setUp();
         $this->data = $this->getFixtureDataArray();

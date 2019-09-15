@@ -2,6 +2,9 @@
 
 namespace Laradic\Support\Macros\Collection;
 
+use Closure;
+use Illuminate\Container\Container;
+
 class Cast
 {
     public function __invoke()
@@ -22,6 +25,12 @@ class Cast
                 }
                 if ($to === 'int') {
                     return (int)$item;
+                }
+                if (class_exists($to)) {
+                    return new $to($item);
+                }
+                if ($to instanceof Closure) {
+                    return Container::getInstance()->call($to, [$item]);
                 }
                 return $item;
             });

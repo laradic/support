@@ -25,13 +25,13 @@
 >
     <testsuites>
         <testsuite name="Support Dependencies Suite">
-            <directory suffix=".php">./tests/</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix="Test.php">./src</directory>
             <exclude>
                 <directory suffix=".php">./src/Traits</directory>
                 <directory suffix=".php">./src/Contracts</directory>

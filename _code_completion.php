@@ -5,7 +5,7 @@ namespace Illuminate\Support {
 
     use ByteUnits\Binary;
     use ByteUnits\Metric;
-    use Crvs\Support\Dot;
+    use Laradic\Support\Dot;
 
     /**
      * @method $this evaluate($expression, $method = 'each', array $vars = [])
@@ -13,6 +13,47 @@ namespace Illuminate\Support {
      * @method $this cast(string $to)
      * @method $this call(callable $callable, $parameters = [], $addKeyAsParameter = true)
      * @method $this pushTo(string $key, $value, bool $allowDuplicates = false)
+     *
+     *
+     * @method withSize(int $size)        Create a new collection with the specified amount of items.
+     * @method transpose()        Transpose an array.
+     * @method collect(mixed  $key, mixed  $default)        Get a new collection from the collection by key.
+     * @method fromPairs()        Transform a collection into an associative array form collection item.
+     * @method sliceBefore(callable $callback, bool $preserveKeys)        Slice a collection before a given callback is met into separate chunks.
+     * @method extract()        Extract keys from a collection, like `only`, except:- If a value doesn't exist, it returns null instead of omitting it- It returns a collection without keys, so `list()` can be used.
+     * @method validate(string|callable $callback)        Returns true if $callback returns true for every item. If $callbackis a string or an array, regard it as a validation rule.
+     * @method rotate(int $offset)        Rotate the items in the collection with given offset.
+     * @method sixth()
+     * @method ifEmpty(callable $callback)        Execute a callable if the collection is empty, then return the collection.
+     * @method groupByModel(string|callable $callback, bool $preserveKeys, mixed $modelKey, mixed $itemsKey)        Group a collection by an Eloquent model.
+     * @method second()
+     * @method eighth()
+     * @method eachCons(int $chunkSize, bool $preserveKeys)        Get the consecutive values in the collection defined by the given chunk size.
+     * @method fourth()
+     * @method toPairs()        Transform a collection into an an array with pairs.
+     * @method chunkBy(callable $callback, bool $preserveKeys)        Separate a collection into chunks as long as the given callback returns true.
+     * @method before()
+     * @method tail(bool $preserveKeys)        Get the tail of a collection, everything except the first item.
+     * @method sectionBy(mixed $key, bool $preserveKeys, mixed $sectionKey, mixed $itemsKey)        Splits a collection into sections grouped by a given key.
+     * @method firstOrFail()        Get the first item. Throws CollectionItemNotFound if the item was not found.
+     * @method prioritize(callable  $callable)        Move elements to the start of the collection.
+     * @method ifAny(callable $callback)        Execute a callable if the collection isn't empty, then return the collection.
+     * @method pluckToArray(string|array  $value, string|null  $key)        Get the array of values of a given key.
+     * @method parallelMap(callable $callback)        Idential to map but each item will be processed in parallel.This function requires the installation of amphp/parallel-functions
+     * @method paginate(int $perPage, int $total, int $page, string $pageName)        Paginate the given collection.
+     * @method fifth()
+     * @method at(mixed $index)        Get a single item from the collection by index.
+     * @method none(mixed $key, mixed $value)        Check whether a collection doesn't contain any occurrences of a givenitem, key-value pair, or passing truth test. `none` accepts the sameparameters as the `contains` collection method.
+     * @method seventh()
+     * @method glob(callable $callback)        Execute a callable if the collection isn't empty, then return the collection.
+     * @method tenth()
+     * @method simplePaginate(int $perPage, int $page, string $pageName)        Paginate the collection into a simple paginator.
+     * @method third()
+     * @method ninth()
+     * @method filterMap(callable $callback)        Map a collection, then filter the results.
+     * @method head()        Get the first item from the collection.
+     * @method after(mixed $currentItem, mixed $fallback)        Get the next item from the collection.
+
      */
     interface Collection
     {

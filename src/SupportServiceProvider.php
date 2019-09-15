@@ -4,7 +4,7 @@ namespace Laradic\Support;
 
 use Laradic\Support\Commands\AddMixins;
 use Illuminate\Support\ServiceProvider;
-use Spatie\CollectionMacros\CollectionMacroServiceProvider;
+use Laradic\Support\Spatie\CollectionMacros\CollectionMacroServiceProvider;
 
 class SupportServiceProvider extends ServiceProvider
 {
