@@ -11,6 +11,8 @@ class AddMixins
     /** @var array */
     protected $mixins;
 
+    public static $handled = false;
+
     public function __construct(array $mixins = null)
     {
         $this->mixins = $mixins;
@@ -18,13 +20,17 @@ class AddMixins
 
     public function withDefaultMixins()
     {
-        $config = require dirname(dirname(__DIR__)) . '/config/laradic.support.php';
-        $this->mixins = $config['mixins'];
+        $config       = require dirname(dirname(__DIR__)) . '/config/laradic.support.php';
+        $this->mixins = $config[ 'mixins' ];
         return $this;
     }
 
     public function handle()
     {
+        if(static::$handled){
+            return;
+        }
+        static::$handled=true;
         foreach ($this->mixins as $for => $methods) {
             if (method_exists($this, $for)) {
                 $this->{$for}($methods);
@@ -32,10 +38,9 @@ class AddMixins
         }
     }
 
-    protected function addMacros($for, array $names = [])
+    protected function addMacros($class, array $names = [])
     {
-        $className = ucfirst($for);
-        $class     = 'Illuminate\\Support\\' . $className;
+        $className = last(explode('\\', $class));
         collect(glob(__DIR__ . '/../Macros/' . $className . '/*.php', GLOB_NOSORT))
             ->mapWithKeys(function ($path) {
                 return [ $path => pathinfo($path, PATHINFO_FILENAME) ];
@@ -53,18 +58,23 @@ class AddMixins
 
     public function collection(array $names = [])
     {
-        $this->addMacros('collection', $names);
+        $this->addMacros(\Illuminate\Support\Collection::class, $names);
     }
 
 
     public function arr(array $names = [])
     {
-        $this->addMacros('arr', $names);
+        $this->addMacros(\Illuminate\Support\Arr::class, $names);
     }
 
     public function str(array $names = [])
     {
-        $this->addMacros('str', $names);
+        $this->addMacros(\Illuminate\Support\Str::class, $names);
+    }
+
+    public function filesystem(array $names = [])
+    {
+        $this->addMacros(\Illuminate\Filesystem\Filesystem::class, $names);
     }
 
     public function stringy(array $names = [])

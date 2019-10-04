@@ -1,6 +1,13 @@
 <?php
 
 
+namespace Illuminate\Filesystem {
+
+    /**
+     * @method string[] rglob($pattern, $flag=0)
+     */
+    class Filesystem {}
+}
 namespace Illuminate\Support {
 
     use ByteUnits\Binary;
@@ -8,13 +15,14 @@ namespace Illuminate\Support {
     use Laradic\Support\Dot;
 
     /**
+     * @mixin \Illuminate\Support\Collection
      * @method $this evaluate($expression, $method = 'each', array $vars = [])
      * @method Dot toDot()
      * @method $this cast(string $to)
      * @method $this call(callable $callable, $parameters = [], $addKeyAsParameter = true)
      * @method $this pushTo(string $key, $value, bool $allowDuplicates = false)
-     *
-     *
+     * @method mixed dataGet($key, $default=null)
+     * @method $this dataSet($key, $value, $overwrite=true)
      * @method withSize(int $size)        Create a new collection with the specified amount of items.
      * @method transpose()        Transpose an array.
      * @method collect(mixed  $key, mixed  $default)        Get a new collection from the collection by key.
@@ -53,9 +61,8 @@ namespace Illuminate\Support {
      * @method filterMap(callable $callback)        Map a collection, then filter the results.
      * @method head()        Get the first item from the collection.
      * @method after(mixed $currentItem, mixed $fallback)        Get the next item from the collection.
-
      */
-    interface Collection
+    class Collection
     {
     }
 

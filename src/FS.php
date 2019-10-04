@@ -45,6 +45,7 @@ use Symfony\Component\Finder\SplFileInfo;
  * @method static bool deleteDirectory($directory, $preserve = null)         Recursively delete a directory.
  * @method static bool deleteDirectories($directory)         Remove all of the directories within a given directory.
  * @method static bool cleanDirectory($directory)         Empty the specified directory of all files and folders.
+ * @method static string[] rglob($pattern, $flag = 0)         Empty the specified directory of all files and folders.
  */
 class FS
 {

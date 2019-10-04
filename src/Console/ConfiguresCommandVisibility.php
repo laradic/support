@@ -15,8 +15,13 @@ trait ConfiguresCommandVisibility
 {
     abstract protected function configureVisibility(CommandsVisibility $visibility);
 
+    private $addedCommandVisibility = false;
     protected function addCommandVisibility(Application $application)
     {
+        if($this->addedCommandVisibility){
+            return $application;
+        }
+        $this->addedCommandVisibility=true;
         $visibility = new CommandsVisibility();
         $this->configureVisibility($visibility);
         $hiddenCommands = collect($application->all())->filter(function (Command $value, $key) use ($visibility) {
@@ -48,6 +53,7 @@ trait ConfiguresCommandVisibility
                 }
             }
         });
+        return $application;
     }
 
 }

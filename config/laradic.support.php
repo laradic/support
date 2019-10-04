@@ -11,14 +11,20 @@ return [
         //'is' => 'local',
     ],
     'mixins' => [
+        'filesystem' => [
+            'rglob'
+        ],
         'collection' => [
             'evaluate',
             'cast',
+            'dataGet',
+            'dataSet',
             'toDot',
             'call',
             'pushTo'
         ],
         'arr' => [
+            'cut',
             'merge',
             'prefix'
         ],
