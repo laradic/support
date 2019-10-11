@@ -4,6 +4,7 @@
 namespace Illuminate\Filesystem {
 
     /**
+     * @method void ensureDirectory($path, $mode=0755)
      * @method string[] rglob($pattern, $flag=0)
      */
     class Filesystem {}
@@ -18,6 +19,7 @@ namespace Illuminate\Support {
      * @mixin \Illuminate\Support\Collection
      * @method $this evaluate($expression, $method = 'each', array $vars = [])
      * @method Dot toDot()
+     * @method mixed loadInto(string $target)
      * @method $this cast(string $to)
      * @method $this call(callable $callable, $parameters = [], $addKeyAsParameter = true)
      * @method $this pushTo(string $key, $value, bool $allowDuplicates = false)

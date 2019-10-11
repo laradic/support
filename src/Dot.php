@@ -3,9 +3,9 @@
 namespace Laradic\Support;
 
 use Closure;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Arrayable;
 
 class Dot extends \Adbar\Dot implements Arrayable
 {
@@ -36,23 +36,24 @@ class Dot extends \Adbar\Dot implements Arrayable
         $this->items = &$items;
         return $this;
     }
+
     public function dot($key = null)
     {
         return new static($key === null ? $this->items : $this->get($key, []));
     }
 
-    public function collect($key = null)
+    public function collect($key = null, $default = [])
     {
-        return collect($key === null ? $this->items : $this->get($key, []));
+        return collect($key === null ? $this->items : $this->get($key, $default));
     }
 
     public function forget($keys)
     {
-        Arr::forget($this->items,  $keys);
+        Arr::forget($this->items, $keys);
         return $this;
     }
 
-    public function toDotArray($prefix='')
+    public function toDotArray($prefix = '')
     {
         return Arr::dot($this->toArray(), $prefix);
     }
@@ -62,4 +63,14 @@ class Dot extends \Adbar\Dot implements Arrayable
         return $this->collect($path)->contains($value);
     }
 
+    public function cut($values)
+    {
+        foreach ($this->items as $key => $value) {
+            if (in_array($value, $values, true)) {
+                unset($this->items[ $key ]);
+            }
+        }
+        $this->items = array_values($this->items);
+        return $values;
+    }
 }

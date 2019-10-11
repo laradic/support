@@ -6,3 +6,13 @@ if(!function_exists('rglob')){
         return \Laradic\Support\FS::rglob($pattern, $flag);
     }
 }
+
+
+
+if(!function_exists('array_differences')) {
+    function array_differences($before, $after, &$added, &$removed)
+    {
+        $added   = array_diff($after, $before);
+        $removed = array_diff($before, $after);
+    }
+}

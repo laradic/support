@@ -12,7 +12,8 @@ return [
     ],
     'mixins' => [
         'filesystem' => [
-            'rglob'
+            'rglob',
+            'ensureDirectory'
         ],
         'collection' => [
             'evaluate',
@@ -21,10 +22,10 @@ return [
             'dataSet',
             'toDot',
             'call',
-            'pushTo'
+            'pushTo',
+            'loadInto'
         ],
         'arr' => [
-            'cut',
             'merge',
             'prefix'
         ],
