@@ -16,6 +16,7 @@ trait ConfiguresCommandVisibility
     abstract protected function configureVisibility(CommandsVisibility $visibility);
 
     private $addedCommandVisibility = false;
+    private $hiddenCommands;
     protected function addCommandVisibility(Application $application)
     {
         if($this->addedCommandVisibility){
@@ -24,13 +25,20 @@ trait ConfiguresCommandVisibility
         $this->addedCommandVisibility=true;
         $visibility = new CommandsVisibility();
         $this->configureVisibility($visibility);
-        $hiddenCommands = collect($application->all())->filter(function (Command $value, $key) use ($visibility) {
+        $this->hiddenCommands = collect($application->all())->filter(function (Command $value, $key) use ($visibility) {
             if ($visibility->shouldHideCommand($key)) {
                 $value->setHidden(true);
                 return true;
             }
             return false;
         });
+        $this->app->instance('commands.hidden', $this->hiddenCommands);
+        $this->app->bind('commands.unhider', function(){
+            return function(){
+                $this->hiddenCommands->values()->evaluate('setHidden(false)');
+            };
+        });
+
         $this->events->listen(CommandFinished::class, function (CommandFinished $event) use ($application) {
             if ($event->command === null || $event->command === 'list') {
                 $input = $event->input;
@@ -41,7 +49,7 @@ trait ConfiguresCommandVisibility
                 }
             }
         });
-        $this->events->listen(CommandStarting::class, function (CommandStarting $event) use ($visibility, $hiddenCommands, $application) {
+        $this->events->listen(CommandStarting::class, function (CommandStarting $event) use ($visibility, $application) {
             if ($event->command === null || $event->command === 'list') {
                 $application->getDefinition()->addOption(new InputOption('show-all', 'A', InputOption::VALUE_NONE, 'Show full commands on list'));
             }
@@ -49,7 +57,7 @@ trait ConfiguresCommandVisibility
                 $input = $event->input;
                 $input->bind($application->getDefinition());
                 if ($input->hasOption('show-all') && $input->getOption('show-all')) {
-                    $hiddenCommands->values()->evaluate('setHidden(false)');
+                    $this->hiddenCommands->values()->evaluate('setHidden(false)');
                 }
             }
         });

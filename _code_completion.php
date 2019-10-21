@@ -19,6 +19,9 @@ namespace Illuminate\Support {
      * @mixin \Illuminate\Support\Collection
      * @method $this evaluate($expression, $method = 'each', array $vars = [])
      * @method Dot toDot()
+     * @method bool hasString($string, bool $useKey = false)
+     * @method bool hasMatchingString($pattern, bool $useKey = false)
+     * @method $this matchingString($pattern, bool $useKey = false)
      * @method mixed loadInto(string $target)
      * @method $this cast(string $to)
      * @method $this call(callable $callable, $parameters = [], $addKeyAsParameter = true)

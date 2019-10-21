@@ -23,7 +23,10 @@ return [
             'toDot',
             'call',
             'pushTo',
-            'loadInto'
+            'loadInto',
+            'hasMatchingString',
+            'matchingString',
+            'hasString'
         ],
         'arr' => [
             'merge',
