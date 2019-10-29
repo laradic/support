@@ -25,10 +25,11 @@ class Dot extends \Adbar\Dot implements Arrayable
         } elseif (is_string($key)) {
             $items = (array)$this->get($key);
             $keys  = array_keys($items);
-            $items = array_map($key, $this->items, $keys);
+            $items = array_map($value, $items, $keys);
             $value = array_combine($keys, $items);
             $this->set($key, $value);
         }
+        return $this;
     }
 
     public function referenced(array &$items = [])
