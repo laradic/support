@@ -11,12 +11,12 @@ class Wrap
 
     public static function dot($value = [])
     {
-        return new Dot($value);
+        return Dot::wrap($value);
     }
 
     public static function collect($value = [])
     {
-        return new Collection($value);
+        return Collection::wrap($value);
     }
 
     public static function stringy($string = '', $encoding = null)

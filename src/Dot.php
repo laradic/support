@@ -4,12 +4,18 @@ namespace Laradic\Support;
 
 use Closure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Dot extends \Adbar\Dot implements Arrayable
 {
     use Macroable;
+
+    public static function wrap($data = null)
+    {
+        return new static(Collection::wrap($data)->all());
+    }
 
     public function toArray()
     {
