@@ -17,6 +17,16 @@ class Dot extends \Adbar\Dot implements Arrayable
         return new static(Collection::wrap($data)->all());
     }
 
+    public static function make($items = [])
+    {
+        return new static($items);
+    }
+
+    public static function reference(array &$items = [])
+    {
+        return static::make()->referenced($items);
+    }
+
     public function toArray()
     {
         return $this->all();
@@ -79,5 +89,11 @@ class Dot extends \Adbar\Dot implements Arrayable
         }
         $this->items = array_values($this->items);
         return $values;
+    }
+
+    public function set($keys, $value = null)
+    {
+        parent::set($keys, $value);
+        return $this;
     }
 }
