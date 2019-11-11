@@ -9,7 +9,8 @@ class Merge
 
     public function __invoke()
     {
-        return function ($arr1, $arr2, $unique = true) {
+        $self=$this;
+        return function ($arr1, $arr2, $unique = true) use ($self) {
             if (empty($arr1)) {
                 return $arr2;
             }
@@ -28,7 +29,7 @@ class Merge
                         $arr1[ $key ] = [];
                     }
                     if (Arr::accessible($arr1[ $key ])) {
-                        $value = Merge::__invoke()($arr1[ $key ], $value, $unique);
+                        $value = $self->__invoke()($arr1[ $key ], $value, $unique);
                     }
 
                     if (\is_int($key)) {
