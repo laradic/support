@@ -96,4 +96,14 @@ class Dot extends \Adbar\Dot implements Arrayable
         parent::set($keys, $value);
         return $this;
     }
+
+    public function dataGet($key, $default = null)
+    {
+        return data_get($this->items, $key,$default);
+    }
+
+    public function dataGetDot($key, $default = null)
+    {
+        return new static($this->dataGet($key, $default));
+    }
 }
