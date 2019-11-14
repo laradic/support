@@ -1,11 +1,11 @@
 {
     "name": "laradic/support",
-    "description": "Laravel 5 support package",
-    "homepage": "https://radic.ninja",
+    "description": "Laravel support package",
+    "homepage": "https://radic.io",
     "keywords": ["laravel", "laradic", "support", "repositories", "structure"],
     "license": "MIT",
     "authors": [
-        {"name": "Robin Radic", "homepage": "http://robin.radic.ninja", "email": "rradic@hotmail.com", "role": "Developer"}
+        {"name": "Robin Radic", "homepage": "https://radic.io", "email": "rradic@hotmail.com", "role": "Developer"}
     ],
     "require": {
         "illuminate/support": "~5.0|~6.0",
