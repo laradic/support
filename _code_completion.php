@@ -17,7 +17,8 @@ namespace Illuminate\Support {
 
     /**
      * @mixin \Illuminate\Support\Collection
-     * @method $this evaluate($expression, $method = 'each', array $vars = [])
+     * @property \Symfony\Component\ExpressionLanguage\Expression $_exl
+     * @method $this|static evaluate($expression, $method = 'each', array $vars = [])
      * @method Dot toDot()
      * @method bool hasString($string, bool $useKey = false)
      * @method bool hasMatchingString($pattern, bool $useKey = false)

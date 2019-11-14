@@ -29,7 +29,8 @@
     "autoload": {
         "files": [
             "src/helpers.php",
-            "src/path_helpers.php"
+            "src/path_helpers.php",
+            "src/wrap.php"
         ],
         "psr-4": {
             "Laradic\\Support\\": "src/"

@@ -34,6 +34,7 @@ class Evaluate
         $fromPhp = [
             'S' => 'Stringy\create',
             'C' => 'collect',
+            'D' => 'Laradic\Support\dot'
         ];
         foreach ($fromPhp as $expName => $phpName) {
             $exl->addFunction(ExpressionFunction::fromPhp($phpName, $expName));
