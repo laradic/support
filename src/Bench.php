@@ -68,14 +68,14 @@ class Bench
      * Start timer.
      *
      * @param bool $mark
-     * @return \Laradic\Support\Bench|void
+     * @return $this
      */
     public function start($mark = false)
     {
         if (null !== $this->start) {
             $this->logError('Please call ' . __CLASS__ . '::reset() before calling ' . __CLASS__ . '::start() again.');
 
-            return;
+            return $this;
         }
         $this->start = microtime(true);
         if($mark){
@@ -88,14 +88,14 @@ class Bench
      * Stop timer.
      *
      * @param bool $mark
-     * @return \Laradic\Support\Bench -> $this->getElapsed()
+     * @return $this
      */
     public function stop($mark =false)
     {
         if (null !== $this->stop) {
             $this->logError('Please call ' . __CLASS__ . '::reset() before calling ' . __CLASS__ . '::stop() again.');
 
-            return;
+            return $this;
         }
         $this->stop = microtime(true);
         if($mark){
