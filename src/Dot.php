@@ -91,6 +91,11 @@ class Dot extends \Adbar\Dot implements Arrayable
         return $values;
     }
 
+    /**
+     * @param array|int|string $keys
+     * @param null             $value
+     * @return $this
+     */
     public function set($keys, $value = null)
     {
         parent::set($keys, $value);
@@ -105,5 +110,19 @@ class Dot extends \Adbar\Dot implements Arrayable
     public function dataGetDot($key, $default = null)
     {
         return new static($this->dataGet($key, $default));
+    }
+
+    public function copy($from, $to = null, $force = false)
+    {
+        if(is_array($from)){
+            foreach($from as $f => $t){
+                $this->copy($f, $t, $force);
+            }
+            return $this;
+        }
+        if(!$this->has($to) || $force) {
+            $this->set($to, $this->get($from));
+        }
+        return $this;
     }
 }
