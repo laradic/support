@@ -39,6 +39,18 @@ class MultiBench extends Bench
         return static::class;
     }
 
+    public static function enable()
+    {
+        static::setEnabled(true);
+        return static::class;
+    }
+
+    public static function disable()
+    {
+        static::setEnabled(true);
+        return static::class;
+    }
+
     public function start($mark = false)
     {
         return static::$enabled ? parent::start($mark) : $this;

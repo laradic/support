@@ -63,11 +63,12 @@ class Bench
      */
     protected $stop = null;
 
+    protected $counters = [];
 
     /**
      * Start timer.
      *
-     * @param bool $mark
+     * @param string|bool $mark
      * @return $this
      */
     public function start($mark = false)
@@ -79,7 +80,7 @@ class Bench
         }
         $this->start = microtime(true);
         if($mark){
-            $this->mark('start');
+            $this->mark(is_string($mark) ? $mark : 'start');
         }
         return $this;
     }
@@ -87,7 +88,7 @@ class Bench
     /**
      * Stop timer.
      *
-     * @param bool $mark
+     * @param string|bool $mark
      * @return $this
      */
     public function stop($mark =false)
@@ -99,7 +100,7 @@ class Bench
         }
         $this->stop = microtime(true);
         if($mark){
-            $this->mark('stop');
+            $this->mark(is_string($mark) ? $mark : 'stop');
         }
 
         return $this;
@@ -114,6 +115,16 @@ class Bench
         $this->start = null;
         $this->stop  = null;
         return $this;
+    }
+
+    public function isStarted()
+    {
+        return $this->start !== null;
+    }
+
+    public function isStopped()
+    {
+        return $this->stop !== null;
     }
 
     /**

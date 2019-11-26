@@ -1,6 +1,18 @@
 <?php
 
 
+if(!function_exists('app_caller')){
+    /**
+     * @param       $class
+     * @param array $parameters
+     * @return \Laradic\Support\AppCaller|mixed
+     */
+    function app_caller($class, $parameters=[]){
+        return \Laradic\Support\AppCaller::make($class, $parameters);
+    }
+}
+
+
 if(!function_exists('rglob')){
     function rglob($pattern, $flag = 0){
         return \Laradic\Support\FS::rglob($pattern, $flag);
