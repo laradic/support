@@ -125,4 +125,10 @@ class Dot extends \Adbar\Dot implements Arrayable
         }
         return $this;
     }
+
+    public function keys($key = null)
+    {
+        $items = $this->get($key);
+        return array_keys($items);
+    }
 }
