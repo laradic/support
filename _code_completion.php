@@ -31,7 +31,7 @@ namespace Illuminate\Support {
      * @method $this dataSet($key, $value, $overwrite=true)
      * @method withSize(int $size)        Create a new collection with the specified amount of items.
      * @method transpose()        Transpose an array.
-     * @method collect(mixed  $key, mixed  $default)        Get a new collection from the collection by key.
+     * @method \Illuminate\Support\Collection collect(mixed  $key, mixed  $default=null)        Get a new collection from the collection by key.
      * @method fromPairs()        Transform a collection into an associative array form collection item.
      * @method sliceBefore(callable $callback, bool $preserveKeys)        Slice a collection before a given callback is met into separate chunks.
      * @method extract()        Extract keys from a collection, like `only`, except:- If a value doesn't exist, it returns null instead of omitting it- It returns a collection without keys, so `list()` can be used.
@@ -74,6 +74,7 @@ namespace Illuminate\Support {
 
 
     /**
+     * @method static string ancronym(string $str)
      * @method static string append(string $str, string $stringAppend, string $encoding = null)
      * @method static string at(string $str, int $index, string $encoding = null)
      * @method static string between(string $str, string $start, string $end, int $offset = 0, string $encoding = null)

@@ -32,6 +32,9 @@ return [
             'merge',
             'prefix'
         ],
+        'str' => [
+            'ancronym'
+        ],
         // requires: gabrielelana/byte-units
         'byte_units' => [
             'bytes',
