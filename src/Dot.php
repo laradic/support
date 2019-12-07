@@ -3,9 +3,12 @@
 namespace Laradic\Support;
 
 use Closure;
+use Traversable;
+use JsonSerializable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Dot extends \Adbar\Dot implements Arrayable
@@ -130,5 +133,47 @@ class Dot extends \Adbar\Dot implements Arrayable
     {
         $items = $this->get($key);
         return array_keys($items);
+    }
+
+    public function merge($key, $value = null)
+    {
+        if($value === null){
+            $key = $this->getArrayItems($key);
+        }
+        parent::merge($key, $value);
+        return $this;
+    }
+
+    protected function getArrayItems($items)
+    {
+        if (is_array($items)) {
+            return $items;
+        }
+
+        if ($items instanceof self) {
+            return $items->all();
+        }
+
+        if ($items instanceof Collection) {
+            return $items->all();
+        }
+
+        if ($items instanceof Arrayable) {
+            return $items->toArray();
+        }
+
+        if ($items instanceof Jsonable) {
+            return json_decode($items->toJson(), true);
+        }
+
+        if ($items instanceof JsonSerializable) {
+            return (array) $items->jsonSerialize();
+        }
+
+        if ($items instanceof Traversable) {
+            return iterator_to_array($items);
+        }
+
+        return (array) $items;
     }
 }

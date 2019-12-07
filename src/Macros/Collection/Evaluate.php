@@ -3,8 +3,8 @@
 namespace Laradic\Support\Macros\Collection;
 
 use ReflectionClass;
-use ReflectionException;
 use ReflectionMethod;
+use ReflectionException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
@@ -32,10 +32,14 @@ class Evaluate
     public function registerFunctions(ExpressionLanguage $exl)
     {
         $fromPhp = [
-            'S' => 'Stringy\create',
+            'S' => 'Laradic\Support\Helpers\stringy',
+            'B' => 'Laradic\Support\Helpers\bytes',
             'C' => 'collect',
-            'D' => 'Laradic\Support\dot'
+            'D' => 'Laradic\Support\Helpers\dot',
         ];
+//        $exl->addFunction(new ExpressionFunction('D',null, function(...$params){
+//            return;
+//        }));
         foreach ($fromPhp as $expName => $phpName) {
             $exl->addFunction(ExpressionFunction::fromPhp($phpName, $expName));
         }
