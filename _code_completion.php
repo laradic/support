@@ -16,6 +16,7 @@ namespace Illuminate\Support {
     use Laradic\Support\Dot;
 
     /**
+     * @template T
      * @mixin \Illuminate\Support\Collection
      * @property \Symfony\Component\ExpressionLanguage\Expression $_exl
      * @method $this|static evaluate($expression, $method = 'each', array $vars = [])

@@ -10,7 +10,7 @@ class DevProvidersProvider extends ServiceProvider
     {
         parent::__construct($app);
         $config = $app[ 'config' ][ 'laradic.support.dev_providers' ];
-        if ( ! $app[ 'config' ][ 'app.debug' ] || ! $config[ 'enabled' ]) {
+        if ( ! $app[ 'config' ][ 'app.debug' ] || ! data_get($config, 'enabled',false)) {
             return;
         }
         $when = $app[ 'config' ][ $config[ 'when' ] ];
