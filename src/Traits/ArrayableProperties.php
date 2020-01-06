@@ -4,6 +4,7 @@ namespace Laradic\Support\Traits;
 
 use Closure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 trait ArrayableProperties
 {
@@ -14,7 +15,7 @@ trait ArrayableProperties
         return 'arrayable';
     }
 
-    protected function getArrayableProperties()
+    protected function getArrayablePropertyKeys()
     {
         $property   = $this->getArrayablePropertiesProperty();
         $properties = $this->{$property};
@@ -34,12 +35,39 @@ trait ArrayableProperties
         return Arr::wrap($properties);
     }
 
-    public function toArray()
+    protected function addArrayableProperty($name)
+    {
+        $property            = $this->getArrayablePropertiesProperty();
+        $this->{$property}[] = $name;
+        return $this;
+    }
+
+    /** @noinspection CallableInLoopTerminationConditionInspection */
+    protected function forgetArrayableProperty($name)
+    {
+        $property = $this->getArrayablePropertiesProperty();
+        Arr::forget($this->{$property}, $name);
+        return $this;
+    }
+
+    protected function getArrayablePropertiesArray(?array $merge = null)
     {
         $result = [];
-        foreach ($this->getArrayableProperties() as $key) {
-            $result[ $key ] = $this->{$key};
+        foreach ($this->getArrayablePropertyKeys() as $key) {
+            $value = $this->{$key};
+            if (Arr::accessible($value)) {
+                $value = Collection::wrap($value)->toArray();
+            }
+            $result[ $key ] = $value;
+        }
+        if ($merge) {
+            $result = array_merge($result, $merge);
         }
         return $result;
+    }
+
+    public function toArray()
+    {
+        return $this->getArrayablePropertiesArray();
     }
 }
