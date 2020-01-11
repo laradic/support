@@ -10,6 +10,9 @@ class MultiBench extends Bench
 
     protected static $enabled = false;
 
+    /** @var Bench */
+    protected static $default;
+
     public static function keys()
     {
         return array_keys(static::$instances);
@@ -19,6 +22,9 @@ class MultiBench extends Bench
     {
         if ( ! array_key_exists($key, static::$instances)) {
             static::$instances[ $key ] = new static();
+            if ( ! static::default()) {
+                static::setDefault(static::$instances[ $key ]);
+            }
         }
         return static::$instances[ $key ];
     }
@@ -51,6 +57,20 @@ class MultiBench extends Bench
         return static::class;
     }
 
+    public static function setDefault($default)
+    {
+        static::$default = $default;
+        return static::class;
+    }
+
+    public static function default()
+    {
+        if (static::$default === null) {
+            static::$default = static::$instances[ static::keys()[ 0 ] ];
+        }
+        return static::$default;
+    }
+
     public function start($mark = false)
     {
         return static::$enabled ? parent::start($mark) : $this;
@@ -76,5 +96,10 @@ class MultiBench extends Bench
         return static::$enabled ? parent::dump($die) : $this;
     }
 
+
+    public static function dmark($id)
+    {
+        return static::default()->mark($id);
+    }
 
 }

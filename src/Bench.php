@@ -145,11 +145,16 @@ class Bench
 
         $mark                      = [];
         $mark[ 'id' ]              = $id;
-        $mark[ 'microtime' ]       = microtime(true);
-        $mark[ 'since_start' ]     = $mark[ 'microtime' ] - $this->start;
-
-        $mark[ 'since_last_mark' ] = count($this->marks) ? ($mark[ 'microtime' ] - $this->marks[ count($this->marks) - 1 ][ 'microtime' ]) : $mark[ 'since_start' ];
-        $mark[ 'since_last' ] = number_format($mark[ 'since_last_mark' ], 5);
+        $mark[ 'microtime' ] = microtime(true);
+        if (count($this->marks) === 0) {
+            $mark[ 'since_start' ]     = 0;
+            $mark[ 'since_last_mark' ] = 0;
+            $mark[ 'since_last' ]      = 0;
+        } else {
+            $mark[ 'since_start' ]     = $mark[ 'microtime' ] - $this->start;
+            $mark[ 'since_last_mark' ] = count($this->marks) ? ($mark[ 'microtime' ] - $this->marks[ count($this->marks) - 1 ][ 'microtime' ]) : $mark[ 'since_start' ];
+            $mark[ 'since_last' ]      = number_format($mark[ 'since_last_mark' ], 5);
+        }
         $this->marks[]             = $mark;
 
         return $this;
@@ -339,6 +344,7 @@ class Bench
         }
         $elapsed = $this->getElapsed();
         $stats   = [];
+        $stats[ 'marks' ] = $this->getMarks();
         if (count($this->getMarks())) {
             // Average Time (in seconds) Between Marks
             $stats[ 'mark_average' ] = $this->getMarkAverage();

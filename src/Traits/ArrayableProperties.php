@@ -4,6 +4,7 @@ namespace Laradic\Support\Traits;
 
 use Closure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
 trait ArrayableProperties
@@ -37,8 +38,10 @@ trait ArrayableProperties
 
     protected function addArrayableProperty($name)
     {
-        $property            = $this->getArrayablePropertiesProperty();
-        $this->{$property}[] = $name;
+        $propertyName = $this->getArrayablePropertiesProperty();
+        if ( ! in_array($name, $this->{$propertyName}, true)) {
+            $this->{$propertyName}[] = $name;
+        }
         return $this;
     }
 
@@ -54,7 +57,13 @@ trait ArrayableProperties
     {
         $result = [];
         foreach ($this->getArrayablePropertyKeys() as $key) {
-            $value = $this->{$key};
+            // try accessing the property via a getter method
+            $methodName = Str::camel('get_' . $key);
+            if(method_exists($this, $methodName)){
+                $value = $this->{$methodName}();
+            } else {
+                $value = $this->{$key};
+            }
             if (Arr::accessible($value)) {
                 $value = Collection::wrap($value)->toArray();
             }
