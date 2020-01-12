@@ -18,16 +18,19 @@ trait ArrayableProperties
 
     protected function getArrayablePropertyKeys()
     {
+        $class = get_class($this);
         $property   = $this->getArrayablePropertiesProperty();
-        $properties = $this->{$property};
-        if ($properties === null) {
+        $properties=null;
+        if(property_exists($this,$property)) {
+            $properties = $this->{$property};
+        }
+        if ($properties === null || (is_array($properties) && $properties === ['*'])) {
             $properties = 'get_class_vars';
         }
         if (is_string($properties)) {
             if ($properties === 'get_class_vars') {
                 $properties = array_keys(get_class_vars(get_class($this)));
-            }
-            if (method_exists($this, $properties)) {
+            } elseif (method_exists($this, $properties)) {
                 $properties = $this->$properties();
             }
         } elseif ($properties instanceof Closure) {
