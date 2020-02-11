@@ -61,16 +61,18 @@ trait ArrayableProperties
         $result = [];
         foreach ($this->getArrayablePropertyKeys() as $key) {
             // try accessing the property via a getter method
-            $methodName = Str::camel('get_' . $key);
-            if(method_exists($this, $methodName)){
-                $value = $this->{$methodName}();
-            } else {
-                $value = $this->{$key};
-            }
-            if (Arr::accessible($value)) {
-                $value = Collection::wrap($value)->toArray();
-            }
-            $result[ $key ] = $value;
+            try {
+                $methodName = Str::camel('get_' . $key);
+                if (method_exists($this, $methodName)) {
+                    $value = $this->{$methodName}();
+                } else {
+                    $value = $this->{$key};
+                }
+                if (Arr::accessible($value)) {
+                    $value = Collection::wrap($value)->toArray();
+                }
+                $result[ $key ] = $value;
+            } catch (\ErrorException $e){}
         }
         if ($merge) {
             $result = array_merge($result, $merge);
