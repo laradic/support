@@ -26,7 +26,8 @@ return [
             'loadInto',
             'hasMatchingString',
             'matchingString',
-            'hasString'
+            'hasString',
+            'setItems'
         ],
         'arr' => [
             'merge',

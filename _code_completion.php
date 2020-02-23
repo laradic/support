@@ -43,6 +43,7 @@ namespace Illuminate\Support {
      * @method groupByModel(string|callable $callback, bool $preserveKeys, mixed $modelKey, mixed $itemsKey)        Group a collection by an Eloquent model.
      * @method second()
      * @method eighth()
+     * @method $this setItems($items = [])
      * @method eachCons(int $chunkSize, bool $preserveKeys)        Get the consecutive values in the collection defined by the given chunk size.
      * @method fourth()
      * @method toPairs()        Transform a collection into an an array with pairs.
