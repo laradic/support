@@ -13,12 +13,17 @@ use Illuminate\Support\Arr;
  */
 class FileSearchAction extends FileAction
 {
+    const OPTION_RETURN_FIRST_MATCH = 'returnFirstMatch';
+    const OPTION_MATCHES_EXPRESSION = 'matchesExpression';
+    const OPTION_MATCHES_STRING = 'matchesStr';
+
+
     public function __construct(...$attributeArrays)
     {
         parent::__construct([
-            'returnFirstMatch'  => false,
-            'matchesExpression' => null,
-            'matchesStr'        => null,
+            static::OPTION_RETURN_FIRST_MATCH => false,
+            static::OPTION_MATCHES_EXPRESSION => null,
+            static::OPTION_MATCHES_STRING     => null,
         ], ...$attributeArrays);
     }
 
@@ -32,12 +37,12 @@ class FileSearchAction extends FileAction
         $file->seek($data[ 'startAt' ]);
         $result = [];
         while ($file->eof() === false || $file->key() <= 1) {
-            $currentLine = $file->key() ;
+            $currentLine = $file->key();
             $str         = $file->current();
             $isMatch     = false;
             if ($data[ 'matchesExpression' ]) {
-                foreach(Arr::wrap($data[ 'matchesExpression' ]) as $pattern){
-                    $isMatch = $isMatch ?: preg_match($pattern,$str) === 1;
+                foreach (Arr::wrap($data[ 'matchesExpression' ]) as $pattern) {
+                    $isMatch = $isMatch ?: preg_match($pattern, $str) === 1;
                 }
             }
             if ($data[ 'matchesStr' ]) {
@@ -46,7 +51,7 @@ class FileSearchAction extends FileAction
             if ($isMatch && $data[ 'returnFirstMatch' ]) {
                 return $currentLine;
             }
-            if($isMatch){
+            if ($isMatch) {
                 $result[] = $currentLine;
             }
 
@@ -55,7 +60,7 @@ class FileSearchAction extends FileAction
             } else {
                 $currentLine++;
             }
-            if($currentLine < 0){
+            if ($currentLine < 0) {
                 break;
             }
             $file->seek($currentLine);

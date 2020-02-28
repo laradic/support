@@ -14,11 +14,14 @@ class FileAction extends Fluent
     const DIRECTION_UPWARDS = 'upwards';
     const DIRECTION_DOWNWARDS = 'downwards';
 
+    const OPTION_DIRECTION = 'direction';
+    const OPTION_START_AT = 'startAt';
+
     public function __construct(...$attributeArrays)
     {
         parent::__construct(array_replace_recursive([
-            'direction' => static::DIRECTION_DOWNWARDS,
-            'startAt'   => 0,
+            self::OPTION_DIRECTION => static::DIRECTION_DOWNWARDS,
+            self::OPTION_START_AT   => 0,
         ], ...$attributeArrays));
     }
 
