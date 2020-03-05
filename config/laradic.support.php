@@ -18,6 +18,7 @@ return [
         'collection' => [
             'evaluate',
             'cast',
+            'clear',
             'dataGet',
             'dataSet',
             'toDot',

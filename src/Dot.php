@@ -131,7 +131,7 @@ class Dot extends \Adbar\Dot implements Arrayable
 
     public function keys($key = null)
     {
-        $items = $this->get($key);
+        $items = $this->get($key, []);
         return array_keys($items);
     }
 
