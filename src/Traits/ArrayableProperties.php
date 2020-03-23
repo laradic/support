@@ -16,15 +16,21 @@ trait ArrayableProperties
         return 'arrayable';
     }
 
+    protected function getUnarrayablePropertiesProperty()
+    {
+        return 'unarrayable';
+    }
+
     protected function getArrayablePropertyKeys()
     {
         $class = get_class($this);
+
         $property   = $this->getArrayablePropertiesProperty();
-        $properties=null;
-        if(property_exists($this,$property)) {
+        $properties = null;
+        if (property_exists($this, $property)) {
             $properties = $this->{$property};
         }
-        if ($properties === null || (is_array($properties) && $properties === ['*'])) {
+        if ($properties === null || (is_array($properties) && $properties === [ '*' ])) {
             $properties = 'get_class_vars';
         }
         if (is_string($properties)) {
@@ -36,7 +42,18 @@ trait ArrayableProperties
         } elseif ($properties instanceof Closure) {
             $properties = $properties->call($this);
         }
+
         return Arr::wrap($properties);
+    }
+
+    protected function getUnarrayablePropertyKeys()
+    {
+        $property   = $this->getUnarrayablePropertiesProperty();
+        $properties = [];
+        if (property_exists($this, $property)) {
+            $properties = $this->{$property};
+        }
+        return $properties;
     }
 
     protected function addArrayableProperty($name)
@@ -58,9 +75,13 @@ trait ArrayableProperties
 
     protected function getArrayablePropertiesArray(?array $merge = null)
     {
-        $result = [];
+        $result      = [];
+        $unarrayable = $this->getUnarrayablePropertyKeys();
         foreach ($this->getArrayablePropertyKeys() as $key) {
             // try accessing the property via a getter method
+            if (in_array($key, $unarrayable, true)) {
+                continue;
+            }
             try {
                 $methodName = Str::camel('get_' . $key);
                 if (method_exists($this, $methodName)) {
@@ -72,7 +93,9 @@ trait ArrayableProperties
                     $value = Collection::wrap($value)->toArray();
                 }
                 $result[ $key ] = $value;
-            } catch (\ErrorException $e){}
+            }
+            catch (\ErrorException $e) {
+            }
         }
         if ($merge) {
             $result = array_merge($result, $merge);
