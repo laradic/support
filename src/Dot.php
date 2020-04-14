@@ -15,6 +15,11 @@ class Dot extends \Adbar\Dot implements Arrayable
 {
     use Macroable;
 
+    public static function unwrap($value)
+    {
+        return $value instanceof self ? $value->all() : $value;
+    }
+
     public static function wrap($data = null)
     {
         return new static(Collection::wrap($data)->all());

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
 trait ArrayableProperties
 {
@@ -53,6 +54,8 @@ trait ArrayableProperties
         if (property_exists($this, $property)) {
             $properties = $this->{$property};
         }
+        $properties[] = 'unarrayable';
+        $properties[] = 'arrayable';
         return $properties;
     }
 
@@ -89,8 +92,16 @@ trait ArrayableProperties
                 } else {
                     $value = $this->{$key};
                 }
-                if (Arr::accessible($value)) {
+
+                if (
+                    $value instanceof Arrayable === false
+                    && Arr::accessible($value)
+                    && ! Arr::isAssoc($value)
+                ) {
                     $value = Collection::wrap($value)->toArray();
+                }
+                if( $value instanceof Arrayable){
+                    $value= $value->toArray();
                 }
                 $result[ $key ] = $value;
             }
