@@ -29,10 +29,10 @@ class AddMixins
 
     public function handle()
     {
-        if(static::$handled){
+        if (static::$handled) {
             return;
         }
-        static::$handled=true;
+        static::$handled = true;
         foreach ($this->mixins as $for => $methods) {
             if (method_exists($this, $for)) {
                 $this->{$for}($methods);
@@ -40,31 +40,36 @@ class AddMixins
         }
     }
 
-    protected function addMacros($class, array $names = [])
+    protected function addMacros($class, array $names = [], $directory= null)
     {
-        $className = last(explode('\\', $class));
-        collect(glob(__DIR__ . '/../Macros/' . $className . '/*.php', GLOB_NOSORT))
+        $directory = $directory ?? last(explode('\\', $class));
+        collect(glob(__DIR__ . '/../Macros/' . $directory . '/*.php', GLOB_NOSORT))
             ->mapWithKeys(function ($path) {
                 return [ $path => pathinfo($path, PATHINFO_FILENAME) ];
             })
             ->reject(function ($macro) use ($names, $class) {
 
-                return forward_static_call_array([ $class, 'hasMacro' ], [Str::camel($macro)]) || ! in_array(Str::camel($macro), $names);
+                return forward_static_call_array([ $class, 'hasMacro' ], [ Str::camel($macro) ]) || ! in_array(Str::camel($macro), $names);
             })
-            ->each(function ($macro, $path) use ($className, $class) {
-                $macroClass = 'Laradic\\Support\\Macros\\' . $className . '\\' . $macro;
+            ->each(function ($macro, $path) use ($directory, $class) {
+                $macroClass = 'Laradic\\Support\\Macros\\' . $directory . '\\' . $macro;
                 $app        = Container::getInstance();
-                forward_static_call_array([ $class, 'macro' ], [Str::camel($macro), $app->make($macroClass)()]);
+                forward_static_call_array([ $class, 'macro' ], [ Str::camel($macro), $app->make($macroClass)() ]);
             });
 
-        Arr::macro('cut', function (array &$array, array $names, $cb=null) {
+        Arr::macro('cut', function (array &$array, array $names, $cb = null) {
             $res   = Arr::only($array, $names);
             $array = Arr::except($array, $names);
-            if($cb instanceof Closure){
+            if ($cb instanceof Closure) {
                 $cb($array);
             }
             return $res;
         });
+    }
+
+    public function eloquentCollection(array $names = [])
+    {
+        $this->addMacros(\Illuminate\Database\Eloquent\Collection::class, $names,'EloquentCollection');
     }
 
     public function collection(array $names = [])

@@ -15,6 +15,9 @@ return [
             'rglob',
             'ensureDirectory'
         ],
+        'eloquentCollection' => [
+            'toArrayWithRelations',
+        ],
         'collection' => [
             'evaluate',
             'cast',
