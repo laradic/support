@@ -1,26 +1,29 @@
 <?php
-/**
- * Part of the Laradic PHP Packages.
- *
- * Copyright (c) 2017. Robin Radic.
- *
- * The license can be found in the package and online at https://laradic.mit-license.org.
- *
- * @copyright Copyright 2017 (c) Robin Radic
- * @license https://laradic.mit-license.org The MIT License
- */
+
 namespace Laradic\Tests\Support;
 
+use Laradic\Support\Commands\AddMixins;
+use Laradic\Tests\Support\Fixtures\FixtureUser;
 
-/**
- * This is the TestCase.
- *
- * @package        Laradic\Tests
- * @author         Laradic Dev Team
- * @copyright      Copyright (c) 2015, Laradic
- * @license        https://tldrlegal.com/license/mit-license MIT License
- */
-abstract class TestCase extends \PHPUnit\Framework\TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
+    protected function getFixtureDataArray()
+    {
+        return require __DIR__ . '/Fixtures/data_array.php';
+    }
 
+    /**
+     * @return FixtureUser[]
+     */
+    protected function getFixtureUserArray()
+    {
+        return array_map([FixtureUser::class, 'make'], $this->getFixtureDataArray());
+    }
+
+    public function setUp():void
+    {
+        $config=require __DIR__.'/../config/laradic.support.php';
+        $command = new AddMixins($config['mixins']);
+        $command->handle();
+    }
 }

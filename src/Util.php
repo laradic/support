@@ -12,7 +12,8 @@
 
 namespace Laradic\Support;
 
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Str;
+
 
 /**
  * This is the class Util.
@@ -82,7 +83,7 @@ class Util
             return $procs;
         }
 
-        $process = new Process($commands);
+        $process = new \Symfony\Component\Process\Process($commands);
         $options = array_replace([
             'type' => 'sync', // sync|async
             'cwd' => null,
