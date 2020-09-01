@@ -4,6 +4,9 @@ namespace Laradic\Support\Macros\Collection;
 
 use Laradic\Support\Wrap;
 
+/**
+ * Switch array wrapper from Collection to Dot
+ */
 class ToDot
 {
     public function __invoke()

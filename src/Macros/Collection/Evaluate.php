@@ -8,11 +8,21 @@ use ReflectionException;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
+/**
+ * Use symfony expression language
+ *
+ * @param string $expression The expression
+ */
 class Evaluate
 {
     public function __invoke()
     {
         $me = $this;
+        /**
+         * @param string $expression asdf
+         * @param string $method
+         * @param array  $vars
+         */
         return function ($expression, $method = 'each', array $vars = []) use ($me) {
             return $this->{$method}(static function ($item, $key) use ($expression, $vars, $me) {
                 $exl = new ExpressionLanguage();

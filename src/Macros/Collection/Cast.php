@@ -5,6 +5,11 @@ namespace Laradic\Support\Macros\Collection;
 use Closure;
 use Illuminate\Container\Container;
 
+/**
+ * Casts all the items to another type
+ *
+ * @param string|\Closure $to
+ */
 class Cast
 {
     public function __invoke()
@@ -30,7 +35,7 @@ class Cast
                     return new $to($item);
                 }
                 if ($to instanceof Closure) {
-                    return Container::getInstance()->call($to, [$item]);
+                    return Container::getInstance()->call($to, [ $item ]);
                 }
                 return $item;
             });
