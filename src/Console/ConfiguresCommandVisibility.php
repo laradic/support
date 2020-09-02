@@ -17,24 +17,29 @@ trait ConfiguresCommandVisibility
 
     private $addedCommandVisibility = false;
     private $hiddenCommands;
+
     protected function addCommandVisibility(Application $application)
     {
-        if($this->addedCommandVisibility){
+        if ($this->addedCommandVisibility) {
             return $application;
         }
-        $this->addedCommandVisibility=true;
-        $visibility = new CommandsVisibility();
+
+        $this->addedCommandVisibility = true;
+        $visibility                   = new CommandsVisibility();
         $this->configureVisibility($visibility);
         $this->hiddenCommands = collect($application->all())->filter(function (Command $value, $key) use ($visibility) {
             if ($visibility->shouldHideCommand($key)) {
+                if ($visibility = env('PYRO_COMMAND_VISIBILITY', null)) {
+
+                }
                 $value->setHidden(true);
                 return true;
             }
             return false;
         });
         $this->app->instance('commands.hidden', $this->hiddenCommands);
-        $this->app->bind('commands.unhider', function(){
-            return function(){
+        $this->app->bind('commands.unhider', function () {
+            return function () {
                 $this->hiddenCommands->values()->evaluate('setHidden(false)');
             };
         });

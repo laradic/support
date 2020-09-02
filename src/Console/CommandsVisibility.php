@@ -43,6 +43,9 @@ class CommandsVisibility
     {
         $hide = Str::is($this->visibility[ 'hide' ], $name);
         $show = Str::is($this->visibility[ 'show' ], $name);
+        if ($visibility = env('PYRO_COMMAND_VISIBILITY', null)) {
+            Str::is($visibility, $name);
+        }
         if ($hide) {
             return ! $show;
         }
