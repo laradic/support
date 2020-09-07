@@ -4,6 +4,8 @@ namespace Laradic\Support\Macros\Collection;
 
 /**
  * Clears the inner items or swaps it with a new array
+ *
+ * @return $this
  */
 class SetItems
 {

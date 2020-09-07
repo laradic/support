@@ -4,6 +4,9 @@ namespace Laradic\Support\Macros\Collection;
 
 /**
  * Clears the inner items or swaps it with a new array
+ *
+ * @param array $items = []
+ * @return $this
  */
 class Clear
 {

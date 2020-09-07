@@ -9,6 +9,7 @@ use Illuminate\Container\Container;
  * Casts all the items to another type
  *
  * @param string|\Closure $to
+ * @return $this
  */
 class Cast
 {

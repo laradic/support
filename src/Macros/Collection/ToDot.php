@@ -6,6 +6,8 @@ use Laradic\Support\Wrap;
 
 /**
  * Switch array wrapper from Collection to Dot
+ *
+ * @return \Laradic\Support\Dot
  */
 class ToDot
 {
