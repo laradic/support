@@ -29,9 +29,6 @@ trait ConfiguresCommandVisibility
         $this->configureVisibility($visibility);
         $this->hiddenCommands = collect($application->all())->filter(function (Command $value, $key) use ($visibility) {
             if ($visibility->shouldHideCommand($key)) {
-                if ($visibility = env('PYRO_COMMAND_VISIBILITY', null)) {
-
-                }
                 $value->setHidden(true);
                 return true;
             }

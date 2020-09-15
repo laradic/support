@@ -29,10 +29,6 @@ class AddMixins
 
     public function handle()
     {
-        if (static::$handled) {
-            return;
-        }
-        static::$handled = true;
         foreach ($this->mixins as $for => $methods) {
             if (method_exists($this, $for)) {
                 $this->{$for}($methods);
@@ -40,7 +36,7 @@ class AddMixins
         }
     }
 
-    protected function addMacros($class, array $names = [], $directory= null)
+    protected function addMacros($class, array $names = [], $directory = null)
     {
         $directory = $directory ?? last(explode('\\', $class));
         collect(glob(__DIR__ . '/../Macros/' . $directory . '/*.php', GLOB_NOSORT))
@@ -69,7 +65,7 @@ class AddMixins
 
     public function eloquentCollection(array $names = [])
     {
-        $this->addMacros(\Illuminate\Database\Eloquent\Collection::class, $names,'EloquentCollection');
+        $this->addMacros(\Illuminate\Database\Eloquent\Collection::class, $names, 'EloquentCollection');
     }
 
     public function collection(array $names = [])

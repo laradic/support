@@ -43,7 +43,7 @@ class CommandsVisibility
     {
         $hide = Str::is($this->visibility[ 'hide' ], $name);
         $show = Str::is($this->visibility[ 'show' ], $name);
-        if ($visibility = env('PYRO_COMMAND_VISIBILITY', null)) {
+        if ($visibility = config('laradic.support.console.command_visibility')) {
             Str::is($visibility, $name);
         }
         if ($hide) {

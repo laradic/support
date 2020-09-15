@@ -4,21 +4,21 @@
 return [
     'dev_providers' => [
         'enabled' => env('DEV_PROVIDERS_ENABLED', true),
-        'key' => env('DEV_PROVIDERS_KEY', 'app.dev.providers'),
-        'when' => 'app.debug',
-        'is' => true,
+        'key'     => env('DEV_PROVIDERS_KEY', 'app.dev.providers'),
+        'when'    => 'app.debug',
+        'is'      => true,
         //'when' => 'app.env',
         //'is' => 'local',
     ],
-    'mixins' => [
-        'filesystem' => [
+    'mixins'        => [
+        'filesystem'         => [
             'rglob',
-            'ensureDirectory'
+            'ensureDirectory',
         ],
         'eloquentCollection' => [
             'toArrayWithRelations',
         ],
-        'collection' => [
+        'collection'         => [
             'evaluate',
             'cast',
             'clear',
@@ -31,17 +31,17 @@ return [
             'hasMatchingString',
             'matchingString',
             'hasString',
-            'setItems'
+            'setItems',
         ],
-        'arr' => [
+        'arr'                => [
             'merge',
-            'prefix'
+            'prefix',
         ],
-        'str' => [
-            'ancronym'
+        'str'                => [
+            'ancronym',
         ],
         // requires: gabrielelana/byte-units
-        'byte_units' => [
+        'byte_units'         => [
             'bytes',
             'bytesMetric',
             'bytesBinary',
@@ -50,7 +50,7 @@ return [
             'parseBytesBinary',
         ],
         // requires: danielstjules/stringy
-        'stringy'    => [
+        'stringy'            => [
             'append',
             'at',
             'between',
@@ -133,5 +133,9 @@ return [
             'upperCaseFirst',
 
         ],
+    ],
+
+    'console' => [
+        'command_visibility' => null,
     ],
 ];
