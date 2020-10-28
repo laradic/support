@@ -3,6 +3,7 @@
 namespace Laradic\Support\Traits;
 
 use Closure;
+use ReflectionProperty;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -36,7 +37,9 @@ trait ArrayableProperties
         }
         if (is_string($properties)) {
             if ($properties === 'get_class_vars') {
-                $properties = array_keys(get_class_vars(get_class($this)));
+                $properties = collect((new \ReflectionClass($this))->getProperties())->filter(function (ReflectionProperty $prop) {
+                    return $prop->isStatic() === false;
+                })->map->getName()->toArray();
             } elseif (method_exists($this, $properties)) {
                 $properties = $this->$properties();
             }
@@ -100,12 +103,12 @@ trait ArrayableProperties
                 ) {
                     $value = Collection::wrap($value)->toArray();
                 }
-                if( $value instanceof Arrayable){
-                    $value= $value->toArray();
+                if ($value instanceof Arrayable) {
+                    $value = $value->toArray();
                 }
                 $result[ $key ] = $value;
             }
-            catch (\ErrorException $e) {
+            catch (\Throwable $e) {
             }
         }
         if ($merge) {
