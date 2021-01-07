@@ -2,9 +2,6 @@
 
 namespace Laradic\Support\Macros\Collection;
 
-/**
- *
- */
 class Call
 {
     public function __invoke()

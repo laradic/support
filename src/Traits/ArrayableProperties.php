@@ -3,7 +3,6 @@
 namespace Laradic\Support\Traits;
 
 use Closure;
-use ReflectionProperty;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -23,7 +22,7 @@ trait ArrayableProperties
         return 'unarrayable';
     }
 
-    private function getArrayablePropertyKeys()
+    protected function getArrayablePropertyKeys()
     {
         $class = get_class($this);
 
@@ -37,9 +36,7 @@ trait ArrayableProperties
         }
         if (is_string($properties)) {
             if ($properties === 'get_class_vars') {
-                $properties = collect((new \ReflectionClass($this))->getProperties())->filter(function (ReflectionProperty $prop) {
-                    return $prop->isStatic() === false;
-                })->map->getName()->toArray();
+                $properties = array_keys(get_class_vars(get_class($this)));
             } elseif (method_exists($this, $properties)) {
                 $properties = $this->$properties();
             }
@@ -50,7 +47,7 @@ trait ArrayableProperties
         return Arr::wrap($properties);
     }
 
-    private function getUnarrayablePropertyKeys()
+    protected function getUnarrayablePropertyKeys()
     {
         $property   = $this->getUnarrayablePropertiesProperty();
         $properties = [];
@@ -79,7 +76,7 @@ trait ArrayableProperties
         return $this;
     }
 
-    private function getArrayablePropertiesArray(?array $merge = null)
+    protected function getArrayablePropertiesArray(?array $merge = null)
     {
         $result      = [];
         $unarrayable = $this->getUnarrayablePropertyKeys();
@@ -108,7 +105,7 @@ trait ArrayableProperties
                 }
                 $result[ $key ] = $value;
             }
-            catch (\Throwable $e) {
+            catch (\ErrorException $e) {
             }
         }
         if ($merge) {

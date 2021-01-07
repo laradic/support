@@ -4,11 +4,6 @@ namespace Laradic\Support\Macros\Collection;
 
 use Illuminate\Support\Str;
 
-/**
- * @param string  $pattern
- * @param boolean $useKey
- * @return $this
- */
 class MatchingString
 {
     public function __invoke()

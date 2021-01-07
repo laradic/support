@@ -43,9 +43,6 @@ class CommandsVisibility
     {
         $hide = Str::is($this->visibility[ 'hide' ], $name);
         $show = Str::is($this->visibility[ 'show' ], $name);
-        if ($visibility = config('laradic.support.console.command_visibility')) {
-            Str::is($visibility, $name);
-        }
         if ($hide) {
             return ! $show;
         }

@@ -17,13 +17,11 @@ trait ConfiguresCommandVisibility
 
     private $addedCommandVisibility = false;
     private $hiddenCommands;
-
     protected function addCommandVisibility(Application $application)
     {
         if ($this->addedCommandVisibility) {
             return $application;
         }
-
         $this->addedCommandVisibility = true;
         $visibility                   = new CommandsVisibility();
         $this->configureVisibility($visibility);

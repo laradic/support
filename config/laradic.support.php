@@ -134,8 +134,4 @@ return [
 
         ],
     ],
-
-    'console' => [
-        'command_visibility' => null,
-    ],
 ];

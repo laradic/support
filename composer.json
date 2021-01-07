@@ -5,13 +5,13 @@
     "keywords": ["laravel", "laradic", "support", "repositories", "structure"],
     "license": "MIT",
     "authors": [
-        {"name": "Robin Radic", "homepage": "https://radic.io", "email": "rradic@hotmail.com", "role": "Developer"}
+        {"name": "Robin Radic", "homepage": "https://radic.dev", "email": "rradic@hotmail.com", "role": "Developer"}
     ],
     "require": {
         "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
         "adbario/php-dot-notation": "~2.2",
         "webmozart/path-util": "~2.3",
-        "symfony/expression-language": "~3.0|~4.0|~5.0",
+        "symfony/expression-language": "~3.0|~4.0",
         "danielstjules/stringy": "~3.1.0",
         "gabrielelana/byte-units": "~0.5"
     },
@@ -45,7 +45,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3.x-dev",
+            "dev-master": "2.4.x-dev",
             "dev-develop": "3.x-dev"
         }
     }

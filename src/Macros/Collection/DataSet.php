@@ -2,9 +2,6 @@
 
 namespace Laradic\Support\Macros\Collection;
 
-/**
- * Instead of regular set, use data_set to modify something
- */
 class DataSet
 {
     public function __invoke()

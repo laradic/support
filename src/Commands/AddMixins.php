@@ -29,6 +29,10 @@ class AddMixins
 
     public function handle()
     {
+        if (static::$handled) {
+            return;
+        }
+        static::$handled = true;
         foreach ($this->mixins as $for => $methods) {
             if (method_exists($this, $for)) {
                 $this->{$for}($methods);
