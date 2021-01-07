@@ -23,7 +23,7 @@ trait ArrayableProperties
         return 'unarrayable';
     }
 
-    protected function getArrayablePropertyKeys()
+    private function getArrayablePropertyKeys()
     {
         $class = get_class($this);
 
@@ -50,7 +50,7 @@ trait ArrayableProperties
         return Arr::wrap($properties);
     }
 
-    protected function getUnarrayablePropertyKeys()
+    private function getUnarrayablePropertyKeys()
     {
         $property   = $this->getUnarrayablePropertiesProperty();
         $properties = [];
@@ -79,7 +79,7 @@ trait ArrayableProperties
         return $this;
     }
 
-    protected function getArrayablePropertiesArray(?array $merge = null)
+    private function getArrayablePropertiesArray(?array $merge = null)
     {
         $result      = [];
         $unarrayable = $this->getUnarrayablePropertyKeys();
