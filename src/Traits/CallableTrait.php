@@ -31,4 +31,16 @@ trait CallableTrait
     {
         return App::call([ $this, 'handle' ]);
     }
+
+    public static function toEventHandler(?array $properties = null)
+    {
+        return function($event) use ($properties){
+            $properties = $properties ?: array_map(fn(\ReflectionProperty $property) => $property->getName(),(new \ReflectionClass($event))->getProperties(\ReflectionProperty::IS_PUBLIC));
+            $parameters = [];
+            foreach($properties as $name){
+                $parameters[] = $event->{$name};
+            }
+            static::call($parameters);
+        };
+    }
 }
